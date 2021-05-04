@@ -64,37 +64,56 @@ class ui_variables:
 
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red, grey_3]
 
-###### DualScreenMode 함수  #####
-def Dual_draw_block(x,y, color):
+############### DualScreenMode 함수  #################
+def Dual_draw_block(x1,y1,x2,y2,color):
     pygame.draw.rect(
         screen,
         color,
-        Rect(x,y,block_size,block_size)
+        Rect(x1+50,y1+100,block_size,block_size)
+    )
+    pygame.draw.rect(  #회색격자
+        screen,
+        ui_variables.grey_1,
+        Rect(x1+50, y1+100, block_size, block_size),
+        1
+    )
+    pygame.draw.rect(
+        screen,
+        color,
+        Rect(x2+350,y2+100,block_size,block_size)
+    )
+    pygame.draw.rect(  #회색격자
+        screen,
+        ui_variables.grey_1,
+        Rect(x2+350, y2+100, block_size, block_size),
+        1
     )
 
+###################################################
+
 # Draw block 격자무늬 그림
-def draw_block(x, y, color):
-    pygame.draw.rect(  #이게 뭘 그리는 건지 모르겠
-        screen,
-        color,
-        Rect(x, y, block_size, block_size)
-    )
+def draw_block(x, y, color): #이게 뭘 그리는지 모르겠음, color 바꾸면 회색격자 바뀌기는 하는데, 내려오는 block이 안보임
     pygame.draw.rect(
         screen,
-        ui_variables.cyan,
-        Rect(x, y, block_size, block_size),
+        color,
+        Rect(x+400 , y+100, block_size, block_size)
+    )
+    pygame.draw.rect(  #회색격자 감싸는 검정색 격자
+        screen,
+        ui_variables.grey_1,
+        Rect(x+400, y+100, block_size, block_size),
         1
     )
 
 # Draw game screen
 def draw_board(next, hold, score, level, goal):
-    screen.fill(ui_variables.grey_1) # 게임배경을 회색으로 해서 스타트 화면 가림
+    screen.fill(ui_variables.grey_1) # 게임배경을 rjawjd으로 해서 스타트 화면 가림
 
     # Draw sidebar 흰색 사이드바 그림
     pygame.draw.rect(
         screen,
         ui_variables.white,
-        Rect(204, 0, 96, 374) #(x축,y축, 가로, 세로)
+        Rect(204, 0, 96, 374) #(x축,y축, 가로, 세로) # 보드 위치를 직접적으로 지정해줬
     )
 
     # Draw next mino 다음 내려올 mino그림
@@ -365,7 +384,8 @@ while not done:
 
                 # Draw a mino
                 draw_mino(dx, dy, mino, rotation)
-                draw_board(next_mino, hold_mino, score, level, goal)
+                draw_mino(dx, dy, mino, rotation)
+
 
                 # Erase a mino
                 if not game_over:
