@@ -64,6 +64,14 @@ class ui_variables:
 
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red, grey_3]
 
+###### DualScreenMode 함수  #####
+def Dual_draw_block(x,y, color):
+    pygame.draw.rect(
+        screen,
+        color,
+        Rect(x,y,block_size,block_size)
+    )
+
 # Draw block 격자무늬 그림
 def draw_block(x, y, color):
     pygame.draw.rect(  #이게 뭘 그리는 건지 모르겠
@@ -73,7 +81,7 @@ def draw_block(x, y, color):
     )
     pygame.draw.rect(
         screen,
-        ui_variables.grey_1,
+        ui_variables.cyan,
         Rect(x, y, block_size, block_size),
         1
     )
