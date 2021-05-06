@@ -4,8 +4,7 @@
 ![badges](https://img.shields.io/badge/python-3.8-blue)
 ![badges](https://img.shields.io/badge/pygame-2.0.1-yellow)
 
-Untitle
-4가지 모드의 테트리스
+Untitled
 
 base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 
