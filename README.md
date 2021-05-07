@@ -4,11 +4,11 @@
 ![badges](https://img.shields.io/badge/python-3.8-blue)
 ![badges](https://img.shields.io/badge/pygame-2.0.1-yellow)
 
-Untitled
+Tetris Version up based on [PYTRIS](https://github.com/injekim/PYTRIS)
 
 base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 
 
 **TEAM5 CHUPARKIM**  
-**Leader**: [junghyeon kim](https://github.com/Jay-the-notorious)  
+**Leader**: [junghyun kim](https://github.com/Jay-the-notorious)  
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
