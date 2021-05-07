@@ -65,29 +65,138 @@ class ui_variables:
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red, grey_3]
 
 ############### DualScreenMode 함수  #################
-def Dual_draw_block(x1,y1,x2,y2,color):
+def Dual_draw_board1(next1, hold1, score1, level1, goal1): # 나중 스코어처리 보드1과 보드2 합산
+    screen.fill(ui_variables.grey_1)
+
+    # Draw sidebar 흰색 사이드바 그림
     pygame.draw.rect(
         screen,
-        color,
-        Rect(x1+50,y1+100,block_size,block_size)
+        ui_variables.white,
+        Rect(204, 0, 96, 374) #(x축,y축, 가로, 세로), 위치 재지정 해줄것
     )
-    pygame.draw.rect(  #회색격자
-        screen,
-        ui_variables.grey_1,
-        Rect(x1+50, y1+100, block_size, block_size),
-        1
-    )
+    # Draw next mino 다음 내려올 mino그림
+    grid_n1 = tetrimino.mino_map[next - 1][0] # 다음 내려올 mino 정보 1
+
+    for i in range(4):
+        for j in range(4):
+            dx1 = 210 + block_size * j #next mino그릴 좌표, 재지정 해줄 것
+            dy1 = 140 + block_size * i #next mino그릴 좌표, 재지정 해줄 것
+            if grid_n1[i][j] != 0: #하나씩 검사해서 그려 줌
+                pygame.draw.rect(
+                    screen,
+                    ui_variables.t_color[grid_n1[i][j]],
+                    Rect(dx1, dy1, block_size)
+                )
+    # Draw hold mino - nextmino 그려주는거랑 똑같음
+    grid_h1 = tetrimino.mino_map[hold - 1][0]
+
+    if hold_mino1 != -1:
+        for i in range(4):
+            for j in range(4):
+                dx1 = 220 + block_size * j
+                dy1 = 50 + block_size * i
+                if grid_h1[i][j] != 0:
+                    pygame.draw.rect(
+                        screen,
+                        ui_variables.t_color[grid_h1[i][j]],
+                        Rect(dx1, dy1, block_size, block_size)
+                    )
+    # Set max score
+    if score > 999999:
+        score = 999999
+
+    # Draw texts
+    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
+    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
+    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
+    score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
+    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
+    level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
+    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
+    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
+
+    # Place texts
+    screen.blit(text_hold, (215, 14))  #텍스트를 생성해서 복사하고 이걸 해당 좌표에 붙여넣기
+    screen.blit(text_next, (215, 104))
+    screen.blit(text_score, (215, 194))
+    screen.blit(score_value, (220, 210))
+    screen.blit(text_level, (215, 254))
+    screen.blit(level_value, (220, 270))
+    screen.blit(text_goal, (215, 314))
+    screen.blit(goal_value, (220, 330))
+
+    # Draw board 칸그리기
+    for x in range(width):
+        for y in range(height):
+            dx1 = 17 + block_size * x
+            dy1 = 17 + block_size * y
+            draw_block(dx1+50, dy1+100, ui_variables.t_color[matrix[x][y + 1]])
+
+def Dual_draw_board2(next2,hold2,score2,level2,goal2):
+
+    # Draw sidebar 흰색 사이드바 그림
     pygame.draw.rect(
         screen,
-        color,
-        Rect(x2+350,y2+100,block_size,block_size)
+        ui_variables.white,
+        Rect(204, 0, 96, 374) #(x축,y축, 가로, 세로), 위치 재지정 해줄것
     )
-    pygame.draw.rect(  #회색격자
-        screen,
-        ui_variables.grey_1,
-        Rect(x2+350, y2+100, block_size, block_size),
-        1
-    )
+    # Draw next mino 다음 내려올 mino그림
+    grid_n2 = tetrimino.mino_map[next - 1][0] # 다음 내려올 mino 정보 1
+
+    for i in range(4):
+        for j in range(4):
+            dx2 = 210 + block_size * j #next mino그릴 좌표, 재지정 해줄 것
+            dy2 = 140 + block_size * i #next mino그릴 좌표, 재지정 해줄 것
+            if grid_n2[i][j] != 0: #하나씩 검사해서 그려 줌
+                pygame.draw.rect(
+                    screen,
+                    ui_variables.t_color[grid_n2[i][j]],
+                    Rect(dx2, dy2, block_size)
+                )
+    # Draw hold mino - nextmino 그려주는거랑 똑같음
+    grid_h2 = tetrimino.mino_map[hold - 1][0]
+
+    if hold_mino2 != -1:
+        for i in range(4):
+            for j in range(4):
+                dx2 = 220 + block_size * j
+                dy2 = 50 + block_size * i
+                if grid_h2[i][j] != 0:
+                    pygame.draw.rect(
+                        screen,
+                        ui_variables.t_color[grid_h2[i][j]],
+                        Rect(dx2, dy2, block_size, block_size)
+                    )
+    # Set max score
+    if score > 999999:
+        score = 999999
+
+    # Draw texts
+    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
+    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
+    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
+    score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
+    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
+    level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
+    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
+    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
+
+    # Place texts
+    screen.blit(text_hold, (215, 14))  #텍스트를 생성해서 복사하고 이걸 해당 좌표에 붙여넣기
+    screen.blit(text_next, (215, 104))
+    screen.blit(text_score, (215, 194))
+    screen.blit(score_value, (220, 210))
+    screen.blit(text_level, (215, 254))
+    screen.blit(level_value, (220, 270))
+    screen.blit(text_goal, (215, 314))
+    screen.blit(goal_value, (220, 330))
+
+    # Draw board 칸그리기
+    for x in range(width):
+        for y in range(height):
+            dx1 = 17 + block_size * x
+            dy1 = 17 + block_size * y
+            draw_block(dx2+400, dy2+100, ui_variables.t_color[matrix[x][y + 1]])
 
 ###################################################
 
@@ -96,18 +205,18 @@ def draw_block(x, y, color): #이게 뭘 그리는지 모르겠음, color 바꾸
     pygame.draw.rect(
         screen,
         color,
-        Rect(x+400 , y+100, block_size, block_size)
+        Rect(x, y, block_size, block_size)
     )
     pygame.draw.rect(  #회색격자 감싸는 검정색 격자
         screen,
         ui_variables.grey_1,
-        Rect(x+400, y+100, block_size, block_size),
+        Rect(x, y, block_size, block_size),
         1
     )
 
 # Draw game screen
 def draw_board(next, hold, score, level, goal):
-    screen.fill(ui_variables.grey_1) # 게임배경을 rjawjd으로 해서 스타트 화면 가림
+    screen.fill(ui_variables.grey_1) # 게임배경을 검정으로 해서 스타트 화면 가림
 
     # Draw sidebar 흰색 사이드바 그림
     pygame.draw.rect(
@@ -181,7 +290,7 @@ def draw_mino(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
     tx, ty = x, y
-    while not is_bottom(tx, ty, mino, r): #바닥인지 아닌지 검색 해서 일때까지  y좌표값 증가
+    while not is_bottom(tx, ty, mino, r): #바닥인지 아닌지 검색 해서 일때까지  y좌표값 증가해서 바닥 찾기
         ty += 1
 
     # Draw ghost - 그림자 생성하기
@@ -336,6 +445,9 @@ leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
 matrix = [[0 for y in range(height + 1)] for x in range(width)] # Board matrix 보드에 대한 정보
 
+#####initial value add #########
+dx1, dy1 = 3,0
+dx2, dy2 = 3,0
 
 ###########################################################
 # Loop Start
