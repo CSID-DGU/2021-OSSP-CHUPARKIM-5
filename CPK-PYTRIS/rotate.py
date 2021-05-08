@@ -344,6 +344,13 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
+game_key = (
+    (K_RIGHT, K_LEFT),
+    (K_DOWN, K_UP),
+    (K_LEFT, K_RIGHT),
+    (K_UP, K_DOWN),
+)
+
 with open("leaderboard.txt") as f:
     lines = f.readlines()
 lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
@@ -499,7 +506,7 @@ while not done:
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Turn right
-                elif event.key == K_UP or event.key == K_x:
+                elif event.key == K_x:
                     if is_turnable_r(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         g_type += 1
@@ -575,14 +582,14 @@ while not done:
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Move left
-                elif event.key == K_LEFT:
+                elif event.key == game_key[g_type][1]:
                     if not is_leftedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Move right
-                elif event.key == K_RIGHT:
+                elif event.key == game_key[g_type][0]:
                     if not is_rightedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
