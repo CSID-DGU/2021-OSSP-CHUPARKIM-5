@@ -77,14 +77,14 @@ def draw_board(next, hold, score, level, goal):
     screen.fill(ui_variables.cyan)
 
     # Draw sidebar
-    pygame.draw.rect(screen, ui_variables.white, Rect(204 + 225, 0 + 113, 96, 374))
+    pygame.draw.rect(screen, ui_variables.white, Rect(204 + 188, 0 + 113, 96 + 74, 374))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
     for i in range(4):
         for j in range(4):
-            dx = 220 + 225 + block_size * j
+            dx = 220 + 188 + block_size * j
             dy = 140 + 113 + block_size * i
             if grid_n[i][j] != 0:
                 pygame.draw.rect(
@@ -99,7 +99,7 @@ def draw_board(next, hold, score, level, goal):
     if hold_mino != -1:
         for i in range(4):
             for j in range(4):
-                dx = 220 + 225 + block_size * j
+                dx = 220 + 188 + block_size * j
                 dy = 50 + 113 + block_size * i
                 if grid_h[i][j] != 0:
                     pygame.draw.rect(
@@ -123,19 +123,19 @@ def draw_board(next, hold, score, level, goal):
     goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
 
     # Place texts
-    screen.blit(text_hold, (215 + 225, 14 + 113))
-    screen.blit(text_next, (215 + 225, 104 + 113))
-    screen.blit(text_score, (215 + 225, 194 + 113))
-    screen.blit(score_value, (220 + 225, 210 + 113))
-    screen.blit(text_level, (215 + 225, 254 + 113))
-    screen.blit(level_value, (220 + 225, 270 + 113))
-    screen.blit(text_goal, (215 + 225, 314 + 113))
-    screen.blit(goal_value, (220 + 225, 330 + 113))
+    screen.blit(text_hold, (215 + 188, 14 + 113))
+    screen.blit(text_next, (215 + 188, 104 + 113))
+    screen.blit(text_score, (215 + 188, 194 + 113))
+    screen.blit(score_value, (220 + 188, 210 + 113))
+    screen.blit(text_level, (215 + 188, 254 + 113))
+    screen.blit(level_value, (220 + 188, 270 + 113))
+    screen.blit(text_goal, (215 + 188, 314 + 113))
+    screen.blit(goal_value, (220 + 188, 330 + 113))
 
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = 17 + 225 + block_size * x
+            dx = 17 + 188 + block_size * x
             dy = 17 + 113 + block_size * y
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
