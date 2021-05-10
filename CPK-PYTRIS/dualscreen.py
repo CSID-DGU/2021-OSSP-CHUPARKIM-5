@@ -15,7 +15,7 @@ framerate = 30 # Bigger -> Slower
 pygame.init()
 
 clock = pygame.time.Clock()
-screen = pygame.display.set_mode((750,600))
+screen = pygame.display.set_mode((750,600),RESIZABLE)
 pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
 pygame.display.set_caption("PYTRIS™")
 
