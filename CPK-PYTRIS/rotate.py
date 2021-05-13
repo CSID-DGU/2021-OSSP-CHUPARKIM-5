@@ -507,37 +507,37 @@ while not done:
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Turn right
                 elif event.key == K_x:
-                    if is_turnable_r(dx, dy, mino, rotation):
+                    if is_turnable_l(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         g_type += 1
                         rotation -= 1
                     # Kick
-                    elif is_turnable_r(dx, dy - 1, mino, rotation):
+                    elif is_turnable_l(dx, dy - 1, mino, rotation):
                         ui_variables.move_sound.play()
                         dy -= 1
                         g_type += 1
                         rotation -= 1
-                    elif is_turnable_r(dx + 1, dy, mino, rotation):
+                    elif is_turnable_l(dx + 1, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
                         g_type += 1
                         rotation -= 1
-                    elif is_turnable_r(dx - 1, dy, mino, rotation):
+                    elif is_turnable_l(dx - 1, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
                         g_type += 1
                         rotation -= 1
-                    elif is_turnable_r(dx, dy - 2, mino, rotation):
+                    elif is_turnable_l(dx, dy - 2, mino, rotation):
                         ui_variables.move_sound.play()
                         dy -= 2
                         g_type += 1
                         rotation -= 1
-                    elif is_turnable_r(dx + 2, dy, mino, rotation):
+                    elif is_turnable_l(dx + 2, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 2
                         g_type += 1
                         rotation -= 1
-                    elif is_turnable_r(dx - 2, dy, mino, rotation):
+                    elif is_turnable_l(dx - 2, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 2
                         g_type += 1
