@@ -548,39 +548,6 @@ while not done:
                         rotation = 3
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
-                # Turn left
-                elif event.key == K_z or event.key == K_LCTRL:
-                    if is_turnable_l(dx, dy, mino, rotation):
-                        ui_variables.move_sound.play()
-                        rotation -= 1
-                    # Kick
-                    elif is_turnable_l(dx, dy - 1, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dy -= 1
-                        rotation -= 1
-                    elif is_turnable_l(dx + 1, dy, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dx += 1
-                        rotation -= 1
-                    elif is_turnable_l(dx - 1, dy, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dx -= 1
-                        rotation -= 1
-                    elif is_turnable_l(dx, dy - 2, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dy -= 2
-                        rotation += 1
-                    elif is_turnable_l(dx + 2, dy, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dx += 2
-                        rotation += 1
-                    elif is_turnable_l(dx - 2, dy, mino, rotation):
-                        ui_variables.move_sound.play()
-                        dx -= 2
-                    if rotation == -1:
-                        rotation = 3
-                    draw_mino(dx, dy, mino, rotation)
-                    draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Move left
                 elif event.key == game_key[g_type][1]:
                     if not is_leftedge(dx, dy, mino, rotation):
