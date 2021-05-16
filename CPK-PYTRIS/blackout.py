@@ -78,22 +78,9 @@ def draw_block(x, y, color):
 def draw_board_b(next, hold, score, level, goal):
     screen.fill(ui_variables.black)
 
-    # Draw sidebar
-    pygame.draw.rect(screen, ui_variables.white, Rect(204 + 188 + locx, 0 + 113 + locy, 96 + 74, 374))
-
+    
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
-
-    for i in range(4):
-        for j in range(4):
-            dx = 220 + 188 + block_size * j
-            dy = 140 + 113 + block_size * i
-            if grid_n[i][j] != 0:
-                pygame.draw.rect(
-                    screen,
-                    ui_variables.t_color[grid_n[i][j]],
-                    Rect(dx, dy, block_size, block_size),
-                )
 
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
@@ -113,26 +100,6 @@ def draw_board_b(next, hold, score, level, goal):
     # Set max score
     if score > 999999:
         score = 999999
-
-    # Draw texts
-    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
-    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
-    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
-    score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
-    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
-    level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
-    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
-    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
-
-    # Place texts
-    screen.blit(text_hold, (215 + 188, 14 + 113))
-    screen.blit(text_next, (215 + 188, 104 + 113))
-    screen.blit(text_score, (215 + 188, 194 + 113))
-    screen.blit(score_value, (220 + 188, 210 + 113))
-    screen.blit(text_level, (215 + 188, 254 + 113))
-    screen.blit(level_value, (220 + 188, 270 + 113))
-    screen.blit(text_goal, (215 + 188, 314 + 113))
-    screen.blit(goal_value, (220 + 188, 330 + 113))
 
     # Draw board
     for x in range(width):
