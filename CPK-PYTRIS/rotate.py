@@ -19,6 +19,9 @@ screen = pygame.display.set_mode((750, 600))
 pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
 pygame.display.set_caption("PYTRIS™")
 
+locx = 0  # for move left, right
+locy = 0  # for move up, down
+
 
 class ui_variables:
     # Fonts
@@ -80,19 +83,27 @@ def draw_board_r(next, hold, score, level, goal):
     # Draw sidebar
     if g_type == 0:  # 0회전
         pygame.draw.rect(
-            screen, ui_variables.white, Rect(204 + 188, 0 + 113, 96 + 74, 374)
+            screen,
+            ui_variables.white,
+            Rect(204 + 188 + locx, 0 + 113 + locy, 96 + 74, 374),
         )
     elif g_type == 1:  # 1회전
         pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113 + 204, 374, 96 + 74)
+            screen,
+            ui_variables.white,
+            Rect(0 + 188 - locy, 0 + 113 + 204 + locx, 374, 96 + 74),
         )
     elif g_type == 2:  # 2회전
         pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 96 + 74, 374)
+            screen,
+            ui_variables.white,
+            Rect(0 + 188 - locx, 0 + 113 - locy, 96 + 74, 374),
         )
     elif g_type == 3:  # 3회전
         pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 374, 96 + 74)
+            screen,
+            ui_variables.white,
+            Rect(0 + 188 + locy, 0 + 113 - locx, 374, 96 + 74),
         )
 
     # Draw next mino
@@ -172,17 +183,17 @@ def draw_board_r(next, hold, score, level, goal):
     for x in range(width):
         for y in range(height):
             if g_type == 0:  # 0회전
-                dx = 17 + 188 + block_size * x
-                dy = 17 + 113 + block_size * y
+                dx = 17 + 188 + block_size * x + locx
+                dy = 17 + 113 + block_size * y + locy
             elif g_type == 1:  # 1회전 = 270도 회전
-                dx = 17 + 188 + block_size * (height - y - 1)
-                dy = 17 + 113 + block_size * x
+                dx = 17 + 188 + block_size * (height - y - 1) - locy
+                dy = 17 + 113 + block_size * x + locx
             elif g_type == 2:  # 2회전 = 180도 회전
-                dx = 17 + 188 + 170 + block_size * (width - x)
-                dy = 17 + 113 + block_size * (height - y - 1)
+                dx = 17 + 188 + 170 + block_size * (width - x) - locx
+                dy = 17 + 113 + block_size * (height - y - 1) - locy
             elif g_type == 3:  # 3회전 = 90도 회전
-                dx = 17 + 188 + block_size * y
-                dy = 17 + 113 + 170 + block_size * (width - x - 1)
+                dx = 17 + 188 + block_size * y + locy
+                dy = 17 + 113 + 170 + block_size * (width - x - 1) - locx
 
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
@@ -402,6 +413,7 @@ while not done:
                 # Move mino down
                 if not is_bottom(dx, dy, mino, rotation):
                     dy += 1
+                    locy -= block_size
 
                 # Create new mino
                 else:
@@ -409,6 +421,8 @@ while not done:
                         hard_drop = False
                         bottom_count = 0
                         score += 10 * level
+                        locx = 0
+                        locy = 0
                         draw_mino(dx, dy, mino, rotation)
                         draw_board_r(next_mino, hold_mino, score, level, goal)
                         if is_stackable(next_mino):
@@ -468,12 +482,15 @@ while not done:
                     ui_variables.drop_sound.play()
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
+                        locy -= block_size
                     hard_drop = True
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Hold
                 elif event.key == K_LSHIFT or event.key == K_c:
+                    locx = 0
+                    locy = 0
                     if hold == False:
                         ui_variables.move_sound.play()
                         if hold_mino == -1:
@@ -535,6 +552,7 @@ while not done:
                     if not is_leftedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
+                        locx += block_size
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
                 # Move right
@@ -542,6 +560,7 @@ while not done:
                     if not is_rightedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
+                        locx -= block_size
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_r(next_mino, hold_mino, score, level, goal)
 
