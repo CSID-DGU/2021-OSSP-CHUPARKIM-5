@@ -270,24 +270,6 @@ def is_rightedge(x, y, mino, r):
     return False
 
 
-# Returns true if turning right is possible
-def is_turnable_r(x, y, mino, r):
-    if r != 3:
-        grid = tetrimino.mino_map[mino - 1][r + 1]
-    else:
-        grid = tetrimino.mino_map[mino - 1][0]
-
-    for i in range(4):
-        for j in range(4):
-            if grid[i][j] != 0:
-                if (x + j) < 0 or (x + j) > 9 or (y + i) < 0 or (y + i) > 20:
-                    return False
-                elif matrix[x + j][y + i] != 0:
-                    return False
-
-    return True
-
-
 # Returns true if turning left is possible
 def is_turnable_l(x, y, mino, r):
     if r != 0:
@@ -344,11 +326,11 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
-game_key = (
-    (K_RIGHT, K_LEFT),
-    (K_DOWN, K_UP),
-    (K_LEFT, K_RIGHT),
-    (K_UP, K_DOWN),
+game_key = (  # 좌, 우, 소프트 드롭
+    (K_RIGHT, K_LEFT, K_DOWN),
+    (K_DOWN, K_UP, K_LEFT),
+    (K_LEFT, K_RIGHT, K_UP),
+    (K_UP, K_DOWN, K_RIGHT),
 )
 
 with open("leaderboard.txt") as f:
@@ -404,7 +386,7 @@ while not done:
                 # Set speed
                 if not game_over:
                     keys_pressed = pygame.key.get_pressed()
-                    if keys_pressed[K_DOWN]:
+                    if keys_pressed[game_key[g_type][2]]:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 1)
                     else:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
