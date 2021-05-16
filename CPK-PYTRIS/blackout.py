@@ -78,7 +78,6 @@ def draw_block(x, y, color):
 def draw_board_b(next, hold, score, level, goal):
     screen.fill(ui_variables.black)
 
-    
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
@@ -403,6 +402,7 @@ while not done:
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
                         locy -= 17
+                        locx=0
                     hard_drop = True
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                     draw_mino(dx, dy, mino, rotation)
@@ -420,6 +420,8 @@ while not done:
                         dx, dy = 3, 0
                         rotation = 0
                         hold = True
+                        locx = 0
+                        locy = 0
                     draw_mino(dx, dy, mino, rotation)
                     draw_board_b(next_mino, hold_mino, score, level, goal)
                 # Turn right
