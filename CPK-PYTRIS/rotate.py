@@ -2,12 +2,12 @@
 
 import pygame
 import operator
-from mino import *
+from mino_rot import *
 from random import *
 from pygame.locals import *
 
 # Define
-block_size = 17  # Height, width of single block
+block_size = 13  # Height, width of single block
 width = 10  # Board width
 height = 20  # Board height
 framerate = 30  # Bigger -> Slower
@@ -80,7 +80,7 @@ g_type = 0  # 현재 회전 횟수를 의미하는 변수
 def draw_board_r(next, hold, score, level, goal):
     screen.fill(ui_variables.cyan)
 
-    # Draw sidebar
+    """# Draw sidebar
     if g_type == 0:  # 0회전
         pygame.draw.rect(
             screen,
@@ -104,7 +104,7 @@ def draw_board_r(next, hold, score, level, goal):
             screen,
             ui_variables.white,
             Rect(0 + 188 + locy, 0 + 113 - locx, 374, 96 + 74),
-        )
+        )"""
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -183,19 +183,25 @@ def draw_board_r(next, hold, score, level, goal):
     for x in range(width):
         for y in range(height):
             if g_type == 0:  # 0회전
-                dx = 17 + 188 + block_size * x + locx
-                dy = 17 + 113 + block_size * y + locy
+                dx = 360 - 65 + block_size * (x + 1) + locx
+                dy = 300 + block_size * (y - 1) + locy
             elif g_type == 1:  # 1회전 = 270도 회전
-                dx = 17 + 188 + block_size * (height - y - 1) - locy
-                dy = 17 + 113 + block_size * x + locx
+                dx = 115 + block_size * (height - y) - locy
+                dy = 235 + block_size * x + locx
             elif g_type == 2:  # 2회전 = 180도 회전
-                dx = 17 + 188 + 170 + block_size * (width - x) - locx
-                dy = 17 + 113 + block_size * (height - y - 1) - locy
+                dx = 295 + block_size * (width - x) - locx
+                dy = 65 + block_size * (height - y - 1) - locy
             elif g_type == 3:  # 3회전 = 90도 회전
-                dx = 17 + 188 + block_size * y + locy
-                dy = 17 + 113 + 170 + block_size * (width - x - 1) - locx
+                dx = 375 + block_size * (y - 1) + locy
+                dy = 235 + block_size * (width - x) - locx
 
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
+
+    pygame.draw.rect(
+        screen,
+        ui_variables.white,
+        Rect(372.5, 297.5, 5, 5),
+    )
 
 
 # Draw a tetrimino
