@@ -79,6 +79,14 @@ w_2 = (w - temp) / 2  # 188이 바뀔 부분
 w_3 = block_size * 10  # 96 + 74가 바뀔 부분
 h_2 = (h - temp) / 2  # 113이 바뀔 부분
 
+num_of_disrot = 0  # current number of display rotation
+
+game_key = (  # left, right, soft_drop
+    (K_RIGHT, K_LEFT, K_DOWN),
+    (K_DOWN, K_UP, K_LEFT),
+    (K_LEFT, K_RIGHT, K_UP),
+    (K_UP, K_DOWN, K_RIGHT),
+)
 
 # Initial values
 blink = False

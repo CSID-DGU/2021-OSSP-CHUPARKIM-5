@@ -21,7 +21,6 @@ gamemode_4 = False
 while not done:
     # 창 Resize 감지
     update_display()
-
     # Pause screen
     if pause:
         for event in pygame.event.get():
@@ -32,7 +31,11 @@ while not done:
                 if gamemode_1:
                     draw_board(next_mino, hold_mino, score, level, goal)
                 elif gamemode_2:
-                    draw_board_b(next_mino, hold_mino, score, level, goal)
+                    draw_board_b(next_mino, hold_mino, score, level, goal, locx, locy)
+                elif gamemode_3:
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
 
                 pause_text = ui_variables.h2_b.render("PAUSED", 1, ui_variables.white)
                 pause_start = ui_variables.h5.render(
@@ -62,7 +65,7 @@ while not done:
                 # Set speed
                 if not game_over:
                     keys_pressed = pygame.key.get_pressed()
-                    if keys_pressed[K_DOWN]:
+                    if keys_pressed[game_key[num_of_disrot][2]]:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 1)
                     else:
                         pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
@@ -72,7 +75,11 @@ while not done:
                 if gamemode_1:
                     draw_board(next_mino, hold_mino, score, level, goal)
                 elif gamemode_2:
-                    draw_board_b(next_mino, hold_mino, score, level, goal)
+                    draw_board_b(next_mino, hold_mino, score, level, goal, locx, locy)
+                elif gamemode_3:
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
 
                 # Erase a mino
                 if not game_over:
@@ -97,8 +104,13 @@ while not done:
                         if gamemode_1:
                             draw_board(next_mino, hold_mino, score, level, goal)
                         elif gamemode_2:
-                            draw_board_b(next_mino, hold_mino, score, level, goal)
-
+                            draw_board_b(
+                                next_mino, hold_mino, score, level, goal, locx, locy
+                            )
+                        elif gamemode_3:
+                            draw_board_r(
+                                next_mino, hold_mino, score, level, goal, num_of_disrot
+                            )
                         if is_stackable(next_mino):
                             mino = next_mino
                             next_mino = randint(1, 7)
@@ -164,7 +176,13 @@ while not done:
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
                     elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
+                        draw_board_b(
+                            next_mino, hold_mino, score, level, goal, locx, locy
+                        )
+                    elif gamemode_3:
+                        draw_board_r(
+                            next_mino, hold_mino, score, level, goal, num_of_disrot
+                        )
                 # Hold
                 elif event.key == K_LSHIFT or event.key == K_c:
                     if hold == False:
@@ -185,9 +203,15 @@ while not done:
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
                     elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
-                # Turn right
-                elif event.key == K_UP or event.key == K_x:
+                        draw_board_b(
+                            next_mino, hold_mino, score, level, goal, locx, locy
+                        )
+                    elif gamemode_3:
+                        draw_board_r(
+                            next_mino, hold_mino, score, level, goal, num_of_disrot
+                        )
+                # Turn right (else rotate mode)
+                elif (not gamemode_3) and event.key == K_x:
                     if is_turnable_r(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         rotation += 1
@@ -222,45 +246,57 @@ while not done:
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
                     elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
-                # Turn left
-                elif event.key == K_z or event.key == K_LCTRL:
+                        draw_board_b(
+                            next_mino, hold_mino, score, level, goal, locx, locy
+                        )
+                # Turn right (on rotate mode)
+                elif gamemode_3 and event.key == K_x:
                     if is_turnable_l(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
+                        num_of_disrot += 1
                         rotation -= 1
                     # Kick
                     elif is_turnable_l(dx, dy - 1, mino, rotation):
                         ui_variables.move_sound.play()
                         dy -= 1
+                        num_of_disrot += 1
                         rotation -= 1
                     elif is_turnable_l(dx + 1, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
+                        num_of_disrot += 1
                         rotation -= 1
                     elif is_turnable_l(dx - 1, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
+                        num_of_disrot += 1
                         rotation -= 1
                     elif is_turnable_l(dx, dy - 2, mino, rotation):
                         ui_variables.move_sound.play()
                         dy -= 2
-                        rotation += 1
+                        num_of_disrot += 1
+                        rotation -= 1
                     elif is_turnable_l(dx + 2, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 2
-                        rotation += 1
+                        num_of_disrot += 1
+                        rotation -= 1
                     elif is_turnable_l(dx - 2, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 2
+                        num_of_disrot += 1
+                        rotation -= 1
+                    if num_of_disrot == 4:
+                        num_of_disrot = 0
                     if rotation == -1:
                         rotation = 3
                     draw_mino(dx, dy, mino, rotation)
-                    if gamemode_1:
-                        draw_board(next_mino, hold_mino, score, level, goal)
-                    elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
+
                 # Move left
-                elif event.key == K_LEFT:
+                elif event.key == game_key[num_of_disrot][1]:
                     if not is_leftedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
@@ -270,7 +306,13 @@ while not done:
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
                     elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
+                        draw_board_b(
+                            next_mino, hold_mino, score, level, goal, locx, locy
+                        )
+                    elif gamemode_3:
+                        draw_board_r(
+                            next_mino, hold_mino, score, level, goal, num_of_disrot
+                        )
                 # Move right
                 elif event.key == K_RIGHT:
                     if not is_rightedge(dx, dy, mino, rotation):
@@ -282,7 +324,13 @@ while not done:
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
                     elif gamemode_2:
-                        draw_board_b(next_mino, hold_mino, score, level, goal)
+                        draw_board_b(
+                            next_mino, hold_mino, score, level, goal, locx, locy
+                        )
+                    elif gamemode_3:
+                        draw_board_r(
+                            next_mino, hold_mino, score, level, goal, num_of_disrot
+                        )
 
         pygame.display.update()
 
@@ -302,7 +350,12 @@ while not done:
                 if gamemode_1:
                     draw_board(next_mino, hold_mino, score, level, goal)
                 elif gamemode_2:
-                    draw_board_b(next_mino, hold_mino, score, level, goal)
+                    draw_board_b(next_mino, hold_mino, score, level, goal, locx, locy)
+                elif gamemode_3:
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
+
                 screen.blit(over_text_1, (58, 75))
                 screen.blit(over_text_2, (62, 105))
 

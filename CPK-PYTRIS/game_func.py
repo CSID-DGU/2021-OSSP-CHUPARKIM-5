@@ -86,7 +86,8 @@ def draw_board(next, hold, score, level, goal):
 
 
 # Draw blackout-mode game screen
-def draw_board_b(next, hold, score, level, goal):
+def draw_board_b(next, hold, score, level, goal, locx, locy):
+
     screen.fill(ui_variables.black)
 
     # Set max score
@@ -99,6 +100,119 @@ def draw_board_b(next, hold, score, level, goal):
             dx = 17 + 290 + block_size * x + locx
             dy = 17 + 170 + block_size * y + locy
             draw_block(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
+
+
+def draw_board_r(next, hold, score, level, goal,num_of_disrot):
+    screen.fill(ui_variables.black)
+
+    # Draw sidebar
+    if num_of_disrot == 0:  # 0회전
+        pygame.draw.rect(
+            screen, ui_variables.white, Rect(204 + 188, 0 + 113, 96 + 74, 374)
+        )
+    elif num_of_disrot == 1:  # 1회전
+        pygame.draw.rect(
+            screen, ui_variables.white, Rect(0 + 188, 0 + 113 + 204, 374, 96 + 74)
+        )
+    elif num_of_disrot == 2:  # 2회전
+        pygame.draw.rect(
+            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 96 + 74, 374)
+        )
+    elif num_of_disrot == 3:  # 3회전
+        pygame.draw.rect(
+            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 374, 96 + 74)
+        )
+
+    # Draw next mino
+    grid_n = tetrimino.mino_map[next - 1][0]
+
+    for i in range(4):
+        for j in range(4):
+            dx = 220 + 188 + block_size * j
+            dy = 140 + 113 + block_size * i
+            if grid_n[i][j] != 0:
+                pygame.draw.rect(
+                    screen,
+                    ui_variables.t_color[grid_n[i][j]],
+                    Rect(dx, dy, block_size, block_size),
+                )
+
+    # Draw hold mino
+    grid_h = tetrimino.mino_map[hold - 1][0]
+
+    if hold_mino != -1:
+        for i in range(4):
+            for j in range(4):
+                dx = 220 + 188 + block_size * j
+                dy = 50 + 113 + block_size * i
+                if grid_h[i][j] != 0:
+                    pygame.draw.rect(
+                        screen,
+                        ui_variables.t_color[grid_h[i][j]],
+                        Rect(dx, dy, block_size, block_size),
+                    )
+
+    # Set max score
+    if score > 999999:
+        score = 999999
+
+    # Draw texts
+    deg = 0  # 0회전 = 0
+    # deg = 270  # 1회전 =270도
+    # deg = 180 #2회전 = 180도
+    # deg = 90 #3회전 = 90도
+    text_hold = pygame.transform.rotate(
+        ui_variables.h5.render("HOLD", 1, ui_variables.black), deg
+    )
+    text_next = pygame.transform.rotate(
+        ui_variables.h5.render("NEXT", 1, ui_variables.black), deg
+    )
+    text_score = pygame.transform.rotate(
+        ui_variables.h5.render("SCORE", 1, ui_variables.black), deg
+    )
+    score_value = pygame.transform.rotate(
+        ui_variables.h4.render(str(score), 1, ui_variables.black), deg
+    )
+    text_level = pygame.transform.rotate(
+        ui_variables.h5.render("LEVEL", 1, ui_variables.black), deg
+    )
+    level_value = pygame.transform.rotate(
+        ui_variables.h4.render(str(level), 1, ui_variables.black), deg
+    )
+    text_goal = pygame.transform.rotate(
+        ui_variables.h5.render("GOAL", 1, ui_variables.black), deg
+    )
+    goal_value = pygame.transform.rotate(
+        ui_variables.h4.render(str(goal), 1, ui_variables.black), deg
+    )
+
+    # Place texts
+    screen.blit(text_hold, (215 + 188, 14 + 113))
+    screen.blit(text_next, (215 + 188, 104 + 113))
+    screen.blit(text_score, (215 + 188, 194 + 113))
+    screen.blit(score_value, (220 + 188, 210 + 113))
+    screen.blit(text_level, (215 + 188, 254 + 113))
+    screen.blit(level_value, (220 + 188, 270 + 113))
+    screen.blit(text_goal, (215 + 188, 314 + 113))
+    screen.blit(goal_value, (220 + 188, 330 + 113))
+
+    # Draw board 칸그리기
+    for x in range(width):
+        for y in range(height):
+            if num_of_disrot == 0:  # 0회전
+                dx = 17 + 188 + block_size * x
+                dy = 17 + 113 + block_size * y
+            elif num_of_disrot == 1:  # 1회전 = 270도 회전
+                dx = 17 + 188 + block_size * (height - y - 1)
+                dy = 17 + 113 + block_size * x
+            elif num_of_disrot == 2:  # 2회전 = 180도 회전
+                dx = 17 + 188 + 170 + block_size * (width - x)
+                dy = 17 + 113 + block_size * (height - y - 1)
+            elif num_of_disrot == 3:  # 3회전 = 90도 회전
+                dx = 17 + 188 + block_size * y
+                dy = 17 + 113 + 170 + block_size * (width - x - 1)
+
+            draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
 
 # Draw a tetrimino
