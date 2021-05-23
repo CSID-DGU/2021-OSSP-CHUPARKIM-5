@@ -82,6 +82,8 @@ background_image = 'assets/images/retrotv.jpg'
 main_image = 'assets/images/main.png'
 main = pygame.image.load(main_image)
 main = pygame.transform.scale(main,  (initial_width, initial_height))
+background = pygame.image.load(background_image)
+background = pygame.transform.scale(background, (initial_width, initial_height))
 
 # Objects
 text1 = ui_variables.h2.render("original", 1, ui_variables.white)
@@ -94,6 +96,7 @@ text7 = ui_variables.h2.render("dual screen", 1, ui_variables.white)
 text8 = ui_variables.h2.render("dual screen", 1, ui_variables.red)
 text9 = ui_variables.h2.render("information", 1, ui_variables.white)
 text10 = ui_variables.h2.render("information", 1, ui_variables.red)
+rectangle = (0, 10, 100, 100)
 
 # Initial values
 blink = False

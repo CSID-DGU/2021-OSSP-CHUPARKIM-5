@@ -519,8 +519,8 @@ while not done:
                     gamemode_1= True
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
-        screen.fill(ui_variables.white)
-        screen.blit(main, [0,0])
+        screen.fill(ui_variables.black)
+        screen.blit(main, (0,0))
 
         origianl_bnt.draw(screen, (0, 0, 0))
         rotate_bnt.draw(screen, (0, 0, 0))

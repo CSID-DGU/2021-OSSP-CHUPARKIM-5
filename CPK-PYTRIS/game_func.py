@@ -19,7 +19,7 @@ def draw_block(x, y, color):
 
 # Draw game screen
 def draw_board(next, hold, score, level, goal):
-    screen.fill(ui_variables.black)
+    screen.blit(background, (60, 35))
 
     # Draw sidebar
     pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_2, w_3, temp))
@@ -103,9 +103,9 @@ def draw_board_b(next, hold, score, level, goal, locx, locy):
 
 
 def draw_board_r(next, hold, score, level, goal,num_of_disrot):
-    screen.fill(ui_variables.black)
+    screen.blit(background, (0, 0))
 
-    # Draw sidebar
+    # Draw sidebar and background
     if num_of_disrot == 0:  # 0회전
         pygame.draw.rect(
             screen, ui_variables.white, Rect(204 + 188, 0 + 113, 96 + 74, 374)
@@ -114,14 +114,20 @@ def draw_board_r(next, hold, score, level, goal,num_of_disrot):
         pygame.draw.rect(
             screen, ui_variables.white, Rect(0 + 188, 0 + 113 + 204, 374, 96 + 74)
         )
+        rotated = pygame.transform.rotate(background, 90)
+        screen.blit(rotated, (0, 0))
     elif num_of_disrot == 2:  # 2회전
         pygame.draw.rect(
             screen, ui_variables.white, Rect(0 + 188, 0 + 113, 96 + 74, 374)
         )
+        rotated = pygame.transform.rotate(background, 180)
+        screen.blit(rotated, (0, 0))
     elif num_of_disrot == 3:  # 3회전
         pygame.draw.rect(
             screen, ui_variables.white, Rect(0 + 188, 0 + 113, 374, 96 + 74)
         )
+        rotated = pygame.transform.rotate(background, 270)
+        screen.blit(rotated, (0, 0))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
