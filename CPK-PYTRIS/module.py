@@ -458,7 +458,14 @@ while not done:
                         name[name_location] = 90
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
-    elif gamemode_1:
+    elif gamemode_1 or gamemode_2:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                start = True
+
+    elif gamemode_3 or gamemode_4:
         for event in pygame.event.get():
             if event.type == QUIT:
                 done = True
@@ -500,13 +507,13 @@ while not done:
                     gamemode_1= True
                 if rotate_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_2= True
                 if dual_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_3= True
                 if blackout_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_4= True
                 if info_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
                     gamemode_1= True
