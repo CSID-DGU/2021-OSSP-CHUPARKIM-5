@@ -13,7 +13,9 @@ pygame.init()
 ###########################################################
 # Loop Start
 ###########################################################
-gamemode_1 = True
+
+# test
+gamemode_1 = False
 gamemode_2 = False
 gamemode_3 = False
 gamemode_4 = False
@@ -37,7 +39,7 @@ while not done:
                         next_mino, hold_mino, score, level, goal, num_of_disrot
                     )
 
-                pause_text = ui_variables.h2_b.render("PAUSED", 1, ui_variables.white)
+                pause_text = ui_variables.h2.render("PAUSED", 1, ui_variables.white)
                 pause_start = ui_variables.h5.render(
                     "Press esc to continue", 1, ui_variables.white
                 )
@@ -341,8 +343,8 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 pygame.time.set_timer(pygame.USEREVENT, 300)
-                over_text_1 = ui_variables.h2_b.render("GAME", 1, ui_variables.white)
-                over_text_2 = ui_variables.h2_b.render("OVER", 1, ui_variables.white)
+                over_text_1 = ui_variables.h2.render("GAME", 1, ui_variables.white)
+                over_text_2 = ui_variables.h2.render("OVER", 1, ui_variables.white)
                 over_start = ui_variables.h5.render(
                     "Press return to continue", 1, ui_variables.white
                 )
@@ -359,9 +361,9 @@ while not done:
                 screen.blit(over_text_1, (58, 75))
                 screen.blit(over_text_2, (62, 105))
 
-                name_1 = ui_variables.h2_i.render(chr(name[0]), 1, ui_variables.white)
-                name_2 = ui_variables.h2_i.render(chr(name[1]), 1, ui_variables.white)
-                name_3 = ui_variables.h2_i.render(chr(name[2]), 1, ui_variables.white)
+                name_1 = ui_variables.h2.render(chr(name[0]), 1, ui_variables.white)
+                name_2 = ui_variables.h2.render(chr(name[1]), 1, ui_variables.white)
+                name_3 = ui_variables.h2.render(chr(name[2]), 1, ui_variables.white)
 
                 underbar_1 = ui_variables.h2.render("_", 1, ui_variables.white)
                 underbar_2 = ui_variables.h2.render("_", 1, ui_variables.white)
@@ -456,50 +458,68 @@ while not done:
                         name[name_location] = 90
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
-    # Start screen
-    else:
+    elif gamemode_1:
         for event in pygame.event.get():
             if event.type == QUIT:
                 done = True
-            elif event.type == KEYDOWN:
-                if event.key == K_SPACE:
+            elif event.type == USEREVENT:
+                start = True
+
+    # Start screen
+    else:
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+
+            elif event.type == pygame.MOUSEMOTION:
+                if origianl_bnt.isOver_2(pos):
+                    origianl_bnt.text = text2
+                else:
+                    origianl_bnt.text = text1
+                if rotate_bnt.isOver_2(pos):
+                    rotate_bnt.text = text4
+                else:
+                    rotate_bnt.text = text3
+                if dual_bnt.isOver_2(pos):
+                    dual_bnt.text = text6
+                else:
+                    dual_bnt.text = text5
+                if blackout_bnt.isOver_2(pos):
+                    blackout_bnt.text = text8
+                else:
+                    blackout_bnt.text = text7
+                if info_bnt.isOver_2(pos):
+                    info_bnt.text = text10
+                else:
+                    info_bnt.text = text9
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if origianl_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    start = True
+                    gamemode_1= True
+                if rotate_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    gamemode_1= True
+                if dual_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    gamemode_1= True
+                if blackout_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    gamemode_1= True
+                if info_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    gamemode_1= True
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
         screen.fill(ui_variables.white)
-        pygame.draw.rect(screen, ui_variables.grey_1, Rect(0, 187, 300, 187))
+        screen.blit(main, [0,0])
 
-        title = ui_variables.h1.render("PYTRIS™", 1, ui_variables.grey_1)
-        title_start = ui_variables.h5.render(
-            "Press space to start", 1, ui_variables.white
-        )
-        title_info = ui_variables.h6.render(
-            "Copyright (c) 2017 Jason Kim All Rights Reserved.", 1, ui_variables.white
-        )
-
-        leader_1 = ui_variables.h5_i.render(
-            "1st " + leaders[0][0] + " " + str(leaders[0][1]), 1, ui_variables.grey_1
-        )
-        leader_2 = ui_variables.h5_i.render(
-            "2nd " + leaders[1][0] + " " + str(leaders[1][1]), 1, ui_variables.grey_1
-        )
-        leader_3 = ui_variables.h5_i.render(
-            "3rd " + leaders[2][0] + " " + str(leaders[2][1]), 1, ui_variables.grey_1
-        )
-
-        if blink:
-            screen.blit(title_start, (92, 195))
-            blink = False
-        else:
-            blink = True
-
-        screen.blit(title, (65, 120))
-        screen.blit(title_info, (40, 335))
-
-        screen.blit(leader_1, (10, 10))
-        screen.blit(leader_2, (10, 23))
-        screen.blit(leader_3, (10, 36))
+        origianl_bnt.draw(screen, (0, 0, 0))
+        rotate_bnt.draw(screen, (0, 0, 0))
+        dual_bnt.draw(screen, (0, 0, 0))
+        blackout_bnt.draw(screen, (0, 0, 0))
+        info_bnt.draw(screen, (0, 0, 0))
 
         if not start:
             pygame.display.update()

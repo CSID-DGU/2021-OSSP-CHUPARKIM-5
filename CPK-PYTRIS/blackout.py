@@ -23,22 +23,12 @@ locx=0 # for move left, right
 locy=0 # for move up, down
 
 class ui_variables:
-    # Fonts
-    font_path = "./assets/fonts/OpenSans-Light.ttf"
-    font_path_b = "./assets/fonts/OpenSans-Bold.ttf"
-    font_path_i = "./assets/fonts/Inconsolata/Inconsolata.otf"
-
+    font_path = "./assets/fonts/DungGeunMo.ttf"
     h1 = pygame.font.Font(font_path, 50)
     h2 = pygame.font.Font(font_path, 30)
     h4 = pygame.font.Font(font_path, 20)
     h5 = pygame.font.Font(font_path, 13)
     h6 = pygame.font.Font(font_path, 10)
-
-    h1_b = pygame.font.Font(font_path_b, 50)
-    h2_b = pygame.font.Font(font_path_b, 30)
-
-    h2_i = pygame.font.Font(font_path_i, 30)
-    h5_i = pygame.font.Font(font_path_i, 13)
 
     # Sounds
     click_sound = pygame.mixer.Sound("assets/sounds/SFX_ButtonUp.wav")
@@ -90,11 +80,12 @@ def draw_board_b(next, hold, score, level, goal):
                 dx = 220 + 188 + block_size * j
                 dy = 50 + 113 + block_size * i
                 if grid_h[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_h[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
+                    # pygame.draw.rect(
+                    #     screen,
+                    #     ui_variables.t_color[grid_h[i][j]],
+                    #     Rect(dx, dy, block_size, block_size),
+                    # )
+                    pass
 
     # Set max score
     if score > 999999:
@@ -103,8 +94,8 @@ def draw_board_b(next, hold, score, level, goal):
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = 17 + 188 + block_size * x + locx
-            dy = 17 + 113 + block_size * y + locy
+            dx = 17 + 188 + 80 + block_size * x + locx
+            dy = 17 + 113 + 100 + block_size * y + locy
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
 # Draw a tetrimino
@@ -633,41 +624,6 @@ while not done:
                 if event.key == K_SPACE:
                     ui_variables.click_sound.play()
                     start = True
-
-        # pygame.time.set_timer(pygame.USEREVENT, 300)
-        screen.fill(ui_variables.white)
-        pygame.draw.rect(screen, ui_variables.grey_1, Rect(0, 187, 300, 187))
-
-        title = ui_variables.h1.render("PYTRIS™", 1, ui_variables.grey_1)
-        title_start = ui_variables.h5.render(
-            "Press space to start", 1, ui_variables.white
-        )
-        title_info = ui_variables.h6.render(
-            "Copyright (c) 2017 Jason Kim All Rights Reserved.", 1, ui_variables.white
-        )
-
-        leader_1 = ui_variables.h5_i.render(
-            "1st " + leaders[0][0] + " " + str(leaders[0][1]), 1, ui_variables.grey_1
-        )
-        leader_2 = ui_variables.h5_i.render(
-            "2nd " + leaders[1][0] + " " + str(leaders[1][1]), 1, ui_variables.grey_1
-        )
-        leader_3 = ui_variables.h5_i.render(
-            "3rd " + leaders[2][0] + " " + str(leaders[2][1]), 1, ui_variables.grey_1
-        )
-
-        if blink:
-            screen.blit(title_start, (92, 195))
-            blink = False
-        else:
-            blink = True
-
-        screen.blit(title, (65, 120))
-        screen.blit(title_info, (40, 335))
-
-        screen.blit(leader_1, (10, 10))
-        screen.blit(leader_2, (10, 23))
-        screen.blit(leader_3, (10, 36))
 
         if not start:
             pygame.display.update()
