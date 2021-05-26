@@ -102,7 +102,7 @@ def draw_board_b(next, hold, score, level, goal, locx, locy):
             draw_block(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
 
 
-def draw_board_r(next, hold, score, level, goal,num_of_disrot):
+def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     screen.blit(background, (0, 0))
 
     # Draw sidebar and background
@@ -358,6 +358,12 @@ def update_display():
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     global block_size, temp, w_1, w_2, w_3, h_2
+    if w < 500:
+        w = 500
+        pygame.display.set_mode((w, h), RESIZABLE)
+    if h < 400:
+        h = 400
+        pygame.display.set_mode((w, h), RESIZABLE)
     if h / w >= 0.8:
         block_size = round(17 * w / 750)
     else:
