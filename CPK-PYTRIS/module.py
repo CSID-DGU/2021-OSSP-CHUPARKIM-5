@@ -316,7 +316,7 @@ while not done:
                             next_mino, hold_mino, score, level, goal, num_of_disrot
                         )
                 # Move right
-                elif event.key == K_RIGHT:
+                elif event.key == game_key[num_of_disrot][0]:
                     if not is_rightedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
@@ -504,23 +504,23 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if origianl_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_1 = True
                 if rotate_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_2= True
+                    gamemode_2 = True
                 if dual_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_3= True
+                    gamemode_3 = True
                 if blackout_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_4= True
+                    gamemode_4 = True
                 if info_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_1 = True
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
         screen.fill(ui_variables.black)
-        screen.blit(main, (0,0))
+        screen.blit(main, (0, 0))
 
         origianl_bnt.draw(screen, (0, 0, 0))
         rotate_bnt.draw(screen, (0, 0, 0))
