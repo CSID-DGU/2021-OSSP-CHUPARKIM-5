@@ -41,7 +41,7 @@ def draw_board(next, hold, score, level, goal):
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
 
-    if hold_mino != -1:
+    if hold != -1:
         for i in range(4):
             for j in range(4):
                 dx = 220 + w_2 + block_size * j
@@ -146,7 +146,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
 
-    if hold_mino != -1:
+    if hold != -1:
         for i in range(4):
             for j in range(4):
                 dx = 220 + 188 + block_size * j
