@@ -19,7 +19,7 @@ def draw_block(x, y, color):
 
 # Draw game screen
 def draw_board(next, hold, score, level, goal):
-    screen.blit(background, (60, 35))
+    screen.blit(background, (0, 0))
 
     # Draw sidebar
     pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_1, w_3, temp))
@@ -353,7 +353,7 @@ def is_stackable(mino):
 def update_display():
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
-    global block_size, temp, w_1, w_2, w_3, h_1
+    global block_size, temp, w_1, w_2, w_3, h_1, background
     if w < 500:
         w = 500
         pygame.display.set_mode((w, h), RESIZABLE)
@@ -364,6 +364,7 @@ def update_display():
         block_size = round(17 * w / 750)
     else:
         block_size = round(17 * h / 600)
+    background = pygame.transform.scale(background, (w, h))
     temp = block_size * 22  # 374가 바뀔 부분
     w_1 = block_size * 12  # 204가 바뀔 부분
     w_2 = (w - temp) / 2  # 188이 바뀔 부분
