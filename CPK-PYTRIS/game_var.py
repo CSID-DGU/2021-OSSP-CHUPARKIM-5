@@ -28,7 +28,7 @@ temp = block_size * 22  # 374가 바뀔 부분
 w_1 = block_size * 12  # 204가 바뀔 부분
 w_2 = (w - temp) / 2  # 188이 바뀔 부분
 w_3 = block_size * 10  # 96 + 74가 바뀔 부분
-h_2 = (h - temp) / 2  # 113이 바뀔 부분
+h_1 = (h - temp) / 2  # 113이 바뀔 부분
 
 num_of_disrot = 0  # current number of display rotation
 
@@ -77,11 +77,12 @@ class ui_variables:
     t_color = [grey_2, cyan, blue, orange, yellow, green, pink, red, grey_3]
     t_color_b = [black, cyan, blue, orange, yellow, green, pink, red, black]
 
+
 # Image
-background_image = 'assets/images/retrotv.jpg'
-main_image = 'assets/images/main.png'
+background_image = "assets/images/retrotv.jpg"
+main_image = "assets/images/main.png"
 main = pygame.image.load(main_image)
-main = pygame.transform.scale(main,  (initial_width, initial_height))
+main = pygame.transform.scale(main, (initial_width, initial_height))
 background = pygame.image.load(background_image)
 background = pygame.transform.scale(background, (initial_width, initial_height))
 
@@ -132,41 +133,56 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
-class button(): #버튼객체
-    def __init__(self, initial_width, initial_height, x_rate, y_rate, width_rate, height_rate, text): #버튼생성
-        self.x = initial_width * x_rate #버튼 x좌표
-        self.y = initial_height * y_rate #버튼 y좌표
-        self.width = int(initial_width * width_rate) #버튼 너비
-        self.height = int(initial_height * height_rate) #버튼 높이
-        self.x_rate = x_rate #initial_width * x_rate = x좌표
-        self.y_rate = y_rate #initial_height * y_rate = y좌표
-        self.width_rate = width_rate #initial_width * width_rate = 버튼 너비
-        self.height_rate = height_rate #initial_height * height_rate = 버튼 높이
-        self.text = text #라벨
 
-    def change(self, initial_width, initial_height): #버튼 위치, 크기 바꾸기
-        self.x = initial_width * self.x_rate #x좌표
-        self.y = initial_height * self.y_rate #y좌표
-        self.width = int(initial_width * self.width_rate) #너비
-        self.height = int(initial_height * self.height_rate) #높이
+class button:  # 버튼객체
+    def __init__(
+        self,
+        initial_width,
+        initial_height,
+        x_rate,
+        y_rate,
+        width_rate,
+        height_rate,
+        text,
+    ):  # 버튼생성
+        self.x = initial_width * x_rate  # 버튼 x좌표
+        self.y = initial_height * y_rate  # 버튼 y좌표
+        self.width = int(initial_width * width_rate)  # 버튼 너비
+        self.height = int(initial_height * height_rate)  # 버튼 높이
+        self.x_rate = x_rate  # initial_width * x_rate = x좌표
+        self.y_rate = y_rate  # initial_height * y_rate = y좌표
+        self.width_rate = width_rate  # initial_width * width_rate = 버튼 너비
+        self.height_rate = height_rate  # initial_height * height_rate = 버튼 높이
+        self.text = text  # 라벨
 
-    def draw(self, win, outline=None): #버튼 보이게 만들기
+    def change(self, initial_width, initial_height):  # 버튼 위치, 크기 바꾸기
+        self.x = initial_width * self.x_rate  # x좌표
+        self.y = initial_height * self.y_rate  # y좌표
+        self.width = int(initial_width * self.width_rate)  # 너비
+        self.height = int(initial_height * self.height_rate)  # 높이
+
+    def draw(self, win, outline=None):  # 버튼 보이게 만들기
         if outline:
             draw_text(screen, self.text, self.x, self.y, self.width, self.height)
 
-    def isOver(self, pos): #마우스의 위치에 따라 버튼 누르기 pos[0]은 마우스 x좌표, pos[1]은 마우스 y좌표
+    def isOver(self, pos):  # 마우스의 위치에 따라 버튼 누르기 pos[0]은 마우스 x좌표, pos[1]은 마우스 y좌표
         if pos[0] > self.x - (self.width / 2) and pos[0] < self.x + (self.width / 2):
-            if pos[1] > self.y - (self.height / 2) and pos[1] < self.y + (self.height / 2):
+            if pos[1] > self.y - (self.height / 2) and pos[1] < self.y + (
+                self.height / 2
+            ):
                 return True
         return False
 
-    def isOver_2(self, pos): #start 화면에서 single,pvp,help,setting을 위해서 y좌표 좁게 인식하도록
+    def isOver_2(self, pos):  # start 화면에서 single,pvp,help,setting을 위해서 y좌표 좁게 인식하도록
         if pos[0] > self.x - (self.width / 2) and pos[0] < self.x + (self.width / 2):
-            if pos[1] > self.y - (self.height / 8) and pos[1] < self.y + (self.height / 8):#243줄에서의 2을 4로 바꿔주면서 좁게 인식할수 있도록함. 더 좁게 인식하고 싶으면 숫자 늘려주기#
+            if pos[1] > self.y - (self.height / 8) and pos[1] < self.y + (
+                self.height / 8
+            ):  # 243줄에서의 2을 4로 바꿔주면서 좁게 인식할수 있도록함. 더 좁게 인식하고 싶으면 숫자 늘려주기#
                 return True
         return False
 
-#button
+
+# button
 origianl_bnt = button(initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1)
 rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
 dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
@@ -175,10 +191,11 @@ info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
 
 bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt]
 
-#Draw button text
+# Draw button text
 def draw_text(window, text, x, y, width, height):
     x = x - (width / 2)
     window.blit(text, (x, y))
+
 
 with open("leaderboard.txt") as f:
     lines = f.readlines()

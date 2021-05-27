@@ -22,7 +22,7 @@ def draw_board(next, hold, score, level, goal):
     screen.blit(background, (60, 35))
 
     # Draw sidebar
-    pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_2, w_3, temp))
+    pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_1, w_3, temp))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -30,7 +30,7 @@ def draw_board(next, hold, score, level, goal):
     for i in range(4):
         for j in range(4):
             dx = 220 + w_2 + block_size * j
-            dy = 140 + h_2 + block_size * i
+            dy = 140 + h_1 + block_size * i
             if grid_n[i][j] != 0:
                 pygame.draw.rect(
                     screen,
@@ -45,7 +45,7 @@ def draw_board(next, hold, score, level, goal):
         for i in range(4):
             for j in range(4):
                 dx = 220 + w_2 + block_size * j
-                dy = 50 + h_2 + block_size * i
+                dy = 50 + h_1 + block_size * i
                 if grid_h[i][j] != 0:
                     pygame.draw.rect(
                         screen,
@@ -68,20 +68,20 @@ def draw_board(next, hold, score, level, goal):
     goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
 
     # Place texts
-    screen.blit(text_hold, (215 + w_2, 14 + h_2))
-    screen.blit(text_next, (215 + w_2, 104 + h_2))
-    screen.blit(text_score, (215 + w_2, 194 + h_2))
-    screen.blit(score_value, (220 + w_2, 210 + h_2))
-    screen.blit(text_level, (215 + w_2, 254 + h_2))
-    screen.blit(level_value, (220 + w_2, 270 + h_2))
-    screen.blit(text_goal, (215 + w_2, 314 + h_2))
-    screen.blit(goal_value, (220 + w_2, 330 + h_2))
+    screen.blit(text_hold, (215 + w_2, 14 + h_1))
+    screen.blit(text_next, (215 + w_2, 104 + h_1))
+    screen.blit(text_score, (215 + w_2, 194 + h_1))
+    screen.blit(score_value, (220 + w_2, 210 + h_1))
+    screen.blit(text_level, (215 + w_2, 254 + h_1))
+    screen.blit(level_value, (220 + w_2, 270 + h_1))
+    screen.blit(text_goal, (215 + w_2, 314 + h_1))
+    screen.blit(goal_value, (220 + w_2, 330 + h_1))
 
     # Draw board
     for x in range(width):
         for y in range(height):
             dx = w_2 + block_size * (x + 1)
-            dy = h_2 + block_size * (y + 1)
+            dy = h_1 + block_size * (y + 1)
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
 
@@ -108,34 +108,30 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     # Draw sidebar and background
     if num_of_disrot == 0:  # 0회전
         pygame.draw.rect(
-            screen, ui_variables.white, Rect(204 + 188, 0 + 113, 96 + 74, 374)
+            screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
         )
     elif num_of_disrot == 1:  # 1회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113 + 204, 374, 96 + 74)
-        )
-        rotated = pygame.transform.rotate(background, 90)
-        screen.blit(rotated, (0, 0))
-    elif num_of_disrot == 2:  # 2회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 96 + 74, 374)
-        )
-        rotated = pygame.transform.rotate(background, 180)
-        screen.blit(rotated, (0, 0))
-    elif num_of_disrot == 3:  # 3회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + 188, 0 + 113, 374, 96 + 74)
-        )
         rotated = pygame.transform.rotate(background, 270)
         screen.blit(rotated, (0, 0))
+        pygame.draw.rect(
+            screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
+        )
+    elif num_of_disrot == 2:  # 2회전
+        rotated = pygame.transform.rotate(background, 180)
+        screen.blit(rotated, (0, 0))
+        pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, w_3, temp))
+    elif num_of_disrot == 3:  # 3회전
+        rotated = pygame.transform.rotate(background, 90)
+        screen.blit(rotated, (0, 0))
+        pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
     for i in range(4):
         for j in range(4):
-            dx = 220 + 188 + block_size * j
-            dy = 140 + 113 + block_size * i
+            dx = 220 + w_2 + block_size * j
+            dy = 140 + h_1 + block_size * i
             if grid_n[i][j] != 0:
                 pygame.draw.rect(
                     screen,
@@ -149,8 +145,8 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     if hold != -1:
         for i in range(4):
             for j in range(4):
-                dx = 220 + 188 + block_size * j
-                dy = 50 + 113 + block_size * i
+                dx = 220 + w_2 + block_size * j
+                dy = 50 + h_1 + block_size * i
                 if grid_h[i][j] != 0:
                     pygame.draw.rect(
                         screen,
@@ -206,17 +202,17 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     for x in range(width):
         for y in range(height):
             if num_of_disrot == 0:  # 0회전
-                dx = 17 + 188 + block_size * x
-                dy = 17 + 113 + block_size * y
+                dx = 17 + w_2 + block_size * x
+                dy = 17 + h_1 + block_size * y
             elif num_of_disrot == 1:  # 1회전 = 270도 회전
-                dx = 17 + 188 + block_size * (height - y - 1)
-                dy = 17 + 113 + block_size * x
+                dx = 17 + w_2 + block_size * (height - y - 1)
+                dy = 17 + h_1 + block_size * x
             elif num_of_disrot == 2:  # 2회전 = 180도 회전
-                dx = 17 + 188 + 170 + block_size * (width - x)
-                dy = 17 + 113 + block_size * (height - y - 1)
+                dx = 17 + w_2 + 170 + block_size * (width - x)
+                dy = 17 + h_1 + block_size * (height - y - 1)
             elif num_of_disrot == 3:  # 3회전 = 90도 회전
-                dx = 17 + 188 + block_size * y
-                dy = 17 + 113 + 170 + block_size * (width - x - 1)
+                dx = 17 + w_2 + block_size * y
+                dy = 17 + h_1 + 170 + block_size * (width - x - 1)
 
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
@@ -357,7 +353,7 @@ def is_stackable(mino):
 def update_display():
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
-    global block_size, temp, w_1, w_2, w_3, h_2
+    global block_size, temp, w_1, w_2, w_3, h_1
     if w < 500:
         w = 500
         pygame.display.set_mode((w, h), RESIZABLE)
@@ -372,4 +368,4 @@ def update_display():
     w_1 = block_size * 12  # 204가 바뀔 부분
     w_2 = (w - temp) / 2  # 188이 바뀔 부분
     w_3 = block_size * 10  # 96 + 74가 바뀔 부분
-    h_2 = (h - temp) / 2  # 113이 바뀔 부분
+    h_1 = (h - temp) / 2  # 113이 바뀔 부분
