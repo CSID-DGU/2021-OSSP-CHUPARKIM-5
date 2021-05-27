@@ -15,6 +15,8 @@ initial_width = 750
 initial_height = 600
 w = initial_width
 h = initial_height
+minimum_width = 500
+minimum_height = 400
 current_rate = 600 / 750
 
 clock = pygame.time.Clock()

@@ -97,8 +97,8 @@ def draw_board_b(next, hold, score, level, goal, locx, locy):
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = 17 + 290 + block_size * x + locx
-            dy = 17 + 170 + block_size * y + locy
+            dx = block_size + 290 + block_size * x + locx
+            dy = block_size + 170 + block_size * y + locy
             draw_block(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
 
 
@@ -202,17 +202,17 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     for x in range(width):
         for y in range(height):
             if num_of_disrot == 0:  # 0회전
-                dx = 17 + w_2 + block_size * x
-                dy = 17 + h_1 + block_size * y
+                dx = block_size + w_2 + block_size * x
+                dy = block_size + h_1 + block_size * y
             elif num_of_disrot == 1:  # 1회전 = 270도 회전
-                dx = 17 + w_2 + block_size * (height - y - 1)
-                dy = 17 + h_1 + block_size * x
+                dx = block_size + w_2 + block_size * (height - y - 1)
+                dy = block_size + h_1 + block_size * x
             elif num_of_disrot == 2:  # 2회전 = 180도 회전
-                dx = 17 + w_2 + 170 + block_size * (width - x)
-                dy = 17 + h_1 + block_size * (height - y - 1)
+                dx = block_size + w_2 + 170 + block_size * (width - x)
+                dy = block_size + h_1 + block_size * (height - y - 1)
             elif num_of_disrot == 3:  # 3회전 = 90도 회전
-                dx = 17 + w_2 + block_size * y
-                dy = 17 + h_1 + 170 + block_size * (width - x - 1)
+                dx = block_size + w_2 + block_size * y
+                dy = block_size + h_1 + 170 + block_size * (width - x - 1)
 
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
@@ -354,11 +354,11 @@ def update_display():
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     global block_size, temp, w_1, w_2, w_3, h_1, background
-    if w < 500:
-        w = 500
+    if w < minimum_width:
+        w = minimum_width
         pygame.display.set_mode((w, h), RESIZABLE)
-    if h < 400:
-        h = 400
+    if h < minimum_height:
+        h = minimum_height
         pygame.display.set_mode((w, h), RESIZABLE)
     if h / w >= 0.8:
         block_size = round(17 * w / 750)
