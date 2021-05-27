@@ -136,6 +136,21 @@ name_location = 0
 name = [65, 65, 65]
 
 
+class game_loc:  # ui 위치 비율 (block_size 대비)
+    next_const_x = 1
+    next_const_y = 8
+    hold_const_x = 1
+    hold_const_y = 3
+    holdt_const_y = 1
+    nextt_const_y = 6
+    scoret_const_y = 12
+    scorev_const_y = 13
+    levelt_const_y = 15.5
+    levelv_const_y = 16.5
+    goalt_const_y = 18.5
+    goalv_const_y = 19.5
+
+
 class button:  # 버튼객체
     def __init__(
         self,

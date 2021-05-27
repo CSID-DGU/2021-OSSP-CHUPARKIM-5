@@ -14,12 +14,6 @@ pygame.init()
 # Loop Start
 ###########################################################
 
-# test
-gamemode_1 = False
-gamemode_2 = False
-gamemode_3 = False
-gamemode_4 = False
-
 while not done:
     # 창 Resize 감지
     update_display()
