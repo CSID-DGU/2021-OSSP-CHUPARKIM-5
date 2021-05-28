@@ -14,12 +14,6 @@ pygame.init()
 # Loop Start
 ###########################################################
 
-# test
-gamemode_1 = False
-gamemode_2 = False
-gamemode_3 = False
-gamemode_4 = False
-
 while not done:
     # 창 Resize 감지
     update_display()
@@ -91,7 +85,7 @@ while not done:
                 if not is_bottom(dx, dy, mino, rotation):
                     dy += 1
                     if gamemode_2:
-                        locy -= 17
+                        locy -= block_size
 
                 # Create new mino
                 else:
@@ -171,7 +165,7 @@ while not done:
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
                         if gamemode_2:
-                            locy -= 17
+                            locy -= block_size
                     hard_drop = True
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                     draw_mino(dx, dy, mino, rotation)
@@ -303,7 +297,7 @@ while not done:
                         ui_variables.move_sound.play()
                         dx -= 1
                         if gamemode_2:
-                            locx += 17
+                            locx += block_size
                     draw_mino(dx, dy, mino, rotation)
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
@@ -321,7 +315,7 @@ while not done:
                         ui_variables.move_sound.play()
                         dx += 1
                         if gamemode_2:
-                            locx -= 17
+                            locx -= block_size
                     draw_mino(dx, dy, mino, rotation)
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
