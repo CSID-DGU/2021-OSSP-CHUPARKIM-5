@@ -20,8 +20,10 @@ while not done:
     # Pause screen
     if pause:
         for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
             if event.type == QUIT:
                 done = True
+
             elif event.type == USEREVENT:
                 pygame.time.set_timer(pygame.USEREVENT, 300)
                 if gamemode_1:
@@ -33,18 +35,36 @@ while not done:
                         next_mino, hold_mino, score, level, goal, num_of_disrot
                     )
 
-                pause_text = ui_variables.h2.render("PAUSED", 1, ui_variables.white)
-                pause_start = ui_variables.h5.render(
-                    "Press esc to continue", 1, ui_variables.white
-                )
-
-                screen.blit(pause_text, (43, 100))
+                screen.fill(ui_variables.black)
+                screen.blit(pau, (0, 0))
+                pause_start = ui_variables.h2.render(
+                        "Press esc to continue", 1, ui_variables.white
+                    )
+                goto_bnt.draw(screen, (0,0,0))
+            
                 if blink:
-                    screen.blit(pause_start, (40, 160))
+                    screen.blit(pause_start, (220, 160))
                     blink = False
                 else:
                     blink = True
                 pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if goto_bnt.isOver_2(pos):
+                    goto_bnt.text = text14
+                else:
+                    goto_bnt.text = text13
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if goto_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    gamemode_1 = False
+                    gamemode_2 = False
+                    gamemode_3 = False
+                    gamemode_4 = False
+                    start=False
+                    pause=False
+
             elif event.type == KEYDOWN:
                 erase_mino(dx, dy, mino, rotation)
                 if event.key == K_ESCAPE:
@@ -465,6 +485,25 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 start = True
+    elif popup:
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                screen.blit(howtoplay, (0,0))
+                goto_bnt.draw(screen, (0,0,0))
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if goto_bnt.isOver_2(pos):
+                    goto_bnt.text = text14
+                else:
+                    goto_bnt.text = text13
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if goto_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    popup = False
 
     # Start screen
     else:
@@ -510,7 +549,8 @@ while not done:
                     gamemode_4 = True
                 if info_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1 = True
+                    popup = True
+                    
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
         screen.fill(ui_variables.black)
