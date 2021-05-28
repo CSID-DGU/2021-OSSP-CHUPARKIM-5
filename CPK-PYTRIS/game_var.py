@@ -84,12 +84,18 @@ class ui_variables:
 background_image = "assets/images/retrotv.jpg"
 main_image = "assets/images/main.png"
 pause_image = "assets/images/pause.jpg"
+info_image = "assets/images/info.jpg"
+howtoplay_image = "assets/images/howtoplay.png"
 main = pygame.image.load(main_image)
 main = pygame.transform.scale(main, (initial_width, initial_height))
 background = pygame.image.load(background_image)
 background = pygame.transform.scale(background, (initial_width, initial_height))
 pau = pygame.image.load(pause_image)
 pau = pygame.transform.scale(pau, (initial_width, initial_height))
+info = pygame.image.load(info_image)
+info = pygame.transform.scale(info, (initial_width, initial_height))
+howtoplay = pygame.image.load(howtoplay_image)
+howtoplay = pygame.transform.scale(howtoplay, (initial_width, initial_height))
 
 # Objects
 text1 = ui_variables.h2.render("original", 1, ui_variables.white)
@@ -114,6 +120,7 @@ start = False
 pause = False
 done = False
 game_over = False
+popup = False
 
 # Game mode 1,2,3,4(Original Blackout Rotate Dual)
 gamemode_1 = False

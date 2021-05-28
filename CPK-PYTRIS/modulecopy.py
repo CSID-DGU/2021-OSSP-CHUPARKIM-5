@@ -485,6 +485,25 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 start = True
+    elif popup:
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                screen.blit(howtoplay, (0,0))
+                goto_bnt.draw(screen, (0,0,0))
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEMOTION:
+                if goto_bnt.isOver_2(pos):
+                    goto_bnt.text = text14
+                else:
+                    goto_bnt.text = text13
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if goto_bnt.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    popup = False
 
     # Start screen
     else:
@@ -530,7 +549,8 @@ while not done:
                     gamemode_4 = True
                 if info_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1 = True
+                    popup = True
+                    
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
         screen.fill(ui_variables.black)
