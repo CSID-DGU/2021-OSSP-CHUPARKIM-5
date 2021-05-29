@@ -14,12 +14,6 @@ pygame.init()
 # Loop Start
 ###########################################################
 
-# test
-gamemode_1 = False
-gamemode_2 = False
-gamemode_3 = False
-gamemode_4 = False
-
 while not done:
     # 창 Resize 감지
     update_display()
@@ -91,7 +85,7 @@ while not done:
                 if not is_bottom(dx, dy, mino, rotation):
                     dy += 1
                     if gamemode_2:
-                        locy -= 17
+                        locy -= block_size
 
                 # Create new mino
                 else:
@@ -171,7 +165,7 @@ while not done:
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
                         if gamemode_2:
-                            locy -= 17
+                            locy -= block_size
                     hard_drop = True
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                     draw_mino(dx, dy, mino, rotation)
@@ -303,7 +297,7 @@ while not done:
                         ui_variables.move_sound.play()
                         dx -= 1
                         if gamemode_2:
-                            locx += 17
+                            locx += block_size
                     draw_mino(dx, dy, mino, rotation)
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
@@ -316,12 +310,12 @@ while not done:
                             next_mino, hold_mino, score, level, goal, num_of_disrot
                         )
                 # Move right
-                elif event.key == K_RIGHT:
+                elif event.key == game_key[num_of_disrot][0]:
                     if not is_rightedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
                         if gamemode_2:
-                            locx -= 17
+                            locx -= block_size
                     draw_mino(dx, dy, mino, rotation)
                     if gamemode_1:
                         draw_board(next_mino, hold_mino, score, level, goal)
@@ -458,7 +452,14 @@ while not done:
                         name[name_location] = 90
                     pygame.time.set_timer(pygame.USEREVENT, 1)
 
-    elif gamemode_1:
+    elif gamemode_1 or gamemode_2:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                start = True
+
+    elif gamemode_3 or gamemode_4:
         for event in pygame.event.get():
             if event.type == QUIT:
                 done = True
@@ -497,23 +498,23 @@ while not done:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if origianl_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_1 = True
                 if rotate_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_2 = True
                 if dual_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_3 = True
                 if blackout_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_4 = True
                 if info_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
-                    gamemode_1= True
+                    gamemode_1 = True
 
         # pygame.time.set_timer(pygame.USEREVENT, 300)
-        screen.fill(ui_variables.white)
-        screen.blit(main, [0,0])
+        screen.fill(ui_variables.black)
+        screen.blit(main, (0, 0))
 
         origianl_bnt.draw(screen, (0, 0, 0))
         rotate_bnt.draw(screen, (0, 0, 0))
