@@ -25,9 +25,9 @@ locy = 0  # for move up, down
 
 class ui_variables:
     # Fonts
-    font_path = "./assets/fonts/OpenSans-Light.ttf"
-    font_path_b = "./assets/fonts/OpenSans-Bold.ttf"
-    font_path_i = "./assets/fonts/Inconsolata/Inconsolata.otf"
+    font_path = "./assets/fonts/DungGeunMo.ttf"
+    font_path_b = "./assets/fonts/DungGeunMo.ttf"
+    font_path_i = "./assets/fonts/DungGeunMo.ttf"
 
     h1 = pygame.font.Font(font_path, 50)
     h2 = pygame.font.Font(font_path, 30)
