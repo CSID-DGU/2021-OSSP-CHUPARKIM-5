@@ -200,7 +200,7 @@ class button:  # 버튼객체
 
 
 # button
-origianl_bnt = button(initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1)
+origianl_bnt = button(initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1)   #순서 조금 꼬임
 rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
 dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
 blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
@@ -214,13 +214,13 @@ def draw_text(window, text, x, y, width, height):
     window.blit(text, (x, y))
 
 
-with open("leaderboard.txt") as f:
-    lines = f.readlines()
-lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
-
-leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
-for i in lines:
-    leaders[i.split(" ")[0]] = int(i.split(" ")[1])
-leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
-
-matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
+# with open("leaderboard.txt") as f:
+#     lines = f.readlines()
+# lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
+#
+# leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
+# for i in lines:
+#     leaders[i.split(" ")[0]] = int(i.split(" ")[1])
+# leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+#
+# matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
