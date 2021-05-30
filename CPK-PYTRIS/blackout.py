@@ -269,7 +269,7 @@ def draw_block(x, y, color):
 
 # Draw blackout-mode game screen
 def draw_board_b(next, hold, score, level, goal):
-    # screen.fill(ui_variables.black)
+    screen.fill(ui_variables.black)
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]

@@ -247,12 +247,12 @@ def draw_block(x, y, color): #이게 뭘 그리는지 모르겠음, color 바꾸
         color,
         Rect(x, y, block_size, block_size)
     )
-    # pygame.draw.rect(  #회색격자 감싸는 검정색 격자
-    #     screen,
-    #     ui_variables.grey_1,
-    #     Rect(x, y, block_size, block_size),
-    #     1
-    # )
+    pygame.draw.rect(  #회색격자 감싸는 검정색 격자
+        screen,
+        ui_variables.grey_1,
+        Rect(x, y, block_size, block_size),
+        1
+    )
 
 # Draw game screen
 def draw_board1(next, hold, score, level, goal):
