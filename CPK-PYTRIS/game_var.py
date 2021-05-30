@@ -83,10 +83,19 @@ class ui_variables:
 # Image
 background_image = "assets/images/retrotv.jpg"
 main_image = "assets/images/main.png"
+pause_image = "assets/images/pause.jpg"
+info_image = "assets/images/info.jpg"
+howtoplay_image = "assets/images/howtoplay.png"
 main = pygame.image.load(main_image)
 main = pygame.transform.scale(main, (initial_width, initial_height))
 background = pygame.image.load(background_image)
 background = pygame.transform.scale(background, (initial_width, initial_height))
+pau = pygame.image.load(pause_image)
+pau = pygame.transform.scale(pau, (initial_width, initial_height))
+info = pygame.image.load(info_image)
+info = pygame.transform.scale(info, (initial_width, initial_height))
+howtoplay = pygame.image.load(howtoplay_image)
+howtoplay = pygame.transform.scale(howtoplay, (initial_width, initial_height))
 
 # Objects
 text1 = ui_variables.h2.render("original", 1, ui_variables.white)
@@ -99,6 +108,10 @@ text7 = ui_variables.h2.render("dual screen", 1, ui_variables.white)
 text8 = ui_variables.h2.render("dual screen", 1, ui_variables.red)
 text9 = ui_variables.h2.render("information", 1, ui_variables.white)
 text10 = ui_variables.h2.render("information", 1, ui_variables.red)
+text11 = ui_variables.h2.render("sound on", 1, ui_variables.red)
+text12 = ui_variables.h2.render("sound off", 1, ui_variables.red)
+text13 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.white)
+text14 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.red)
 rectangle = (0, 10, 100, 100)
 
 # Initial values
@@ -107,6 +120,7 @@ start = False
 pause = False
 done = False
 game_over = False
+popup = False
 
 # Game mode 1,2,3,4(Original Blackout Rotate Dual)
 gamemode_1 = False
@@ -205,8 +219,9 @@ rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
 dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
 blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
 info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
+goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
 
-bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt]
+bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt, goto_bnt]
 
 # Draw button text
 def draw_text(window, text, x, y, width, height):
