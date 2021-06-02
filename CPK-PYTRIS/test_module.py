@@ -544,20 +544,12 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
         )
     elif num_of_disrot == 1:  # 1회전
-        rotated = pygame.transform.rotate(background, 270)
-        screen.blit(rotated, (0, 0))
         pygame.draw.rect(
             screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
         )
     elif num_of_disrot == 2:  # 2회전
-        rotated = pygame.transform.rotate(background, 180)
-        screen.blit(rotated, (0, 0))
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(block_size + w_2, 0 + h_1, w_3, temp)
-        )
+        pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
     elif num_of_disrot == 3:  # 3회전
-        rotated = pygame.transform.rotate(background, 90)
-        screen.blit(rotated, (0, 0))
         pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
 
     # Draw next mino
@@ -864,7 +856,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
                 dx = block_size + w_2 + block_size * (height - y - 1)
                 dy = block_size + h_1 + block_size * x
             elif num_of_disrot == 2:  # 2회전 = 180도 회전
-                dx = block_size + w_2 + w_3 + block_size * (width - x)
+                dx = block_size + w_2 + w_3 + block_size * (width - x - 1)
                 dy = block_size + h_1 + block_size * (height - y - 1)
             elif num_of_disrot == 3:  # 3회전 = 90도 회전
                 dx = block_size + w_2 + block_size * y
