@@ -434,9 +434,9 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
+    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
-    global block_size, temp, w_1, w_2, w_3, h_1, background
     if w < minimum_width:
         w = minimum_width
         pygame.display.set_mode((w, h), RESIZABLE)
@@ -555,101 +555,58 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
-    if num_of_disrot == 0:
-        for i in range(4):
-            for j in range(4):
+    for i in range(4):
+        for j in range(4):
+            if num_of_disrot == 0:
                 dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 1:
-        for i in range(4):
-            for j in range(4):
-                dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 2:
-        for i in range(4):
-            for j in range(4):
-                dx = w - (block_size + w_1 + w_2 + block_size * j)
-                dy = h - (block_size * 8 + h_1 + block_size * i)
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 3:
-        for i in range(4):
-            for j in range(4):
-                dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
+                dy = block_size * game_loc.nmino_const_y + h_1 + block_size * i
+            elif num_of_disrot == 1:
+                dx = w - (block_size * game_loc.nmino_const_y + w_2 + block_size * i)
+                dy = block_size + h_1 + w_1 + block_size * j
+            elif num_of_disrot == 2:
+                dx = w - (block_size * game_loc.rot_help + w_1 + w_2 + block_size * j)
+                dy = h - (block_size * game_loc.nmino_const_y + h_1 + block_size * i)
+            elif num_of_disrot == 3:
+                dx = block_size * game_loc.nmino_const_y + w_2 + block_size * i
+                dy = h_1 + w_3 - block_size * game_loc.rot_help - block_size * j
+            if grid_n[i][j] != 0:
+                pygame.draw.rect(
+                    screen,
+                    ui_variables.t_color[grid_n[i][j]],
+                    Rect(dx, dy, block_size, block_size),
+                )
+
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
 
-    if num_of_disrot == 0:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
+    if hold != -1:
+        for i in range(4):
+            for j in range(4):
+                if num_of_disrot == 0:
                     dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 1:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 2:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 3:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
+                    dy = block_size * game_loc.hmino_const_y + h_1 + block_size * i
+                elif num_of_disrot == 1:
+                    dx = w - (
+                        block_size * game_loc.hmino_const_y + w_2 + block_size * i
+                    )
+                    dy = block_size + h_1 + w_1 + block_size * j
+                elif num_of_disrot == 2:
+                    dx = w - (
+                        block_size * game_loc.rot_help + w_1 + w_2 + block_size * j
+                    )
+                    dy = h - (
+                        block_size * game_loc.hmino_const_y + h_1 + block_size * i
+                    )
+                elif num_of_disrot == 3:
+                    dx = block_size * game_loc.hmino_const_y + w_2 + block_size * i
+                    dy = h_1 + w_3 - block_size * game_loc.rot_help - block_size * j
+                if grid_h[i][j] != 0:
+                    pygame.draw.rect(
+                        screen,
+                        ui_variables.t_color[grid_h[i][j]],
+                        Rect(dx, dy, block_size, block_size),
+                    )
+
     # Set max score
     if score > 999999:
         score = 999999
@@ -725,125 +682,149 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     if num_of_disrot == 1:
         screen.blit(
             text_hold,
-            (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y + h_1),
+            (w - (block_size * game_loc.holdt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_next,
-            (block_size + w_1 + w_2, block_size * game_loc.nextt_const_y + h_1),
+            (w - (block_size * game_loc.nextt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_score,
-            (block_size + w_1 + w_2, block_size * game_loc.scoret_const_y + h_1),
+            (w - (block_size * game_loc.scoret_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             score_value,
-            (block_size + w_1 + w_2, block_size * game_loc.scorev_const_y + h_1),
+            (w - (block_size * game_loc.scorev_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_level,
-            (block_size + w_1 + w_2, block_size * game_loc.levelt_const_y + h_1),
+            (w - (block_size * game_loc.levelt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             level_value,
-            (block_size + w_1 + w_2, block_size * game_loc.levelv_const_y + h_1),
+            (w - (block_size * game_loc.levelv_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_goal,
-            (block_size + w_1 + w_2, block_size * game_loc.goalt_const_y + h_1),
+            (w - (block_size * game_loc.goalt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             goal_value,
-            (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
+            (w - (block_size * game_loc.goalv_const_y + w_2), block_size + h_1 + w_1),
         )
     if num_of_disrot == 2:
         screen.blit(
             text_hold,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.holdt_const_y + h_1),
             ),
         )
         screen.blit(
             text_next,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.nextt_const_y + h_1),
             ),
         )
         screen.blit(
             text_score,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.scoret_const_y + h_1),
             ),
         )
         screen.blit(
             score_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.scorev_const_y + h_1),
             ),
         )
         screen.blit(
             text_level,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.levelt_const_y + h_1),
             ),
         )
         screen.blit(
             level_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.levelv_const_y + h_1),
             ),
         )
         screen.blit(
             text_goal,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.goalt_const_y + h_1),
             ),
         )
         screen.blit(
             goal_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.goalv_const_y + h_1),
             ),
         )
     if num_of_disrot == 3:
         screen.blit(
             text_hold,
-            (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y + h_1),
+            (
+                block_size * game_loc.holdt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_next,
-            (block_size + w_1 + w_2, block_size * game_loc.nextt_const_y + h_1),
+            (
+                block_size * game_loc.nextt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_score,
-            (block_size + w_1 + w_2, block_size * game_loc.scoret_const_y + h_1),
+            (
+                block_size * game_loc.scoret_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             score_value,
-            (block_size + w_1 + w_2, block_size * game_loc.scorev_const_y + h_1),
+            (
+                block_size * game_loc.scorev_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_level,
-            (block_size + w_1 + w_2, block_size * game_loc.levelt_const_y + h_1),
+            (
+                block_size * game_loc.levelt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             level_value,
-            (block_size + w_1 + w_2, block_size * game_loc.levelv_const_y + h_1),
+            (
+                block_size * game_loc.levelv_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_goal,
-            (block_size + w_1 + w_2, block_size * game_loc.goalt_const_y + h_1),
+            (
+                block_size * game_loc.goalt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             goal_value,
-            (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
+            (
+                block_size * game_loc.goalv_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
 
     # Draw board 칸그리기
