@@ -164,6 +164,11 @@ class game_loc:  # ui 위치 비율 (block_size 대비)
     goalt_const_y = 18.5
     goalv_const_y = 19.5
 
+    nmino_const_y = 8
+    hmino_const_y = 3
+
+    rot_help = 3
+
 
 class button:  # 버튼객체
     def __init__(
@@ -214,7 +219,9 @@ class button:  # 버튼객체
 
 
 # button
-origianl_bnt = button(initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1)   #순서 조금 꼬임
+origianl_bnt = button(
+    initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1
+)  # 순서 조금 꼬임
 rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
 dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
 blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
