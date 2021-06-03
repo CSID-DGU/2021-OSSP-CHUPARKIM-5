@@ -3,6 +3,7 @@ import operator
 from mino import *
 from random import *
 from pygame.locals import *
+
 # from game_func import *
 from game_var import *
 
@@ -11,27 +12,30 @@ from game_var import *
 # Draw block
 def draw_block_b(x, y, color):
     pygame.draw.rect(screen, color, Rect(x, y, block_size, block_size))
-    pygame.draw.rect(screen, ui_variables.black, Rect(x, y, block_size, block_size),1)
+    pygame.draw.rect(screen, ui_variables.black, Rect(x, y, block_size, block_size), 1)
+
 
 def draw_block(x, y, color):
     pygame.draw.rect(screen, color, Rect(x, y, block_size, block_size))
     pygame.draw.rect(screen, ui_variables.grey_1, Rect(x, y, block_size, block_size), 1)
 
+
 # Draw blackout-mode game screen
 def draw_board_b(next, hold, score, level, goal):
 
-        screen.fill(ui_variables.black)
+    screen.fill(ui_variables.black)
 
-        # Set max score
-        if score > 999999:
-            score = 999999
+    # Set max score
+    if score > 999999:
+        score = 999999
 
-        # Draw board
-        for x in range(width):
-            for y in range(height):
-                dx = block_size + 290 + block_size * x + locx
-                dy = block_size + 170 + block_size * y + locy
-                draw_block_b(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
+    # Draw board
+    for x in range(width):
+        for y in range(height):
+            dx = block_size + 290 + block_size * x + locx
+            dy = block_size + 170 + block_size * y + locy
+            draw_block_b(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
+
 
 # Draw a tetrimino
 def draw_mino(x, y, mino, r):
@@ -164,6 +168,7 @@ def is_stackable(mino):
 
     return True
 
+
 def draw_board(next, hold, score, level, goal):
     screen.blit(background, (0, 0))
 
@@ -249,14 +254,11 @@ def draw_board(next, hold, score, level, goal):
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
 
 
-
 #####################################################################
 
 
-
-
 ############### 모드추가 함수  ################################
-def draw_mino2(x,y,mino,r):
+def draw_mino2(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
     tx, ty = x, y
@@ -275,6 +277,7 @@ def draw_mino2(x,y,mino,r):
             if grid[i][j] != 0:
                 matrix2[x + j][y + i] = grid[i][j]
 
+
 def erase_mino2(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
@@ -290,6 +293,7 @@ def erase_mino2(x, y, mino, r):
             if grid[i][j] != 0:
                 matrix2[x + j][y + i] = 0
 
+
 def is_bottom2(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
 
@@ -302,6 +306,7 @@ def is_bottom2(x, y, mino, r):
                     return True
     return False
 
+
 def is_stackable2(mino):
     grid = tetrimino.mino_map[mino - 1][0]
 
@@ -311,6 +316,7 @@ def is_stackable2(mino):
             if grid[i][j] != 0 and matrix2[3 + j][i] != 0:
                 return False
     return True
+
 
 # Returns true if mino is at the left edge
 def is_leftedge2(x, y, mino, r):
@@ -326,6 +332,7 @@ def is_leftedge2(x, y, mino, r):
 
     return False
 
+
 # Returns true if mino is at the right edge
 def is_rightedge2(x, y, mino, r):
     grid = tetrimino.mino_map[mino - 1][r]
@@ -340,11 +347,12 @@ def is_rightedge2(x, y, mino, r):
 
     return False
 
+
 # Returns true if turning right is possible
 def is_turnable_r2(x, y, mino, r):
-    if r != 3: #오른쪽으로 도니 r+1되는 mino가 그려질 수 있는지 check해야 되므로 3포함 안함
+    if r != 3:  # 오른쪽으로 도니 r+1되는 mino가 그려질 수 있는지 check해야 되므로 3포함 안함
         grid = tetrimino.mino_map[mino - 1][r + 1]
-    else: # 4번째 형태의 mino를 한번 돌리면 다시 첫번째 형태가 됨
+    else:  # 4번째 형태의 mino를 한번 돌리면 다시 첫번째 형태가 됨
         grid = tetrimino.mino_map[mino - 1][0]
 
     for i in range(4):
@@ -358,7 +366,7 @@ def is_turnable_r2(x, y, mino, r):
     return True
 
 
-def draw_board2(next,hold,score,level,goal):
+def draw_board2(next, hold, score, level, goal):
     # Set max score
     if score > 999999:
         score = 999999
@@ -386,9 +394,10 @@ def draw_board2(next,hold,score,level,goal):
     # Draw board 칸그리기
     for x in range(width):
         for y in range(height):
-            dx =  17 + block_size * x
-            dy =  17 + block_size * y
-            draw_block(dx+300, dy+100, ui_variables.t_color[matrix2[x][y + 1]])
+            dx = 17 + block_size * x
+            dy = 17 + block_size * y
+            draw_block(dx + 300, dy + 100, ui_variables.t_color[matrix2[x][y + 1]])
+
 
 def draw_board1(next, hold, score, level, goal):
     # Set max score
@@ -418,15 +427,16 @@ def draw_board1(next, hold, score, level, goal):
     # Draw board 칸그리기
     for x in range(width):
         for y in range(height):
-            dx = 17  + block_size * x   #17은 그려지는 위치값의 가중치.
+            dx = 17 + block_size * x  # 17은 그려지는 위치값의 가중치.
             dy = 17 + block_size * y
 
-            draw_block(dx+100, dy+100, ui_variables.t_color[matrix[x][y + 1]])
+            draw_block(dx + 100, dy + 100, ui_variables.t_color[matrix[x][y + 1]])
+
 
 def update_display():
+    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
-    global block_size, temp, w_1, w_2, w_3, h_1, background
     if w < minimum_width:
         w = minimum_width
         pygame.display.set_mode((w, h), RESIZABLE)
@@ -444,26 +454,29 @@ def update_display():
     w_3 = block_size * 10  # 96 + 74가 바뀔 부분
     h_1 = (h - temp) / 2  # 113이 바뀔 부분
 
-def draw_dual_sidebar(block_size,next,hold, next2, hold2):
+
+def draw_dual_sidebar(block_size, next, hold, next2, hold2):
     pygame.draw.rect(
         screen,
         ui_variables.white,
-        Rect(500, 100, 200, 400) #(x축,y축, 가로, 세로) # 보드 위치를 직접적으로 지정해줬
+        Rect(500, 100, 200, 400),  # (x축,y축, 가로, 세로) # 보드 위치를 직접적으로 지정해줬
     )
-    #보드 1
-    grid_n = tetrimino.mino_map[next - 1][0] # 다음 내려올 미노에 대한 정보
+    # 보드 1
+    grid_n = tetrimino.mino_map[next - 1][0]  # 다음 내려올 미노에 대한 정보
 
     for i in range(4):
         for j in range(4):
-            dx = 525 + block_size * j #next mino그릴 좌표 설정
+            dx = 525 + block_size * j  # next mino그릴 좌표 설정
             dy = 270 + block_size * i
-            if grid_n[i][j] != 10:  #이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
-                pygame.draw.rect(screen, ui_variables.white, Rect(dx, dy, block_size, block_size))
-            if grid_n[i][j] != 0: #하나씩 검사해서 그려 줌
+            if grid_n[i][j] != 10:  # 이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
+                pygame.draw.rect(
+                    screen, ui_variables.white, Rect(dx, dy, block_size, block_size)
+                )
+            if grid_n[i][j] != 0:  # 하나씩 검사해서 그려 줌
                 pygame.draw.rect(
                     screen,
                     ui_variables.t_color[grid_n[i][j]],
-                    Rect(dx, dy, block_size, block_size)
+                    Rect(dx, dy, block_size, block_size),
                 )
 
     # Draw hold mino - nextmino 그려주는거랑 똑같음
@@ -472,30 +485,34 @@ def draw_dual_sidebar(block_size,next,hold, next2, hold2):
     if hold_mino != -1:
         for i in range(4):
             for j in range(4):
-                dx = 525  + block_size * j
+                dx = 525 + block_size * j
                 dy = 120 + block_size * i
-                if grid_n[i][j] != 10:  #이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
-                    pygame.draw.rect(screen, ui_variables.white, Rect(dx, dy, block_size, block_size))
+                if grid_n[i][j] != 10:  # 이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
+                    pygame.draw.rect(
+                        screen, ui_variables.white, Rect(dx, dy, block_size, block_size)
+                    )
                 if grid_h[i][j] != 0:
                     pygame.draw.rect(
                         screen,
                         ui_variables.t_color[grid_h[i][j]],
-                        Rect(dx, dy, block_size, block_size)
+                        Rect(dx, dy, block_size, block_size),
                     )
-    #보드 2
-    grid_n = tetrimino.mino_map[next2 - 1][0] # 다음 내려올 mino 정보 1
+    # 보드 2
+    grid_n = tetrimino.mino_map[next2 - 1][0]  # 다음 내려올 mino 정보 1
 
     for i in range(4):
         for j in range(4):
-            dx = 620 + block_size * j #next mino그릴 좌표, 재지정 해줄 것
-            dy = 270 + block_size * i #next mino그릴 좌표, 재지정 해줄 것
-            if grid_n[i][j] != 10:  #이 부분 next minp가 계속 안겹치게 하기 위해서
-                pygame.draw.rect(screen, ui_variables.white, Rect(dx, dy, block_size, block_size))
-            if grid_n[i][j] != 0: #하나씩 검사해서 그려 줌
+            dx = 620 + block_size * j  # next mino그릴 좌표, 재지정 해줄 것
+            dy = 270 + block_size * i  # next mino그릴 좌표, 재지정 해줄 것
+            if grid_n[i][j] != 10:  # 이 부분 next minp가 계속 안겹치게 하기 위해서
+                pygame.draw.rect(
+                    screen, ui_variables.white, Rect(dx, dy, block_size, block_size)
+                )
+            if grid_n[i][j] != 0:  # 하나씩 검사해서 그려 줌
                 pygame.draw.rect(
                     screen,
                     ui_variables.t_color[grid_n[i][j]],
-                    Rect(dx, dy, block_size,block_size)
+                    Rect(dx, dy, block_size, block_size),
                 )
     # Draw hold mino - nextmino 그려주는거랑 똑같음
     grid_h = tetrimino.mino_map[hold2 - 1][0]
@@ -505,16 +522,19 @@ def draw_dual_sidebar(block_size,next,hold, next2, hold2):
             for j in range(4):
                 dx = 620 + block_size * j
                 dy = 120 + block_size * i
-                if grid_n[i][j] != 10:  #이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
-                    pygame.draw.rect(screen, ui_variables.white, Rect(dx, dy, block_size, block_size))
+                if grid_n[i][j] != 10:  # 이 부분 next minp가 계속 안겹치게 하기 위해서  꼭 참조
+                    pygame.draw.rect(
+                        screen, ui_variables.white, Rect(dx, dy, block_size, block_size)
+                    )
                 if grid_h[i][j] != 0:
                     pygame.draw.rect(
                         screen,
                         ui_variables.t_color[grid_h[i][j]],
-                        Rect(dx, dy, block_size, block_size)
+                        Rect(dx, dy, block_size, block_size),
                     )
 
-#----------------------------------rotate ------------------------------------#
+
+# ----------------------------------rotate ------------------------------------#
 def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     screen.blit(background, (0, 0))
 
@@ -524,120 +544,69 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
         )
     elif num_of_disrot == 1:  # 1회전
-        rotated = pygame.transform.rotate(background, 270)
-        screen.blit(rotated, (0, 0))
         pygame.draw.rect(
             screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
         )
     elif num_of_disrot == 2:  # 2회전
-        rotated = pygame.transform.rotate(background, 180)
-        screen.blit(rotated, (0, 0))
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(block_size + w_2, 0 + h_1, w_3, temp)
-        )
+        pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
     elif num_of_disrot == 3:  # 3회전
-        rotated = pygame.transform.rotate(background, 90)
-        screen.blit(rotated, (0, 0))
         pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
 
-    if num_of_disrot == 0:
-        for i in range(4):
-            for j in range(4):
+    for i in range(4):
+        for j in range(4):
+            if num_of_disrot == 0:
                 dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 1:
-        for i in range(4):
-            for j in range(4):
-                dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 2:
-        for i in range(4):
-            for j in range(4):
-                dx = w - (block_size + w_1 + w_2 + block_size * j)
-                dy = h - (block_size * 8 + h_1 + block_size * i)
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
-    elif num_of_disrot == 3:
-        for i in range(4):
-            for j in range(4):
-                dx = block_size + w_1 + w_2 + block_size * j
-                dy = block_size * 8 + h_1 + block_size * i
-                if grid_n[i][j] != 0:
-                    pygame.draw.rect(
-                        screen,
-                        ui_variables.t_color[grid_n[i][j]],
-                        Rect(dx, dy, block_size, block_size),
-                    )
+                dy = block_size * game_loc.nmino_const_y + h_1 + block_size * i
+            elif num_of_disrot == 1:
+                dx = w - (block_size * game_loc.nmino_const_y + w_2 + block_size * i)
+                dy = block_size + h_1 + w_1 + block_size * j
+            elif num_of_disrot == 2:
+                dx = w - (block_size * game_loc.rot_help + w_1 + w_2 + block_size * j)
+                dy = h - (block_size * game_loc.nmino_const_y + h_1 + block_size * i)
+            elif num_of_disrot == 3:
+                dx = block_size * game_loc.nmino_const_y + w_2 + block_size * i
+                dy = h_1 + w_3 - block_size * game_loc.rot_help - block_size * j
+            if grid_n[i][j] != 0:
+                pygame.draw.rect(
+                    screen,
+                    ui_variables.t_color[grid_n[i][j]],
+                    Rect(dx, dy, block_size, block_size),
+                )
+
     # Draw hold mino
     grid_h = tetrimino.mino_map[hold - 1][0]
 
-    if num_of_disrot == 0:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
+    if hold != -1:
+        for i in range(4):
+            for j in range(4):
+                if num_of_disrot == 0:
                     dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 1:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 2:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
-    elif num_of_disrot == 3:
-        if hold != -1:
-            for i in range(4):
-                for j in range(4):
-                    dx = block_size + w_1 + w_2 + block_size * j
-                    dy = block_size * 3 + h_1 + block_size * i
-                    if grid_h[i][j] != 0:
-                        pygame.draw.rect(
-                            screen,
-                            ui_variables.t_color[grid_h[i][j]],
-                            Rect(dx, dy, block_size, block_size),
-                        )
+                    dy = block_size * game_loc.hmino_const_y + h_1 + block_size * i
+                elif num_of_disrot == 1:
+                    dx = w - (
+                        block_size * game_loc.hmino_const_y + w_2 + block_size * i
+                    )
+                    dy = block_size + h_1 + w_1 + block_size * j
+                elif num_of_disrot == 2:
+                    dx = w - (
+                        block_size * game_loc.rot_help + w_1 + w_2 + block_size * j
+                    )
+                    dy = h - (
+                        block_size * game_loc.hmino_const_y + h_1 + block_size * i
+                    )
+                elif num_of_disrot == 3:
+                    dx = block_size * game_loc.hmino_const_y + w_2 + block_size * i
+                    dy = h_1 + w_3 - block_size * game_loc.rot_help - block_size * j
+                if grid_h[i][j] != 0:
+                    pygame.draw.rect(
+                        screen,
+                        ui_variables.t_color[grid_h[i][j]],
+                        Rect(dx, dy, block_size, block_size),
+                    )
+
     # Set max score
     if score > 999999:
         score = 999999
@@ -713,125 +682,149 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     if num_of_disrot == 1:
         screen.blit(
             text_hold,
-            (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y + h_1),
+            (w - (block_size * game_loc.holdt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_next,
-            (block_size + w_1 + w_2, block_size * game_loc.nextt_const_y + h_1),
+            (w - (block_size * game_loc.nextt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_score,
-            (block_size + w_1 + w_2, block_size * game_loc.scoret_const_y + h_1),
+            (w - (block_size * game_loc.scoret_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             score_value,
-            (block_size + w_1 + w_2, block_size * game_loc.scorev_const_y + h_1),
+            (w - (block_size * game_loc.scorev_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_level,
-            (block_size + w_1 + w_2, block_size * game_loc.levelt_const_y + h_1),
+            (w - (block_size * game_loc.levelt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             level_value,
-            (block_size + w_1 + w_2, block_size * game_loc.levelv_const_y + h_1),
+            (w - (block_size * game_loc.levelv_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             text_goal,
-            (block_size + w_1 + w_2, block_size * game_loc.goalt_const_y + h_1),
+            (w - (block_size * game_loc.goalt_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(
             goal_value,
-            (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
+            (w - (block_size * game_loc.goalv_const_y + w_2), block_size + h_1 + w_1),
         )
     if num_of_disrot == 2:
         screen.blit(
             text_hold,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.holdt_const_y + h_1),
             ),
         )
         screen.blit(
             text_next,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.nextt_const_y + h_1),
             ),
         )
         screen.blit(
             text_score,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.scoret_const_y + h_1),
             ),
         )
         screen.blit(
             score_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.scorev_const_y + h_1),
             ),
         )
         screen.blit(
             text_level,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.levelt_const_y + h_1),
             ),
         )
         screen.blit(
             level_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.levelv_const_y + h_1),
             ),
         )
         screen.blit(
             text_goal,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.goalt_const_y + h_1),
             ),
         )
         screen.blit(
             goal_value,
             (
-                w - (block_size + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
                 h - (block_size * game_loc.goalv_const_y + h_1),
             ),
         )
     if num_of_disrot == 3:
         screen.blit(
             text_hold,
-            (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y + h_1),
+            (
+                block_size * game_loc.holdt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_next,
-            (block_size + w_1 + w_2, block_size * game_loc.nextt_const_y + h_1),
+            (
+                block_size * game_loc.nextt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_score,
-            (block_size + w_1 + w_2, block_size * game_loc.scoret_const_y + h_1),
+            (
+                block_size * game_loc.scoret_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             score_value,
-            (block_size + w_1 + w_2, block_size * game_loc.scorev_const_y + h_1),
+            (
+                block_size * game_loc.scorev_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_level,
-            (block_size + w_1 + w_2, block_size * game_loc.levelt_const_y + h_1),
+            (
+                block_size * game_loc.levelt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             level_value,
-            (block_size + w_1 + w_2, block_size * game_loc.levelv_const_y + h_1),
+            (
+                block_size * game_loc.levelv_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             text_goal,
-            (block_size + w_1 + w_2, block_size * game_loc.goalt_const_y + h_1),
+            (
+                block_size * game_loc.goalt_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
         screen.blit(
             goal_value,
-            (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
+            (
+                block_size * game_loc.goalv_const_y + w_2,
+                h_1 + w_3 - block_size * game_loc.rot_help,
+            ),
         )
 
     # Draw board 칸그리기
@@ -844,14 +837,13 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
                 dx = block_size + w_2 + block_size * (height - y - 1)
                 dy = block_size + h_1 + block_size * x
             elif num_of_disrot == 2:  # 2회전 = 180도 회전
-                dx = block_size + w_2 + 170 + block_size * (width - x)
+                dx = block_size + w_2 + w_3 + block_size * (width - x - 1)
                 dy = block_size + h_1 + block_size * (height - y - 1)
             elif num_of_disrot == 3:  # 3회전 = 90도 회전
                 dx = block_size + w_2 + block_size * y
-                dy = block_size + h_1 + 170 + block_size * (width - x - 1)
+                dy = block_size + h_1 + w_3 + block_size * (width - x - 1)
 
             draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
-
 
 
 ##############################################################################
@@ -861,8 +853,8 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
 def PauseScreen():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
     global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
-    global dx2,dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state, locx, locy
-    global gamemode_1,gamemode_2, gamemode_3, gamemode_4
+    global dx2, dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state, locx, locy
+    global gamemode_1, gamemode_2, gamemode_3, gamemode_4
     global matrix, matrix2
     for event in pygame.event.get():
         pos = pygame.mouse.get_pos()
@@ -881,9 +873,9 @@ def PauseScreen():
             screen.fill(ui_variables.black)
             screen.blit(pau, (0, 0))
             pause_start = ui_variables.h2.render(
-                    "Press esc to continue", 1, ui_variables.white
-                )
-            goto_bnt.draw(screen, (0,0,0))
+                "Press esc to continue", 1, ui_variables.white
+            )
+            goto_bnt.draw(screen, (0, 0, 0))
 
             if blink:
                 screen.blit(pause_start, (220, 160))
@@ -901,7 +893,7 @@ def PauseScreen():
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if goto_bnt.isOver_2(pos):
                 ui_variables.click_sound.play()
-                #main loop 옵션 초기화
+                # main loop 옵션 초기화
                 hold = False
                 dx, dy = 3, 0
                 rotation = 0
@@ -917,9 +909,11 @@ def PauseScreen():
                 hard_drop = False
                 name_location = 0
                 name = [65, 65, 65]
-                matrix = [[0 for y in range(height + 1)] for x in range(width)] # height
+                matrix = [
+                    [0 for y in range(height + 1)] for x in range(width)
+                ]  # height
                 ##### board2 초기화
-                dx2, dy2 = 3,0
+                dx2, dy2 = 3, 0
                 rotation2 = 0
 
                 score2 = 0
@@ -936,7 +930,7 @@ def PauseScreen():
 
                 matrix2 = [[0 for y in range(height + 1)] for x in range(width)]
 
-                board_state = True #True 일때 board 1, False일때 board 2
+                board_state = True  # True 일때 board 1, False일때 board 2
                 locx = 0
                 locy = 0
 
@@ -944,8 +938,8 @@ def PauseScreen():
                 gamemode_2 = False
                 gamemode_3 = False
                 gamemode_4 = False
-                start=False
-                pause=False
+                start = False
+                pause = False
                 popup = False
 
         elif event.type == KEYDOWN:
@@ -954,6 +948,7 @@ def PauseScreen():
                 pause = False
                 ui_variables.click_sound.play()
                 pygame.time.set_timer(pygame.USEREVENT, 1)
+
 
 def original_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
@@ -1118,6 +1113,7 @@ def original_mode():
 
     pygame.display.update()
 
+
 def blackout_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
     global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
@@ -1216,7 +1212,7 @@ def blackout_mode():
                 while not is_bottom(dx, dy, mino, rotation):
                     dy += 1
                     locy -= block_size
-                    locx=0
+                    locx = 0
                 hard_drop = True
                 pygame.time.set_timer(pygame.USEREVENT, 1)
                 draw_mino(dx, dy, mino, rotation)
@@ -1293,10 +1289,11 @@ def blackout_mode():
 
     pygame.display.update()
 
+
 def dualscreen_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
     global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
-    global dx2,dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state
+    global dx2, dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -1304,32 +1301,34 @@ def dualscreen_mode():
         elif event.type == USEREVENT:
             # Set speed
             if not game_over:
-                pygame.time.set_timer(pygame.USEREVENT, framerate * 10 )
+                pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
                 # keys_pressed = pygame.key.get_pressed()  #임시로 막아 놓음.
                 # if keys_pressed[K_DOWN]:
                 #     pygame.time.set_timer(pygame.USEREVENT, framerate * 1)
                 # else:
                 #     pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
 
-
             # Draw a mino
 
-            if board_state == True: pygame.draw.rect(screen, ui_variables.cyan,[100,50,100,10]) #처음 true일때 한번 바꿔주고 시작
-            draw_mino(dx,dy, mino, rotation)
-            draw_mino2(dx2,dy2, mino2, rotation2)
+            if board_state == True:
+                pygame.draw.rect(
+                    screen, ui_variables.cyan, [100, 50, 100, 10]
+                )  # 처음 true일때 한번 바꿔주고 시작
+            draw_mino(dx, dy, mino, rotation)
+            draw_mino2(dx2, dy2, mino2, rotation2)
             ##board 두개 그리
-            #draw_multiboard(next_mino, hold_mino, score, level ,goal, next_mino2, hold_mino2)
+            # draw_multiboard(next_mino, hold_mino, score, level ,goal, next_mino2, hold_mino2)
             draw_board1(next_mino, hold_mino, score, level, goal)
             draw_board2(next_mino2, hold_mino2, score, level, goal)
-            draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+            draw_dual_sidebar(block_size, next_mino, hold_mino, next_mino2, hold_mino2)
             # Erase a mino
             if not game_over:
-                erase_mino(dx,dy,mino, rotation)
-                erase_mino2(dx2,dy2,mino2, rotation2)
+                erase_mino(dx, dy, mino, rotation)
+                erase_mino2(dx2, dy2, mino2, rotation2)
             # Move mino down  +  Create new mino
-            #보드 1
+            # 보드 1
             if not is_bottom(dx, dy, mino, rotation):
-                dy += 1 #파이게임 좌표는 왼쪽 상단에서 0,0
+                dy += 1  # 파이게임 좌표는 왼쪽 상단에서 0,0
             else:
                 if hard_drop or bottom_count == 6:
                     hard_drop = False
@@ -1338,7 +1337,9 @@ def dualscreen_mode():
                     draw_mino(dx, dy, mino, rotation)
 
                     draw_board1(next_mino, hold_mino, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
                     if is_stackable(next_mino):
                         mino = next_mino
                         next_mino = randint(1, 7)
@@ -1352,9 +1353,9 @@ def dualscreen_mode():
                 else:
                     bottom_count += 1
 
-            #보드 2
+            # 보드 2
             if not is_bottom2(dx2, dy2, mino2, rotation2):
-                dy2 += 1 #파이게임 좌표는 왼쪽 상단에서 0,0
+                dy2 += 1  # 파이게임 좌표는 왼쪽 상단에서 0,0
             else:
                 if hard_drop2 or bottom_count2 == 6:
                     hard_drop2 = False
@@ -1362,7 +1363,9 @@ def dualscreen_mode():
                     score2 += 10 * level
                     draw_mino2(dx2, dy2, mino2, rotation2)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
 
                     if is_stackable2(next_mino2):
                         mino2 = next_mino2
@@ -1410,7 +1413,7 @@ def dualscreen_mode():
                 level += 1
                 goal += level * 5
 
-            #board2
+            # board2
             for j in range(21):
                 is_full2 = True
                 for i in range(10):
@@ -1443,54 +1446,62 @@ def dualscreen_mode():
                 framerate = int(framerate * 0.8)
 
         elif event.type == KEYDOWN:
-            erase_mino(dx,dy,mino, rotation)
-            erase_mino2(dx2,dy2,mino2, rotation2)
+            erase_mino(dx, dy, mino, rotation)
+            erase_mino2(dx2, dy2, mino2, rotation2)
 
             if event.key == K_ESCAPE:
                 ui_variables.click_sound.play()
                 pause = True
-            elif event.key == K_TAB:  #board_state로 플레히는 board 전환
-                if (board_state == True): #보드 다시 한번 그려주기
+            elif event.key == K_TAB:  # board_state로 플레히는 board 전환
+                if board_state == True:  # 보드 다시 한번 그려주기
                     screen.fill(ui_variables.grey_1)
-                    pygame.draw.rect(screen, ui_variables.grey_1,[100,50,100,10])
-                    pygame.draw.rect(screen, ui_variables.cyan,[400,50,100,10])
+                    pygame.draw.rect(screen, ui_variables.grey_1, [100, 50, 100, 10])
+                    pygame.draw.rect(screen, ui_variables.cyan, [400, 50, 100, 10])
                     draw_board1(next_mino, hold_mino, score, level, goal)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
                     draw_mino(dx, dy, mino, rotation)
                     draw_mino2(dx2, dy2, mino2, rotation2)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
-                    board_state = not board_state #반전시키는 부분
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
+                    board_state = not board_state  # 반전시키는 부분
                 else:
                     screen.fill(ui_variables.grey_1)
-                    pygame.draw.rect(screen, ui_variables.grey_1,[400,50,100,10])
-                    pygame.draw.rect(screen, ui_variables.cyan,[100,50,100,10])
-                    board_state = not board_state #반전시키는 부분
+                    pygame.draw.rect(screen, ui_variables.grey_1, [400, 50, 100, 10])
+                    pygame.draw.rect(screen, ui_variables.cyan, [100, 50, 100, 10])
+                    board_state = not board_state  # 반전시키는 부분
                     draw_board1(next_mino, hold_mino, score, level, goal)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
                     draw_mino(dx, dy, mino, rotation)
                     draw_mino2(dx2, dy2, mino2, rotation2)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
 
             elif event.key == K_SPACE:
                 ui_variables.drop_sound.play()
-                if (board_state==True):
+                if board_state == True:
                     while not is_bottom(dx, dy, mino, rotation):
                         dy += 1
                     hard_drop = True
                     draw_mino(dx, dy, mino, rotation)
                     draw_board1(next_mino, hold_mino, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
                 else:
                     while not is_bottom2(dx2, dy2, mino2, rotation2):
                         dy2 += 1
                     hard_drop2 = True
                     draw_mino2(dx2, dy2, mino2, rotation2)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
 
             # Hold
             elif event.key == K_LSHIFT or event.key == K_c:
-                if(board_state == True):
+                if board_state == True:
                     if hold == False:
                         ui_variables.move_sound.play()
                         if hold_mino == -1:
@@ -1504,7 +1515,9 @@ def dualscreen_mode():
                         hold = True
                     draw_mino(dx, dy, mino, rotation)
                     draw_board1(next_mino, hold_mino, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
                 else:
                     if hold2 == False:
                         ui_variables.move_sound.play()
@@ -1520,11 +1533,13 @@ def dualscreen_mode():
                         hold2 = True
                     draw_mino2(dx2, dy2, mino2, rotation2)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
-                    draw_dual_sidebar(block_size,next_mino,hold_mino, next_mino2, hold_mino2)
+                    draw_dual_sidebar(
+                        block_size, next_mino, hold_mino, next_mino2, hold_mino2
+                    )
 
             # Turn right
             elif event.key == K_x:
-                if(board_state == True):
+                if board_state == True:
                     if is_turnable_r(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         rotation += 1
@@ -1594,7 +1609,7 @@ def dualscreen_mode():
 
             # Move left
             elif event.key == K_LEFT:
-                if(board_state == True):
+                if board_state == True:
                     if not is_leftedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx -= 1
@@ -1609,7 +1624,7 @@ def dualscreen_mode():
 
             # Move right
             elif event.key == K_RIGHT:
-                if(board_state == True):
+                if board_state == True:
                     if not is_rightedge(dx, dy, mino, rotation):
                         ui_variables.move_sound.play()
                         dx += 1
@@ -1623,6 +1638,7 @@ def dualscreen_mode():
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
 
     pygame.display.update()
+
 
 def rotate_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
@@ -1642,9 +1658,7 @@ def rotate_mode():
 
             # Draw a mino
             draw_mino(dx, dy, mino, rotation)
-            draw_board_r(
-                next_mino, hold_mino, score, level, goal, num_of_disrot
-            )
+            draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
 
             # Erase a mino
             if not game_over:
@@ -1664,7 +1678,9 @@ def rotate_mode():
                     locx = 0
                     locy = 0
                     draw_mino(dx, dy, mino, rotation)
-                    draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
                     if is_stackable(next_mino):
                         mino = next_mino
                         next_mino = randint(1, 7)
@@ -1786,9 +1802,7 @@ def rotate_mode():
                 if rotation == -1:
                     rotation = 3
                 draw_mino(dx, dy, mino, rotation)
-                draw_board_r(
-                    next_mino, hold_mino, score, level, goal, num_of_disrot
-                )
+                draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
             # Move left
             elif event.key == game_key[num_of_disrot][1]:
                 if not is_leftedge(dx, dy, mino, rotation):
@@ -1796,9 +1810,7 @@ def rotate_mode():
                     dx -= 1
                     locx += block_size
                 draw_mino(dx, dy, mino, rotation)
-                draw_board_r(
-                    next_mino, hold_mino, score, level, goal, num_of_disrot
-                )
+                draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
             # Move right
             elif event.key == game_key[num_of_disrot][0]:
                 if not is_rightedge(dx, dy, mino, rotation):
@@ -1806,11 +1818,11 @@ def rotate_mode():
                     dx += 1
                     locx -= block_size
                 draw_mino(dx, dy, mino, rotation)
-                draw_board_r(
-                    next_mino, hold_mino, score, level, goal, num_of_disrot
-                )
+                draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
 
     pygame.display.update()
+
+
 #############################################################################
 pygame.init()
 
@@ -1897,18 +1909,18 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
-with open('leaderboard.txt') as f:
+with open("leaderboard.txt") as f:
     lines = f.readlines()
-lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
 
-leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
 for i in lines:
-    leaders[i.split(' ')[0]] = int(i.split(' ')[1])
+    leaders[i.split(" ")[0]] = int(i.split(" ")[1])
 leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
 
 matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 ################## 추가된 initial value  ######################################
-dx2, dy2 = 3,0
+dx2, dy2 = 3, 0
 rotation2 = 0
 
 score2 = 0
@@ -1925,7 +1937,7 @@ hold_mino2 = -1
 
 matrix2 = [[0 for y in range(height + 1)] for x in range(width)]
 
-board_state = True #True 일때 board 1, False일때 board 2
+board_state = True  # True 일때 board 1, False일때 board 2
 
 game_key = (  # 좌, 우, 소프트 드롭
     (K_RIGHT, K_LEFT, K_DOWN),
@@ -1935,20 +1947,17 @@ game_key = (  # 좌, 우, 소프트 드롭
 )
 
 
-locx=0 # for move left, right
-locy=0 # for move up, down
+locx = 0  # for move left, right
+locy = 0  # for move up, down
 num_of_disrot = 0
 ###########################################################
 
 
-
-
-#게임모드
-gamemode_1 = False#original
-gamemode_2 = False #blackout
-gameode_3 = False#rotate
-gmaemode_4 = False#dualscreen
-
+# 게임모드
+gamemode_1 = False  # original
+gamemode_2 = False  # blackout
+gameode_3 = False  # rotate
+gmaemode_4 = False  # dualscreen
 
 
 ###########################################################
@@ -1961,7 +1970,7 @@ while not done:
         PauseScreen()
     # Game screen
     elif start:
-        if gamemode_1 :
+        if gamemode_1:
             original_mode()
         if gamemode_2:
             blackout_mode()
@@ -1978,15 +1987,19 @@ while not done:
                 pygame.time.set_timer(pygame.USEREVENT, 300)
                 over_text_1 = ui_variables.h2.render("GAME", 1, ui_variables.white)
                 over_text_2 = ui_variables.h2.render("OVER", 1, ui_variables.white)
-                over_start = ui_variables.h5.render("Press return to continue", 1, ui_variables.white)
+                over_start = ui_variables.h5.render(
+                    "Press return to continue", 1, ui_variables.white
+                )
 
-                #draw_multiboard(next_mino, hold_mino, score, level ,goal, next_mino2, hold_mino2)
+                # draw_multiboard(next_mino, hold_mino, score, level ,goal, next_mino2, hold_mino2)
                 if gamemode_1:
                     draw_board(next_mino, hold_mino, score, level, goal)
                 elif gamemode_2:
                     draw_board_b(next_mino, hold_mino, score, level, goal)
                 elif gamemode_3:
-                    draw_board_r(next_mino, hold_mino, score, level, goal,num_of_disrot)
+                    draw_board_r(
+                        next_mino, hold_mino, score, level, goal, num_of_disrot
+                    )
                 elif gamemode_4:
                     draw_board1(next_mino, hold_mino, score, level, goal)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
@@ -2024,8 +2037,15 @@ while not done:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
 
-                    outfile = open('leaderboard.txt','a')
-                    outfile.write(chr(name[0]) + chr(name[1]) + chr(name[2]) + ' ' + str(score) + '\n')
+                    outfile = open("leaderboard.txt", "a")
+                    outfile.write(
+                        chr(name[0])
+                        + chr(name[1])
+                        + chr(name[2])
+                        + " "
+                        + str(score)
+                        + "\n"
+                    )
                     outfile.close()
 
                     game_over = False
@@ -2044,9 +2064,11 @@ while not done:
                     hard_drop = False
                     name_location = 0
                     name = [65, 65, 65]
-                    matrix = [[0 for y in range(height + 1)] for x in range(width)] # height
+                    matrix = [
+                        [0 for y in range(height + 1)] for x in range(width)
+                    ]  # height
                     ##### board2 초기화
-                    dx2, dy2 = 3,0
+                    dx2, dy2 = 3, 0
                     rotation2 = 0
 
                     score2 = 0
@@ -2063,7 +2085,7 @@ while not done:
 
                     matrix2 = [[0 for y in range(height + 1)] for x in range(width)]
 
-                    board_state = True #True 일때 board 1, False일때 board 2
+                    board_state = True  # True 일때 board 1, False일때 board 2
                     locx = 0
                     locy = 0
 
@@ -2071,19 +2093,21 @@ while not done:
                     gamemode_2 = False
                     gamemode_3 = False
                     gamemode_4 = False
-                    start=False
-                    pause=False
+                    start = False
+                    pause = False
                     popup = False
                     #############
 
-                    with open('leaderboard.txt') as f:
+                    with open("leaderboard.txt") as f:
                         lines = f.readlines()
-                    lines = [line.rstrip('\n') for line in open('leaderboard.txt')]
+                    lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
 
-                    leaders = {'AAA': 0, 'BBB': 0, 'CCC': 0}
+                    leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
                     for i in lines:
-                        leaders[i.split(' ')[0]] = int(i.split(' ')[1])
-                    leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
+                        leaders[i.split(" ")[0]] = int(i.split(" ")[1])
+                    leaders = sorted(
+                        leaders.items(), key=operator.itemgetter(1), reverse=True
+                    )
 
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
@@ -2112,15 +2136,15 @@ while not done:
                     else:
                         name[name_location] = 90
                     pygame.time.set_timer(pygame.USEREVENT, 1)
-    #popuop
+    # popuop
     elif popup:
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
                 done = True
             elif event.type == USEREVENT:
-                screen.blit(howtoplay, (0,0))
-                goto_bnt.draw(screen, (0,0,0))
+                screen.blit(howtoplay, (0, 0))
+                goto_bnt.draw(screen, (0, 0, 0))
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEMOTION:
@@ -2171,7 +2195,7 @@ while not done:
                 else:
                     info_bnt.text = text9
 
-            elif event.type == pygame.MOUSEBUTTONDOWN: # 순서가 좀 꼬인 듯함
+            elif event.type == pygame.MOUSEBUTTONDOWN:  # 순서가 좀 꼬인 듯함
                 if origianl_bnt.isOver_2(pos):
                     ui_variables.click_sound.play()
                     gamemode_1 = True
