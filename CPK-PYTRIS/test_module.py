@@ -439,7 +439,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h
+    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h, pau, goto_bnt, esc_bnt
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -452,7 +452,20 @@ def update_display():
         block_size = round(17 * w / 750)
     else:
         block_size = round(17 * h / 600)
+
     background = pygame.transform.scale(background, (w, h))
+    pau = pygame.transform.scale(pau, (w, h))
+
+    goto_bnt = button(w, h, 0.4, 0.35, 0.2, 0.4, text13)
+    esc_bnt = button(w, 1.5*h, 0.4, 0.35, 0.2, 0.4, pause_start)
+
+    pos = pygame.mouse.get_pos()
+    if pause == True:
+        if goto_bnt.isOver_2(pos):
+            goto_bnt.text = text14
+        else:
+            goto_bnt.text = text13
+
     temp = block_size * 22  # 374가 바뀔 부분
     w_1 = block_size * 12  # 204가 바뀔 부분
     w_2 = (w - temp) / 2  # 188이 바뀔 부분
@@ -881,23 +894,16 @@ def PauseScreen():
 
             screen.fill(ui_variables.black)
             screen.blit(pau, (0, 0))
-            pause_start = ui_variables.h2.render(
-                "Press esc to continue", 1, ui_variables.white
-            )
-            goto_bnt.draw(screen, (0, 0, 0))
+            goto_bnt.draw(screen, (0, 0))
+            esc_bnt.draw(screen, (0,0))
 
-            if blink:
-                screen.blit(pause_start, (220, 160))
-                blink = False
-            else:
-                blink = True
             pygame.display.update()
 
-        elif event.type == pygame.MOUSEMOTION:
-            if goto_bnt.isOver_2(pos):
-                goto_bnt.text = text14
-            else:
-                goto_bnt.text = text13
+        # elif event.type == pygame.MOUSEMOTION:
+        #     if goto_bnt.isOver_2(pos):
+        #         goto_bnt.text = text14
+        #     else:
+        #         goto_bnt.text = text13
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if goto_bnt.isOver_2(pos):
