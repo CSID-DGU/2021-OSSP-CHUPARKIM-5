@@ -66,7 +66,8 @@ class ui_variables:
     grey_1 = (26, 26, 26)  # rgb(26, 26, 26)
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
-
+    red_b = (255, 0, 0) # rgb(255, 0, 0)
+    
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
     blue = (64, 111, 249)  # rgb(64, 111, 249) # J

@@ -170,10 +170,15 @@ def is_stackable(mino):
 
 
 def draw_board(next, hold, score, level, goal):
-    screen.blit(background, (0, 0))
+    screen.fill(ui_variables.black)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
+
 
     # Draw sidebar
-    pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_1, w_3, temp))
+    # pygame.draw.rect(screen, ui_variables.black, Rect(w_1 + w_2, h_1, w_3, temp))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -209,14 +214,14 @@ def draw_board(next, hold, score, level, goal):
         score = 999999
 
     # Draw texts
-    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
-    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
-    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
-    score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
-    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
-    level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
-    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
-    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
+    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.white)
+    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.white)
+    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.white)
+    score_value = ui_variables.h4.render(str(score), 1, ui_variables.white)
+    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.white)
+    level_value = ui_variables.h4.render(str(level), 1, ui_variables.white)
+    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.white)
+    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.white)
 
     # Place texts
     screen.blit(
@@ -536,21 +541,25 @@ def draw_dual_sidebar(block_size, next, hold, next2, hold2):
 
 # ----------------------------------rotate ------------------------------------#
 def draw_board_r(next, hold, score, level, goal, num_of_disrot):
-    screen.blit(background, (0, 0))
+    screen.fill(ui_variables.black)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
 
     # Draw sidebar and background
-    if num_of_disrot == 0:  # 0회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
-        )
-    elif num_of_disrot == 1:  # 1회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
-        )
-    elif num_of_disrot == 2:  # 2회전
-        pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
-    elif num_of_disrot == 3:  # 3회전
-        pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
+    # if num_of_disrot == 0:  # 0회전
+    #     pygame.draw.rect(
+    #         screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
+    #     )
+    # elif num_of_disrot == 1:  # 1회전
+    #     pygame.draw.rect(
+    #         screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
+    #     )
+    # elif num_of_disrot == 2:  # 2회전
+    #     pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
+    # elif num_of_disrot == 3:  # 3회전
+    #     pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -621,28 +630,28 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     if num_of_disrot == 3:
         deg = 90  # 3회전 = 90도
     text_hold = pygame.transform.rotate(
-        ui_variables.h5.render("HOLD", 1, ui_variables.black), deg
+        ui_variables.h5.render("HOLD", 1, ui_variables.white), deg
     )
     text_next = pygame.transform.rotate(
-        ui_variables.h5.render("NEXT", 1, ui_variables.black), deg
+        ui_variables.h5.render("NEXT", 1, ui_variables.white), deg
     )
     text_score = pygame.transform.rotate(
-        ui_variables.h5.render("SCORE", 1, ui_variables.black), deg
+        ui_variables.h5.render("SCORE", 1, ui_variables.white), deg
     )
     score_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(score), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(score), 1, ui_variables.white), deg
     )
     text_level = pygame.transform.rotate(
-        ui_variables.h5.render("LEVEL", 1, ui_variables.black), deg
+        ui_variables.h5.render("LEVEL", 1, ui_variables.white), deg
     )
     level_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(level), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(level), 1, ui_variables.white), deg
     )
     text_goal = pygame.transform.rotate(
-        ui_variables.h5.render("GOAL", 1, ui_variables.black), deg
+        ui_variables.h5.render("GOAL", 1, ui_variables.white), deg
     )
     goal_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(goal), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(goal), 1, ui_variables.white), deg
     )
 
     # Place texts
