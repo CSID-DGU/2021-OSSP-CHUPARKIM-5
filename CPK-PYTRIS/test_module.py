@@ -32,8 +32,8 @@ def draw_board_b(next, hold, score, level, goal):
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = block_size + 290 + block_size * x + locx
-            dy = block_size + 170 + block_size * y + locy
+            dx = w_2 + w_3/2 + block_size * x + locx
+            dy = h_1 + temp/2 + block_size * y + locy
             draw_block_b(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
 
 
