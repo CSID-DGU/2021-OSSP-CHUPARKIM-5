@@ -32,8 +32,8 @@ def draw_board_b(next, hold, score, level, goal):
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = block_size + 290 + block_size * x + locx
-            dy = block_size + 170 + block_size * y + locy
+            dx = w_2 + w_3/2 + block_size * x + locx
+            dy = h_1 + temp/2 + block_size * y + locy
             draw_block_b(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
 
 
@@ -170,10 +170,15 @@ def is_stackable(mino):
 
 
 def draw_board(next, hold, score, level, goal):
-    screen.blit(background, (0, 0))
+    screen.fill(ui_variables.black)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
+
 
     # Draw sidebar
-    pygame.draw.rect(screen, ui_variables.white, Rect(w_1 + w_2, h_1, w_3, temp))
+    # pygame.draw.rect(screen, ui_variables.black, Rect(w_1 + w_2, h_1, w_3, temp))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -209,14 +214,14 @@ def draw_board(next, hold, score, level, goal):
         score = 999999
 
     # Draw texts
-    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
-    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
-    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
-    score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
-    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
-    level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
-    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
-    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
+    text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.white)
+    text_next = ui_variables.h5.render("NEXT", 1, ui_variables.white)
+    text_score = ui_variables.h5.render("SCORE", 1, ui_variables.white)
+    score_value = ui_variables.h4.render(str(score), 1, ui_variables.white)
+    text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.white)
+    level_value = ui_variables.h4.render(str(level), 1, ui_variables.white)
+    text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.white)
+    goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.white)
 
     # Place texts
     screen.blit(
@@ -434,7 +439,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h
+    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h, pau, goto_bnt, esc_bnt
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -447,7 +452,20 @@ def update_display():
         block_size = round(17 * w / 750)
     else:
         block_size = round(17 * h / 600)
+
     background = pygame.transform.scale(background, (w, h))
+    pau = pygame.transform.scale(pau, (w, h))
+
+    goto_bnt = button(w, h, 0.4, 0.35, 0.2, 0.4, text13)
+    esc_bnt = button(w, 1.5*h, 0.4, 0.35, 0.2, 0.4, pause_start)
+
+    pos = pygame.mouse.get_pos()
+    if pause == True:
+        if goto_bnt.isOver_2(pos):
+            goto_bnt.text = text14
+        else:
+            goto_bnt.text = text13
+
     temp = block_size * 22  # 374가 바뀔 부분
     w_1 = block_size * 12  # 204가 바뀔 부분
     w_2 = (w - temp) / 2  # 188이 바뀔 부분
@@ -536,21 +554,25 @@ def draw_dual_sidebar(block_size, next, hold, next2, hold2):
 
 # ----------------------------------rotate ------------------------------------#
 def draw_board_r(next, hold, score, level, goal, num_of_disrot):
-    screen.blit(background, (0, 0))
+    screen.fill(ui_variables.black)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
+    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
 
     # Draw sidebar and background
-    if num_of_disrot == 0:  # 0회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
-        )
-    elif num_of_disrot == 1:  # 1회전
-        pygame.draw.rect(
-            screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
-        )
-    elif num_of_disrot == 2:  # 2회전
-        pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
-    elif num_of_disrot == 3:  # 3회전
-        pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
+    # if num_of_disrot == 0:  # 0회전
+    #     pygame.draw.rect(
+    #         screen, ui_variables.white, Rect(w_1 + w_2, 0 + h_1, w_3, temp)
+    #     )
+    # elif num_of_disrot == 1:  # 1회전
+    #     pygame.draw.rect(
+    #         screen, ui_variables.white, Rect(0 + w_2, 0 + h_1 + w_1, temp, w_3)
+    #     )
+    # elif num_of_disrot == 2:  # 2회전
+    #     pygame.draw.rect(screen, ui_variables.white, Rect(w_2, 0 + h_1, w_3, temp))
+    # elif num_of_disrot == 3:  # 3회전
+    #     pygame.draw.rect(screen, ui_variables.white, Rect(0 + w_2, 0 + h_1, temp, w_3))
 
     # Draw next mino
     grid_n = tetrimino.mino_map[next - 1][0]
@@ -621,28 +643,28 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     if num_of_disrot == 3:
         deg = 90  # 3회전 = 90도
     text_hold = pygame.transform.rotate(
-        ui_variables.h5.render("HOLD", 1, ui_variables.black), deg
+        ui_variables.h5.render("HOLD", 1, ui_variables.white), deg
     )
     text_next = pygame.transform.rotate(
-        ui_variables.h5.render("NEXT", 1, ui_variables.black), deg
+        ui_variables.h5.render("NEXT", 1, ui_variables.white), deg
     )
     text_score = pygame.transform.rotate(
-        ui_variables.h5.render("SCORE", 1, ui_variables.black), deg
+        ui_variables.h5.render("SCORE", 1, ui_variables.white), deg
     )
     score_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(score), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(score), 1, ui_variables.white), deg
     )
     text_level = pygame.transform.rotate(
-        ui_variables.h5.render("LEVEL", 1, ui_variables.black), deg
+        ui_variables.h5.render("LEVEL", 1, ui_variables.white), deg
     )
     level_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(level), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(level), 1, ui_variables.white), deg
     )
     text_goal = pygame.transform.rotate(
-        ui_variables.h5.render("GOAL", 1, ui_variables.black), deg
+        ui_variables.h5.render("GOAL", 1, ui_variables.white), deg
     )
     goal_value = pygame.transform.rotate(
-        ui_variables.h4.render(str(goal), 1, ui_variables.black), deg
+        ui_variables.h4.render(str(goal), 1, ui_variables.white), deg
     )
 
     # Place texts
@@ -872,23 +894,16 @@ def PauseScreen():
 
             screen.fill(ui_variables.black)
             screen.blit(pau, (0, 0))
-            pause_start = ui_variables.h2.render(
-                "Press esc to continue", 1, ui_variables.white
-            )
-            goto_bnt.draw(screen, (0, 0, 0))
+            goto_bnt.draw(screen, (0, 0))
+            esc_bnt.draw(screen, (0,0))
 
-            if blink:
-                screen.blit(pause_start, (220, 160))
-                blink = False
-            else:
-                blink = True
             pygame.display.update()
 
-        elif event.type == pygame.MOUSEMOTION:
-            if goto_bnt.isOver_2(pos):
-                goto_bnt.text = text14
-            else:
-                goto_bnt.text = text13
+        # elif event.type == pygame.MOUSEMOTION:
+        #     if goto_bnt.isOver_2(pos):
+        #         goto_bnt.text = text14
+        #     else:
+        #         goto_bnt.text = text13
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if goto_bnt.isOver_2(pos):
