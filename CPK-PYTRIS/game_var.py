@@ -35,6 +35,9 @@ h_1 = (h - temp) / 2  # 113이 바뀔 부분
 img_w = w_2 + temp
 img_h = h_1 + temp
 
+w_d1_2 = (w - temp) /5
+w_d2_2 = (w - temp) /1.3
+
 num_of_disrot = 0  # current number of display rotation
 
 game_key = (  # left, right, soft_drop
@@ -70,7 +73,7 @@ class ui_variables:
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
     red_b = (255, 0, 0) # rgb(255, 0, 0)
-    
+
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
     blue = (64, 111, 249)  # rgb(64, 111, 249) # J
