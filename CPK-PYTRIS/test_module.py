@@ -376,32 +376,14 @@ def draw_board2(next, hold, score, level, goal):
     if score > 999999:
         score = 999999
 
-    # # Draw texts
-    # text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
-    # text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
-    # text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
-    # score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
-    # text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
-    # level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
-    # text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
-    # goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
-    #
-    # # Place texts
-    # screen.blit(text_hold, (215, 14))  #텍스트를 생성해서 복사하고 이걸 해당 좌표에 붙여넣기
-    # screen.blit(text_next, (215, 104))
-    # screen.blit(text_score, (215, 194))
-    # screen.blit(score_value, (220, 210))
-    # screen.blit(text_level, (215, 254))
-    # screen.blit(level_value, (220, 270))
-    # screen.blit(text_goal, (215, 314))
-    # screen.blit(goal_value, (220, 330))
 
     # Draw board 칸그리기
     for x in range(width):
         for y in range(height):
-            dx = 17 + block_size * x
-            dy = 17 + block_size * y
-            draw_block(dx + 300, dy + 100, ui_variables.t_color[matrix2[x][y + 1]])
+            dx = block_size +w_d2_2 + block_size * x
+            dy = block_size + h_1 + block_size * y
+            draw_block(dx, dy, ui_variables.t_color[matrix2[x][y + 1]])
+            # draw_block(dx + 300, dy + 100, ui_variables.t_color[matrix2[x][y + 1]])
 
 
 def draw_board1(next, hold, score, level, goal):
@@ -409,33 +391,17 @@ def draw_board1(next, hold, score, level, goal):
     if score > 999999:
         score = 999999
 
-    # Draw texts
-    # text_hold = ui_variables.h5.render("HOLD", 1, ui_variables.black)
-    # text_next = ui_variables.h5.render("NEXT", 1, ui_variables.black)
-    # text_score = ui_variables.h5.render("SCORE", 1, ui_variables.black)
-    # score_value = ui_variables.h4.render(str(score), 1, ui_variables.black)
-    # text_level = ui_variables.h5.render("LEVEL", 1, ui_variables.black)
-    # level_value = ui_variables.h4.render(str(level), 1, ui_variables.black)
-    # text_goal = ui_variables.h5.render("GOAL", 1, ui_variables.black)
-    # goal_value = ui_variables.h4.render(str(goal), 1, ui_variables.black)
-    #
-    # # Place texts
-    # screen.blit(text_hold, (215, 14))  #텍스트를 생성해서 복사하고 이걸 해당 좌표에 붙여넣기
-    # screen.blit(text_next, (215, 104))
-    # screen.blit(text_score, (215, 194))
-    # screen.blit(score_value, (220, 210))
-    # screen.blit(text_level, (215, 254))
-    # screen.blit(level_value, (220, 270))
-    # screen.blit(text_goal, (215, 314))
-    # screen.blit(goal_value, (220, 330))
 
     # Draw board 칸그리기
     for x in range(width):
         for y in range(height):
-            dx = 17 + block_size * x  # 17은 그려지는 위치값의 가중치.
-            dy = 17 + block_size * y
 
-            draw_block(dx + 100, dy + 100, ui_variables.t_color[matrix[x][y + 1]])
+            dx = block_size + w_d1_2 + block_size * x
+            dy = block_size + h_1 + block_size * y
+            # dx = 17 + block_size * x  # 17은 그려지는 위치값의 가중치.
+            # dy = 17 + block_size * y
+            draw_block(dx, dy, ui_variables.t_color[matrix[x][y + 1]])
+            # draw_block(dx + 100, dy + 100, ui_variables.t_color[matrix[x][y + 1]])
 
 
 def update_display():
@@ -472,6 +438,8 @@ def update_display():
     w_3 = block_size * 10  # 96 + 74가 바뀔 부분
     h_1 = (h - temp) / 2  # 113이 바뀔 부분
 
+    w_d1_2 = (w - temp) /5
+    w_d2_2 = (w - temp) /1.3
 
 def draw_dual_sidebar(block_size, next, hold, next2, hold2):
     pygame.draw.rect(
@@ -1375,7 +1343,7 @@ def dualscreen_mode():
                 if hard_drop2 or bottom_count2 == 6:
                     hard_drop2 = False
                     bottom_count2 = 0
-                    score2 += 10 * level
+                    score2 += 10 * level2
                     draw_mino2(dx2, dy2, mino2, rotation2)
                     draw_board2(next_mino2, hold_mino2, score, level, goal)
                     draw_dual_sidebar(
@@ -1423,6 +1391,8 @@ def dualscreen_mode():
             elif erase_count == 4:
                 ui_variables.tetris_sound.play()
                 score += 1000 * level
+
+
             goal -= erase_count
             if goal < 1 and level < 15:
                 level += 1
@@ -1454,7 +1424,8 @@ def dualscreen_mode():
             elif erase_count2 == 4:
                 ui_variables.tetris_sound.play()
                 score2 += 1000 * level2
-                goal2 -= erase_count2
+
+            goal2 -= erase_count2
             if goal2 < 1 and level2 < 15:
                 level2 += 1
                 goal2 += level2 * 5
@@ -1473,7 +1444,7 @@ def dualscreen_mode():
                     pygame.draw.rect(screen, ui_variables.grey_1, [100, 50, 100, 10])
                     pygame.draw.rect(screen, ui_variables.cyan, [400, 50, 100, 10])
                     draw_board1(next_mino, hold_mino, score, level, goal)
-                    draw_board2(next_mino2, hold_mino2, score, level, goal)
+                    draw_board2(next_mino2, hold_mino2, score2, level2, goal2)
                     draw_mino(dx, dy, mino, rotation)
                     draw_mino2(dx2, dy2, mino2, rotation2)
                     draw_dual_sidebar(
@@ -2051,17 +2022,51 @@ while not done:
             elif event.type == KEYDOWN:
                 if event.key == K_RETURN:
                     ui_variables.click_sound.play()
-
-                    outfile = open("leaderboard.txt", "a")
-                    outfile.write(
-                        chr(name[0])
-                        + chr(name[1])
-                        + chr(name[2])
-                        + " "
-                        + str(score)
-                        + "\n"
-                    )
-                    outfile.close()
+                    if gamemode_1:
+                        outfile = open("leaderboard.txt", "a")
+                        outfile.write(
+                            chr("o")
+                            +chr(name[0])
+                            + chr(name[1])
+                            + chr(name[2])
+                            + " "
+                            + str(score)
+                            + "\n"
+                        )
+                        outfile.close()
+                    elif gmaemode_2:
+                        outfile = open("leaderboard.txt", "a")
+                        outfile.write(
+                            chr("b")
+                            +chr(name[0])
+                            + chr(name[1])
+                            + chr(name[2])
+                            + " "
+                            + str(score)
+                            + "\n"
+                        )
+                    elif gamemode_3:
+                        outfile = open("leaderboard.txt", "a")
+                        outfile.write(
+                            chr("r")
+                            +chr(name[0])
+                            + chr(name[1])
+                            + chr(name[2])
+                            + " "
+                            + str(score)
+                            + "\n"
+                        )
+                    elif gamemode_4:
+                        outfile = open("leaderboard.txt", "a")
+                        outfile.write(
+                            chr("d")
+                            +chr(name[0])
+                            + chr(name[1])
+                            + chr(name[2])
+                            + " "
+                            + str(score + score2)
+                            + "\n"
+                        )
 
                     game_over = False
                     hold = False
