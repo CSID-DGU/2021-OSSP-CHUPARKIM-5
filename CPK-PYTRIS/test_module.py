@@ -404,9 +404,9 @@ def update_display():
         h = minimum_height
         pygame.display.set_mode((w, h), RESIZABLE)
     if h / w >= 0.8:
-        block_size = round(17 * w / 750)
+        block_size = round(17 * w / initial_width)
     else:
-        block_size = round(17 * h / 600)
+        block_size = round(17 * h / initial_height)
 
     background = pygame.transform.scale(background, (w, h))
     pau = pygame.transform.scale(pau, (w, h))
