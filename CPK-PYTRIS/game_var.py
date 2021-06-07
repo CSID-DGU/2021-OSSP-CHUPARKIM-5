@@ -35,8 +35,10 @@ h_1 = (h - temp) / 2  # 113이 바뀔 부분
 img_w = w_2 + temp
 img_h = h_1 + temp
 
-w_d1_2 = (w - temp) /5
-w_d2_2 = (w - temp) /1.3
+w_4 = (w - w_1 *3) /2
+w_b1 = w_4
+w_b2 = w_4 + w_1
+w_s = w_4 + w_1 * 2
 
 num_of_disrot = 0  # current number of display rotation
 
@@ -65,6 +67,8 @@ class ui_variables:
     double_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearDouble.wav")
     triple_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialLineClearTriple.wav")
     tetris_sound = pygame.mixer.Sound("assets/sounds/SFX_SpecialTetris.wav")
+    # background_sound = pygame.mixer.music("assets/sounds/background.mp3")
+    # background_sound.set_volume(0.3)
 
     # Background colors
     black = (10, 10, 10)  # rgb(10, 10, 10)
@@ -119,9 +123,16 @@ text11 = ui_variables.h2.render("sound on", 1, ui_variables.red)
 text12 = ui_variables.h2.render("sound off", 1, ui_variables.red)
 text13 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.white)
 text14 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.red)
+text15 = ui_variables.h2.render("Sound", 1, ui_variables.white)
+text16 = ui_variables.h2.render("ON", 1, ui_variables.white)
+text17 = ui_variables.h2.render("ON", 1, ui_variables.red)
+text18 = ui_variables.h2.render("OFF", 1, ui_variables.white)
+text19 = ui_variables.h2.render("OFF", 1, ui_variables.red)
+text20 = ui_variables.h2.render("/", 1, ui_variables.white)
 pause_start = ui_variables.h2.render(
                 "(Press esc to continue)", 1, ui_variables.white
             )
+
 rectangle = (0, 10, 100, 100)
 
 # Initial values
@@ -179,6 +190,8 @@ class game_loc:  # ui 위치 비율 (block_size 대비)
 
     rot_help = 3
 
+    nh_b2_const_x = 1.2
+    d_draw_const = 0.9
 
 class button:  # 버튼객체
     def __init__(
@@ -238,6 +251,11 @@ blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7
 info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
 goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
 esc_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+
+sound_bnt = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
+on_bnt = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
+off_bnt = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
+slash_bnt = button(initial_width, initial_height, 0.65, 0.45, 0.2, 0.4, text20)
 
 bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt, goto_bnt, esc_bnt]
 
