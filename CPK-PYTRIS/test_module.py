@@ -32,8 +32,8 @@ def draw_board_b(next, hold, score, level, goal):
     # Draw board
     for x in range(width):
         for y in range(height):
-            dx = w_2 + w_3/2 + block_size * x + locx
-            dy = h_1 + temp/2 + block_size * y + locy
+            dx = w_2 + w_3 / 2 + block_size * x + locx
+            dy = h_1 + temp / 2 + block_size * y + locy
             draw_block_b(dx, dy, ui_variables.t_color_b[matrix[x][y + 1]])
 
 
@@ -173,9 +173,12 @@ def draw_board(next, hold, score, level, goal):
     screen.fill(ui_variables.black)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
-    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
-    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
-
+    pygame.draw.line(
+        screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5
+    )
+    pygame.draw.line(
+        screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5
+    )
 
     # Draw sidebar
     # pygame.draw.rect(screen, ui_variables.black, Rect(w_1 + w_2, h_1, w_3, temp))
@@ -376,11 +379,10 @@ def draw_board2(next, hold, score, level, goal):
     if score > 999999:
         score = 999999
 
-
     # Draw board 칸그리기
     for x in range(width):
         for y in range(height):
-            dx = block_size +w_d2_2 + block_size * x
+            dx = block_size + w_d2_2 + block_size * x
             dy = block_size + h_1 + block_size * y
             draw_block(dx, dy, ui_variables.t_color[matrix2[x][y + 1]])
             # draw_block(dx + 300, dy + 100, ui_variables.t_color[matrix2[x][y + 1]])
@@ -390,7 +392,6 @@ def draw_board1(next, hold, score, level, goal):
     # Set max score
     if score > 999999:
         score = 999999
-
 
     # Draw board 칸그리기
     for x in range(width):
@@ -423,7 +424,7 @@ def update_display():
     pau = pygame.transform.scale(pau, (w, h))
 
     goto_bnt = button(w, h, 0.4, 0.35, 0.2, 0.4, text13)
-    esc_bnt = button(w, 1.5*h, 0.4, 0.35, 0.2, 0.4, pause_start)
+    esc_bnt = button(w, 1.5 * h, 0.4, 0.35, 0.2, 0.4, pause_start)
 
     pos = pygame.mouse.get_pos()
     if pause == True:
@@ -438,8 +439,9 @@ def update_display():
     w_3 = block_size * 10  # 96 + 74가 바뀔 부분
     h_1 = (h - temp) / 2  # 113이 바뀔 부분
 
-    w_d1_2 = (w - temp) /5
-    w_d2_2 = (w - temp) /1.3
+    w_d1_2 = (w - temp) / 5
+    w_d2_2 = (w - temp) / 1.3
+
 
 def draw_dual_sidebar(block_size, next, hold, next2, hold2):
     pygame.draw.rect(
@@ -525,8 +527,12 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     screen.fill(ui_variables.black)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
-    pygame.draw.line(screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5)
-    pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5)
+    pygame.draw.line(
+        screen, ui_variables.red_b, [w_2 + temp, h_1], [w_2 + temp, h_1 + temp], 5
+    )
+    pygame.draw.line(
+        screen, ui_variables.red_b, [w_2, h_1 + temp], [w_2 + temp, h_1 + temp], 5
+    )
 
     # Draw sidebar and background
     # if num_of_disrot == 0:  # 0회전
@@ -842,7 +848,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
 #######################################loop 모듈함수##########################
 def PauseScreen():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
-    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
+    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause, num_of_disrot
     global dx2, dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state, locx, locy
     global gamemode_1, gamemode_2, gamemode_3, gamemode_4
     global matrix, matrix2
@@ -863,7 +869,7 @@ def PauseScreen():
             screen.fill(ui_variables.black)
             screen.blit(pau, (0, 0))
             goto_bnt.draw(screen, (0, 0))
-            esc_bnt.draw(screen, (0,0))
+            esc_bnt.draw(screen, (0, 0))
 
             pygame.display.update()
 
@@ -898,6 +904,7 @@ def PauseScreen():
                 ##### board2 초기화
                 dx2, dy2 = 3, 0
                 rotation2 = 0
+                num_of_disrot = 0
 
                 score2 = 0
                 level2 = 1
@@ -1391,7 +1398,6 @@ def dualscreen_mode():
             elif erase_count == 4:
                 ui_variables.tetris_sound.play()
                 score += 1000 * level
-
 
             goal -= erase_count
             if goal < 1 and level < 15:
@@ -1895,6 +1901,58 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
+
+def ranking_sort():
+    with open("leaderboard.txt") as f:
+        lines = f.readlines()
+
+    lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
+
+    leaders_o = {}
+    leaders_b = {}
+    leaders_r = {}
+    leaders_d = {}
+
+    for line in lines:
+        mode_temp = line.split(" ")[0]
+        score_temp = line.split(" ")[1]
+        if mode_temp[0] == "o":
+            leaders_o[mode_temp[1:]] = int(score_temp)
+        elif mode_temp[0] == "b":
+            leaders_b[mode_temp[1:]] = int(score_temp)
+        elif mode_temp[0] == "r":
+            leaders_r[mode_temp[1:]] = int(score_temp)
+        elif mode_temp[0] == "d":
+            leaders_d[mode_temp[1:]] = int(score_temp)
+
+    # make each leaders as sorted list
+    leaders_o = sorted(leaders_o.items(), key=operator.itemgetter(1), reverse=True)
+    leaders_b = sorted(leaders_b.items(), key=operator.itemgetter(1), reverse=True)
+    leaders_r = sorted(leaders_r.items(), key=operator.itemgetter(1), reverse=True)
+    leaders_d = sorted(leaders_d.items(), key=operator.itemgetter(1), reverse=True)
+
+    with open("leaderboard.txt", "w") as f:
+        for info in leaders_o:
+            f.write("o" + info[0] + " " + str(info[1]) + "\n")
+        for info in leaders_b:
+            f.write("b" + info[0] + " " + str(info[1]) + "\n")
+        for info in leaders_r:
+            f.write("r" + info[0] + " " + str(info[1]) + "\n")
+        for info in leaders_d:
+            f.write("d" + info[0] + " " + str(info[1]) + "\n")
+
+    return leaders_o[:5], leaders_b[:5], leaders_r[:5], leaders_d[:5]
+
+
+def ranking():
+    o, b, r, d = ranking_sort()
+    print(o)
+    print(b)
+    print(r)
+    print(d)
+
+
+"""
 with open("leaderboard.txt") as f:
     lines = f.readlines()
 lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
@@ -1903,7 +1961,7 @@ leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
 for i in lines:
     leaders[i.split(" ")[0]] = int(i.split(" ")[1])
 leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
-
+"""
 matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
 ################## 추가된 initial value  ######################################
 dx2, dy2 = 3, 0
@@ -2025,8 +2083,8 @@ while not done:
                     if gamemode_1:
                         outfile = open("leaderboard.txt", "a")
                         outfile.write(
-                            chr("o")
-                            +chr(name[0])
+                            chr(111)
+                            + chr(name[0])
                             + chr(name[1])
                             + chr(name[2])
                             + " "
@@ -2034,11 +2092,11 @@ while not done:
                             + "\n"
                         )
                         outfile.close()
-                    elif gmaemode_2:
+                    elif gamemode_2:
                         outfile = open("leaderboard.txt", "a")
                         outfile.write(
-                            chr("b")
-                            +chr(name[0])
+                            chr(98)
+                            + chr(name[0])
                             + chr(name[1])
                             + chr(name[2])
                             + " "
@@ -2048,8 +2106,8 @@ while not done:
                     elif gamemode_3:
                         outfile = open("leaderboard.txt", "a")
                         outfile.write(
-                            chr("r")
-                            +chr(name[0])
+                            chr(114)
+                            + chr(name[0])
                             + chr(name[1])
                             + chr(name[2])
                             + " "
@@ -2059,8 +2117,8 @@ while not done:
                     elif gamemode_4:
                         outfile = open("leaderboard.txt", "a")
                         outfile.write(
-                            chr("d")
-                            +chr(name[0])
+                            chr(100)
+                            + chr(name[0])
                             + chr(name[1])
                             + chr(name[2])
                             + " "
@@ -2090,6 +2148,7 @@ while not done:
                     ##### board2 초기화
                     dx2, dy2 = 3, 0
                     rotation2 = 0
+                    num_of_disrot = 0
 
                     score2 = 0
                     level2 = 1
@@ -2117,7 +2176,8 @@ while not done:
                     pause = False
                     popup = False
                     #############
-
+                    ranking()
+                    """
                     with open("leaderboard.txt") as f:
                         lines = f.readlines()
                     lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
@@ -2128,7 +2188,7 @@ while not done:
                     leaders = sorted(
                         leaders.items(), key=operator.itemgetter(1), reverse=True
                     )
-
+                    """
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
                     if name_location != 2:
