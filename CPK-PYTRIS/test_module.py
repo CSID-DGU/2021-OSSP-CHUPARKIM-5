@@ -446,7 +446,7 @@ def update_display():
         - 3 * game_loc.rank_mode_blank * block_size
         - game_loc.rank_info_blank * block_size
     ) / 2
-    
+
     w_4 = (w - w_1 *3) /2 #w_2의 자리
     w_b1 = w_4 #보드 1의 x좌표
     w_b2 = w_4 + w_1 #보드 2의 x좌표
@@ -739,7 +739,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
         )
         screen.blit(logo, (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y))
-    
+
     if num_of_disrot == 1:
         screen.blit(
             text_hold,
@@ -774,7 +774,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             (w - (block_size * game_loc.goalv_const_y + w_2), block_size + h_1 + w_1),
         )
         screen.blit(logo, (w - (block_size * game_loc.holdt_const_y + w_2), block_size + h_1 + w_1))
-        
+
 
     if num_of_disrot == 2:
         screen.blit(
@@ -897,7 +897,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
         )
         screen.blit(logo, (block_size * game_loc.holdt_const_y + 2*(w_1 - w_3), w_3 - block_size * game_loc.rot_help,
             ))
-        
+
 
     # Draw board 칸그리기
     for x in range(width):
@@ -1040,12 +1040,12 @@ def PauseScreen():
 def original_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
     global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
-    
+
     for event in pygame.event.get():
         if event.type == QUIT:
             done = True
         elif event.type == USEREVENT:
-            
+
             # Set speed
             if not game_over:
                 keys_pressed = pygame.key.get_pressed()
