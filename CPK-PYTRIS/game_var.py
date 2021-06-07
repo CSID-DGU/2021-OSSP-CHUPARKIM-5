@@ -76,7 +76,7 @@ class ui_variables:
     grey_1 = (26, 26, 26)  # rgb(26, 26, 26)
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
-    red_b = (255, 0, 0) # rgb(255, 0, 0)
+    red_b = (255, 0, 0)  # rgb(255, 0, 0)
 
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
@@ -132,6 +132,7 @@ text20 = ui_variables.h2.render("/", 1, ui_variables.white)
 pause_start = ui_variables.h2.render(
                 "(Press esc to continue)", 1, ui_variables.white
             )
+
 
 rectangle = (0, 10, 100, 100)
 
@@ -191,7 +192,18 @@ class game_loc:  # ui 위치 비율 (block_size 대비)
     rot_help = 3
 
     nh_b2_const_x = 1.2
-    d_draw_const = 0.9
+    d_draw_const = 0.9    
+    
+    rank_mode_blank = 8
+    rank_info_blank = 3
+    rank_blank_y = 2
+
+rank_w = (
+    w
+    - 3 * game_loc.rank_mode_blank * block_size
+    - game_loc.rank_info_blank * block_size
+) / 2
+
 
 class button:  # 버튼객체
     def __init__(
@@ -251,6 +263,7 @@ blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7
 info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
 goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
 esc_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+
 
 sound_bnt = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
 on_bnt = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
