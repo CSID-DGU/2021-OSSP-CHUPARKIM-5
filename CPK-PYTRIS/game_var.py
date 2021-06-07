@@ -4,52 +4,9 @@ from random import *
 from pygame.locals import *
 
 pygame.init()
-
-# Define
-block_size = 17  # Height, width of single block
-width = 10  # Board width
-height = 20  # Board height
-framerate = 30  # Bigger -> Slower
-
-initial_width = 750
-initial_height = 600
-w = initial_width
-h = initial_height
-minimum_width = 500
-minimum_height = 400
-current_rate = 600 / 750
-logo_w = 150
-logo_h = 100
-
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode((initial_width, initial_height), RESIZABLE)
-pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
-pygame.display.set_caption("CPKTIRS!™")
-
-
-block_size = round(17 * w / 750)
-temp = block_size * 22  # 374가 바뀔 부분
-w_1 = block_size * 12  # 204가 바뀔 부분
-w_2 = (w - temp) / 2  # 188이 바뀔 부분
-w_3 = block_size * 10  # 96 + 74가 바뀔 부분
-h_1 = (h - temp) / 2  # 113이 바뀔 부분
-
-img_w = w_2 + temp
-img_h = h_1 + temp
-
-w_4 = (w - w_1 *3) /2
-w_b1 = w_4
-w_b2 = w_4 + w_1
-w_s = w_4 + w_1 * 2
-
-num_of_disrot = 0  # current number of display rotation
-
-game_key = (  # left, right, soft_drop
-    (K_RIGHT, K_LEFT, K_DOWN),
-    (K_DOWN, K_UP, K_LEFT),
-    (K_LEFT, K_RIGHT, K_UP),
-    (K_UP, K_DOWN, K_RIGHT),
-)
+pygame.mixer.music.load("assets/sounds/background.wav")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.25)
 
 # 게임 기본 ui
 class ui_variables:
@@ -93,6 +50,82 @@ class ui_variables:
     t_color_b = [black, cyan, blue, orange, yellow, green, pink, red, black]
 
 
+class game_loc:  # ui 위치 비율 (block_size 대비)
+    next_const_x = 1
+    next_const_y = 8
+    hold_const_x = 1
+    hold_const_y = 3
+    holdt_const_y = 1
+    nextt_const_y = 6
+    scoret_const_y = 12
+    scorev_const_y = 13
+    levelt_const_y = 15.5
+    levelv_const_y = 16.5
+    goalt_const_y = 18.5
+    goalv_const_y = 19.5
+
+    nmino_const_y = 8
+    hmino_const_y = 3
+
+    rot_help = 3
+
+    nh_b2_const_x = 1.2
+    d_draw_const = 0.9
+
+    rank_mode_blank = 8
+    rank_info_blank = 3
+    rank_blank_y = 2
+
+
+# Define
+block_size = 17  # Height, width of single block
+width = 10  # Board width
+height = 20  # Board height
+framerate = 30  # Bigger -> Slower
+
+initial_width = 750
+initial_height = 600
+w = initial_width
+h = initial_height
+minimum_width = 500
+minimum_height = 400
+current_rate = 600 / 750
+logo_w = 150
+logo_h = 100
+
+temp = block_size * 22  # 374가 바뀔 부분
+w_1 = block_size * 12  # 204가 바뀔 부분
+w_2 = (w - temp) / 2  # 188이 바뀔 부분
+w_3 = block_size * 10  # 96 + 74가 바뀔 부분
+h_1 = (h - temp) / 2  # 113이 바뀔 부분
+
+img_w = w_2 + temp
+img_h = h_1 + temp
+
+w_4 = (w - w_1 * 3) / 2
+w_b1 = w_4
+w_b2 = w_4 + w_1
+w_s = w_4 + w_1 * 2
+rank_w = (
+    w
+    - 3 * game_loc.rank_mode_blank * block_size
+    - game_loc.rank_info_blank * block_size
+) / 2
+
+num_of_disrot = 0  # current number of display rotation
+
+game_key = (  # left, right, soft_drop
+    (K_RIGHT, K_LEFT, K_DOWN),
+    (K_DOWN, K_UP, K_LEFT),
+    (K_LEFT, K_RIGHT, K_UP),
+    (K_UP, K_DOWN, K_RIGHT),
+)
+
+clock = pygame.time.Clock()
+screen = pygame.display.set_mode((initial_width, initial_height), RESIZABLE)
+pygame.time.set_timer(pygame.USEREVENT, framerate * 10)
+pygame.display.set_caption("CPKTIRS!™")
+
 # Image
 background_image = "assets/images/backg.png"
 main_image = "assets/images/main.png"
@@ -134,10 +167,7 @@ text17 = ui_variables.h2.render("ON", 1, ui_variables.red)
 text18 = ui_variables.h2.render("OFF", 1, ui_variables.white)
 text19 = ui_variables.h2.render("OFF", 1, ui_variables.red)
 text20 = ui_variables.h2.render("/", 1, ui_variables.white)
-pause_start = ui_variables.h2.render(
-                "(Press esc to continue)", 1, ui_variables.white
-            )
-
+pause_start = ui_variables.h2.render("(Press esc to continue)", 1, ui_variables.white)
 
 rectangle = (0, 10, 100, 100)
 
@@ -176,38 +206,24 @@ hold_mino = -1  # Holded mino
 name_location = 0
 name = [65, 65, 65]
 
+dx2, dy2 = 3, 0
+rotation2 = 0
 
-class game_loc:  # ui 위치 비율 (block_size 대비)
-    next_const_x = 1
-    next_const_y = 8
-    hold_const_x = 1
-    hold_const_y = 3
-    holdt_const_y = 1
-    nextt_const_y = 6
-    scoret_const_y = 12
-    scorev_const_y = 13
-    levelt_const_y = 15.5
-    levelv_const_y = 16.5
-    goalt_const_y = 18.5
-    goalv_const_y = 19.5
+score2 = 0
+level2 = 1
+goal2 = level2 * 5
+hard_drop2 = False
+bottom_count2 = 0
 
-    nmino_const_y = 8
-    hmino_const_y = 3
+mino2 = randint(1, 7)  # Next mino1
+next_mino2 = randint(1, 7)
 
-    rot_help = 3
+hold2 = False
+hold_mino2 = -1
 
-    nh_b2_const_x = 1.2
-    d_draw_const = 0.9    
-    
-    rank_mode_blank = 8
-    rank_info_blank = 3
-    rank_blank_y = 2
+matrix2 = [[0 for y in range(height + 1)] for x in range(width)]
 
-rank_w = (
-    w
-    - 3 * game_loc.rank_mode_blank * block_size
-    - game_loc.rank_info_blank * block_size
-) / 2
+board_state = True  # True 일때 board 1, False일때 board 2
 
 
 class button:  # 버튼객체
@@ -275,7 +291,15 @@ on_bnt = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
 off_bnt = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
 slash_bnt = button(initial_width, initial_height, 0.65, 0.45, 0.2, 0.4, text20)
 
-bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt, goto_bnt, esc_bnt]
+bnt_list = [
+    origianl_bnt,
+    blackout_bnt,
+    rotate_bnt,
+    info_bnt,
+    dual_bnt,
+    goto_bnt,
+    esc_bnt,
+]
 
 # Draw button text
 def draw_text(window, text, x, y, width, height):
@@ -283,13 +307,4 @@ def draw_text(window, text, x, y, width, height):
     window.blit(text, (x, y))
 
 
-# with open("leaderboard.txt") as f:
-#     lines = f.readlines()
-# lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
-#
-# leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
-# for i in lines:
-#     leaders[i.split(" ")[0]] = int(i.split(" ")[1])
-# leaders = sorted(leaders.items(), key=operator.itemgetter(1), reverse=True)
-#
-# matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
+matrix = [[0 for y in range(height + 1)] for x in range(width)]  # Board matrix
