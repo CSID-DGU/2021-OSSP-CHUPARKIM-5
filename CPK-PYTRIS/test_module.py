@@ -1917,7 +1917,7 @@ def rotate_mode():
 
 #############################################################################
 pygame.init()
-pygame.mixer.music.load("assets/sounds/background.mp3")
+pygame.mixer.music.load("assets/sounds/background.wav")
 pygame.mixer.music.play(-1)
 pygame.mixer.music.set_volume(0.25)
 
