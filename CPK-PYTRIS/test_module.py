@@ -406,7 +406,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h, pau, goto_bnt, esc_bnt
+    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h, pau, goto_bnt, esc_bnt, rank_w
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -441,6 +441,11 @@ def update_display():
 
     w_d1_2 = (w - temp) / 5
     w_d2_2 = (w - temp) / 1.3
+    rank_w = (
+        w
+        - 3 * game_loc.rank_mode_blank * block_size
+        - game_loc.rank_info_blank * block_size
+    ) / 2
 
 
 def draw_dual_sidebar(block_size, next, hold, next2, hold2):
@@ -1946,10 +1951,129 @@ def ranking_sort():
 
 def ranking():
     o, b, r, d = ranking_sort()
-    print(o)
-    print(b)
-    print(r)
-    print(d)
+    o_text = []
+    b_text = []
+    r_text = []
+    d_text = []
+    for item in o:
+        o_text.append(
+            (
+                ui_variables.h4.render(item[0], 1, ui_variables.white),
+                (ui_variables.h4.render(str(item[1]), 1, ui_variables.white)),
+            )
+        )
+    for item in b:
+        b_text.append(
+            (
+                ui_variables.h4.render(item[0], 1, ui_variables.white),
+                (ui_variables.h4.render(str(item[1]), 1, ui_variables.white)),
+            )
+        )
+    for item in r:
+        r_text.append(
+            (
+                ui_variables.h4.render(item[0], 1, ui_variables.white),
+                (ui_variables.h4.render(str(item[1]), 1, ui_variables.white)),
+            )
+        )
+    for item in d:
+        d_text.append(
+            (
+                ui_variables.h4.render(item[0], 1, ui_variables.white),
+                (ui_variables.h4.render(str(item[1]), 1, ui_variables.white)),
+            )
+        )
+
+    screen.blit(
+        ui_variables.h2.render("Original", 1, ui_variables.white),
+        (rank_w, temp / 2),
+    )
+    for item in o_text:
+        screen.blit(
+            item[0],
+            (
+                rank_w,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (o_text.index(item) + 1),
+            ),
+        )
+        screen.blit(
+            item[1],
+            (
+                rank_w + game_loc.rank_info_blank * block_size,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (o_text.index(item) + 1),
+            ),
+        )
+    screen.blit(
+        ui_variables.h2.render("Blackout", 1, ui_variables.white),
+        (rank_w + game_loc.rank_mode_blank * block_size, temp / 2),
+    )
+    for item in b_text:
+        screen.blit(
+            item[0],
+            (
+                rank_w + game_loc.rank_mode_blank * block_size,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (b_text.index(item) + 1),
+            ),
+        )
+        screen.blit(
+            item[1],
+            (
+                rank_w
+                + game_loc.rank_mode_blank * block_size
+                + game_loc.rank_info_blank * block_size,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (b_text.index(item) + 1),
+            ),
+        )
+    screen.blit(
+        ui_variables.h2.render("Rotate", 1, ui_variables.white),
+        (rank_w + game_loc.rank_mode_blank * block_size * 2, temp / 2),
+    )
+    for item in r_text:
+        screen.blit(
+            item[0],
+            (
+                rank_w + game_loc.rank_mode_blank * block_size * 2,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (r_text.index(item) + 1),
+            ),
+        )
+        screen.blit(
+            item[1],
+            (
+                rank_w
+                + game_loc.rank_mode_blank * block_size * 2
+                + game_loc.rank_info_blank * block_size,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (r_text.index(item) + 1),
+            ),
+        )
+    screen.blit(
+        ui_variables.h2.render("Dual", 1, ui_variables.white),
+        (rank_w + game_loc.rank_mode_blank * block_size * 3, temp / 2),
+    )
+    for item in d_text:
+        screen.blit(
+            item[0],
+            (
+                rank_w + game_loc.rank_mode_blank * block_size * 3,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (d_text.index(item) + 1),
+            ),
+        )
+        screen.blit(
+            item[1],
+            (
+                rank_w
+                + game_loc.rank_mode_blank * block_size * 3
+                + game_loc.rank_info_blank * block_size,
+                temp / 2
+                + game_loc.rank_blank_y * block_size * (d_text.index(item) + 1),
+            ),
+        )
 
 
 """
@@ -2176,19 +2300,7 @@ while not done:
                     pause = False
                     popup = False
                     #############
-                    ranking()
-                    """
-                    with open("leaderboard.txt") as f:
-                        lines = f.readlines()
-                    lines = [line.rstrip("\n") for line in open("leaderboard.txt")]
 
-                    leaders = {"AAA": 0, "BBB": 0, "CCC": 0}
-                    for i in lines:
-                        leaders[i.split(" ")[0]] = int(i.split(" ")[1])
-                    leaders = sorted(
-                        leaders.items(), key=operator.itemgetter(1), reverse=True
-                    )
-                    """
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
                     if name_location != 2:

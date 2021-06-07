@@ -35,8 +35,8 @@ h_1 = (h - temp) / 2  # 113이 바뀔 부분
 img_w = w_2 + temp
 img_h = h_1 + temp
 
-w_d1_2 = (w - temp) /5
-w_d2_2 = (w - temp) /1.3
+w_d1_2 = (w - temp) / 5
+w_d2_2 = (w - temp) / 1.3
 
 num_of_disrot = 0  # current number of display rotation
 
@@ -72,7 +72,7 @@ class ui_variables:
     grey_1 = (26, 26, 26)  # rgb(26, 26, 26)
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
-    red_b = (255, 0, 0) # rgb(255, 0, 0)
+    red_b = (255, 0, 0)  # rgb(255, 0, 0)
 
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
@@ -119,9 +119,7 @@ text11 = ui_variables.h2.render("sound on", 1, ui_variables.red)
 text12 = ui_variables.h2.render("sound off", 1, ui_variables.red)
 text13 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.white)
 text14 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.red)
-pause_start = ui_variables.h2.render(
-                "(Press esc to continue)", 1, ui_variables.white
-            )
+pause_start = ui_variables.h2.render("(Press esc to continue)", 1, ui_variables.white)
 rectangle = (0, 10, 100, 100)
 
 # Initial values
@@ -178,6 +176,17 @@ class game_loc:  # ui 위치 비율 (block_size 대비)
     hmino_const_y = 3
 
     rot_help = 3
+
+    rank_mode_blank = 8
+    rank_info_blank = 3
+    rank_blank_y = 2
+
+
+rank_w = (
+    w
+    - 3 * game_loc.rank_mode_blank * block_size
+    - game_loc.rank_info_blank * block_size
+) / 2
 
 
 class button:  # 버튼객체
@@ -239,7 +248,15 @@ info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
 goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
 esc_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
 
-bnt_list = [origianl_bnt, blackout_bnt, rotate_bnt, info_bnt, dual_bnt, goto_bnt, esc_bnt]
+bnt_list = [
+    origianl_bnt,
+    blackout_bnt,
+    rotate_bnt,
+    info_bnt,
+    dual_bnt,
+    goto_bnt,
+    esc_bnt,
+]
 
 # Draw button text
 def draw_text(window, text, x, y, width, height):
