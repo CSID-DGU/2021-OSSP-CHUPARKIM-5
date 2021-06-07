@@ -18,6 +18,8 @@ h = initial_height
 minimum_width = 500
 minimum_height = 400
 current_rate = 600 / 750
+logo_w = 150
+logo_h = 100
 
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((initial_width, initial_height), RESIZABLE)
@@ -92,11 +94,12 @@ class ui_variables:
 
 
 # Image
-background_image = "assets/images/retrotv.jpg"
+background_image = "assets/images/backg.png"
 main_image = "assets/images/main.png"
 pause_image = "assets/images/pause.jpg"
 info_image = "assets/images/info.jpg"
 howtoplay_image = "assets/images/howtoplay.png"
+logo_image = "assets/images/logo.png"
 main = pygame.image.load(main_image)
 main = pygame.transform.scale(main, (initial_width, initial_height))
 background = pygame.image.load(background_image)
@@ -107,6 +110,8 @@ info = pygame.image.load(info_image)
 info = pygame.transform.scale(info, (initial_width, initial_height))
 howtoplay = pygame.image.load(howtoplay_image)
 howtoplay = pygame.transform.scale(howtoplay, (initial_width, initial_height))
+logo = pygame.image.load(logo_image)
+logo = pygame.transform.scale(logo, (logo_w, logo_h))
 
 # Objects
 text1 = ui_variables.h2.render("original", 1, ui_variables.white)

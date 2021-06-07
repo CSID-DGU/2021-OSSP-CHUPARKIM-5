@@ -171,6 +171,8 @@ def is_stackable(mino):
 
 def draw_board(next, hold, score, level, goal):
     screen.fill(ui_variables.black)
+    screen.blit(background, (0, 0))
+    screen.blit(logo, (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y))
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
     pygame.draw.line(
@@ -581,7 +583,9 @@ def draw_dual_sidebar(block_size, next, hold, next2, hold2):
 
 # ----------------------------------rotate ------------------------------------#
 def draw_board_r(next, hold, score, level, goal, num_of_disrot):
-    screen.fill(ui_variables.black)
+    logo = pygame.image.load(logo_image)
+    logo = pygame.transform.scale(logo, (logo_w, logo_h))
+    screen.blit(background, (0,0))
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2 + temp, h_1], 5)
     pygame.draw.line(screen, ui_variables.red_b, [w_2, h_1], [w_2, h_1 + temp], 5)
     pygame.draw.line(
@@ -697,6 +701,8 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
     goal_value = pygame.transform.rotate(
         ui_variables.h4.render(str(goal), 1, ui_variables.white), deg
     )
+    logo = pygame.transform.rotate(logo, deg)
+
 
     # Place texts
     if num_of_disrot == 0:
@@ -732,6 +738,8 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             goal_value,
             (block_size + w_1 + w_2, block_size * game_loc.goalv_const_y + h_1),
         )
+        screen.blit(logo, (block_size + w_1 + w_2, block_size * game_loc.holdt_const_y))
+    
     if num_of_disrot == 1:
         screen.blit(
             text_hold,
@@ -765,6 +773,9 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
             goal_value,
             (w - (block_size * game_loc.goalv_const_y + w_2), block_size + h_1 + w_1),
         )
+        screen.blit(logo, (w - (block_size * game_loc.holdt_const_y + w_2), block_size + h_1 + w_1))
+        
+
     if num_of_disrot == 2:
         screen.blit(
             text_hold,
@@ -822,6 +833,11 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
                 h - (block_size * game_loc.goalv_const_y + h_1),
             ),
         )
+        screen.blit(logo, (
+                w - (block_size * game_loc.rot_help + w_1 + w_2),
+                h - (block_size * game_loc.holdt_const_y + h_1),
+            ))
+
     if num_of_disrot == 3:
         screen.blit(
             text_hold,
@@ -879,6 +895,9 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
                 h_1 + w_3 - block_size * game_loc.rot_help,
             ),
         )
+        screen.blit(logo, (block_size * game_loc.holdt_const_y + 2*(w_1 - w_3), w_3 - block_size * game_loc.rot_help,
+            ))
+        
 
     # Draw board 칸그리기
     for x in range(width):
@@ -1021,11 +1040,12 @@ def PauseScreen():
 def original_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
     global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
-
+    
     for event in pygame.event.get():
         if event.type == QUIT:
             done = True
         elif event.type == USEREVENT:
+            
             # Set speed
             if not game_over:
                 keys_pressed = pygame.key.get_pressed()
