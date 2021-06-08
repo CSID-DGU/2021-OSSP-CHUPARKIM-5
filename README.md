@@ -13,4 +13,6 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 **Leader**: [junghyun kim](https://github.com/Jay-the-notorious)  
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
 
-# HOW TO PLAY
+# HOW LAUNCH GAME
+
+# INFORMATION
