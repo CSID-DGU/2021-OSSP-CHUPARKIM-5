@@ -36,6 +36,7 @@ class ui_variables:
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
     red_b = (255, 0, 0)  # rgb(255, 0, 0)
+    green_b = (0, 255, 0) # rgb(0, 255, 0)
 
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
@@ -167,6 +168,8 @@ text17 = ui_variables.h2.render("ON", 1, ui_variables.red)
 text18 = ui_variables.h2.render("OFF", 1, ui_variables.white)
 text19 = ui_variables.h2.render("OFF", 1, ui_variables.red)
 text20 = ui_variables.h2.render("/", 1, ui_variables.white)
+text21 = ui_variables.h2.render("RANKING", 1, ui_variables.green_b)
+text22 = ui_variables.h2.render("RANKING", 1, ui_variables.red)
 pause_start = ui_variables.h2.render("(Press esc to continue)", 1, ui_variables.white)
 
 rectangle = (0, 10, 100, 100)
@@ -275,30 +278,33 @@ class button:  # 버튼객체
 
 
 # button
-origianl_bnt = button(
+origianl_btn = button(
     initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1
 )  # 순서 조금 꼬임
-rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
-dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
-blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
-info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
-goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
-esc_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+rotate_btn = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
+dual_btn = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
+blackout_btn = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
+info_btn = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
+goto_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
+esc_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
 
 
-sound_bnt = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
-on_bnt = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
-off_bnt = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
-slash_bnt = button(initial_width, initial_height, 0.65, 0.45, 0.2, 0.4, text20)
+sound_btn = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
+on_btn = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
+off_btn = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
+slash_btn = button(initial_width, initial_height, 0.65, 0.45, 0.2, 0.4, text20)
 
-bnt_list = [
-    origianl_bnt,
-    blackout_bnt,
-    rotate_bnt,
-    info_bnt,
-    dual_bnt,
-    goto_bnt,
-    esc_bnt,
+ranking_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+
+btn_list = [
+    origianl_btn,
+    blackout_btn,
+    rotate_btn,
+    info_btn,
+    dual_btn,
+    goto_btn,
+    esc_btn,
+    ranking_btn
 ]
 
 # Draw button text
