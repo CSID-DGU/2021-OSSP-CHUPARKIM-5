@@ -394,7 +394,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, w, h, w_4, w_b1, w_b2, w_s, rank_w, main, background, pau, info, goto_btn, esc_btn, origianl_btn, rotate_btn, dual_btn, blackout_btn, info_btn, sound_btn, on_btn, off_btn, ranking_btn
+    global block_size, temp, w_1, w_2, w_3, h_1, w, h, w_4, w_b1, w_b2, w_s, rank_w, main, background, pau, rankback, info, goto_btn, esc_btn, origianl_btn, rotate_btn, dual_btn, blackout_btn, info_btn, sound_btn, on_btn, off_btn, ranking_btn
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -432,6 +432,7 @@ def update_display():
     background = pygame.transform.scale(background, (w, h))
     pau = pygame.transform.scale(pau, (w, h))
     main = pygame.transform.scale(main, (w, h))
+    rankback = pygame.transform.scale(rankback, (w, h))
 
     # button
     origianl_btn = button(w, h, 0.32, 0.35, 0.2, 0.4, text1)
@@ -889,7 +890,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
         screen.blit(
             logo,
             (
-                w - (block_size * game_loc.rot_help + w_1 + w_2),
+                w - (block_size * game_loc.rot_help + w_2 + w_1 + w_3/1.5),
                 h - (block_size * game_loc.holdt_const_y + h_1),
             ),
         )
@@ -980,7 +981,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
 
 def PauseScreen():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
-    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause, num_of_disrot
+    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause, num_of_disrot, rank
     global dx2, dy2, rotation2, score2, level2, goal2, hard_drop2, bottom_count2, mino2, next_mino2, hold2, hold_mino2, board_state, locx, locy
     global gamemode_1, gamemode_2, gamemode_3, gamemode_4
     global matrix, matrix2
@@ -1058,6 +1059,7 @@ def PauseScreen():
                 gamemode_4 = False
                 start = False
                 pause = False
+                rank = False
                 popup = False
 
             if on_btn.isOver_2(pos):
@@ -1080,7 +1082,7 @@ def PauseScreen():
 
 def original_mode():
     global game_over, framerate, dx, dy, score, level, goal, bottom_count, hard_drop
-    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause
+    global rotation, mino, next_mino, hold, hold_mino, name, name_location, blink, start, done, pause, rank
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -2055,7 +2057,7 @@ def ranking():
         )
 
     screen.blit(
-        ui_variables.h2.render("Original", 1, ui_variables.white),
+        ui_variables.h4.render("Original", 1, ui_variables.white),
         (rank_w, temp / 2),
     )
     for item in o_text:
@@ -2076,7 +2078,7 @@ def ranking():
             ),
         )
     screen.blit(
-        ui_variables.h2.render("Blackout", 1, ui_variables.white),
+        ui_variables.h4.render("Blackout", 1, ui_variables.white),
         (rank_w + game_loc.rank_mode_blank * block_size, temp / 2),
     )
     for item in b_text:
@@ -2099,7 +2101,7 @@ def ranking():
             ),
         )
     screen.blit(
-        ui_variables.h2.render("Rotate", 1, ui_variables.white),
+        ui_variables.h4.render("Rotate", 1, ui_variables.white),
         (rank_w + game_loc.rank_mode_blank * block_size * 2, temp / 2),
     )
     for item in r_text:
@@ -2122,7 +2124,7 @@ def ranking():
             ),
         )
     screen.blit(
-        ui_variables.h2.render("Dual", 1, ui_variables.white),
+        ui_variables.h4.render("Dual", 1, ui_variables.white),
         (rank_w + game_loc.rank_mode_blank * block_size * 3, temp / 2),
     )
     for item in d_text:
@@ -2316,6 +2318,7 @@ while not done:
                     start = False
                     pause = False
                     popup = False
+                    rank = False
 
                     pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
@@ -2417,7 +2420,6 @@ while not done:
                 if ranking_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     rank = True
-                    print("hi")
 
 
         if not start:
