@@ -1,4 +1,5 @@
-# 2021-OSSPC-CHUPARKIM-5
+# CPKTRIS 
+### **2021-OSSPC-CHUPARKIM-5**
 
 ![badges](https://img.shields.io/badge/OS-ubuntu16.04-red)
 ![badges](https://img.shields.io/badge/python-3.8-blue)
@@ -13,7 +14,7 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 **Leader**: [junghyun kim](https://github.com/Jay-the-notorious)  
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
 
-# CPKTRIS
+***
 ### - ***MAIN***
 ![](https://user-images.githubusercontent.com/57624475/121227005-1701b600-c8c6-11eb-823b-eea1209daf1d.PNG)
 
