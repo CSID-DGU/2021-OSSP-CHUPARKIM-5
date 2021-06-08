@@ -159,7 +159,6 @@ def is_stackable(mino):
 
     for i in range(4):
         for j in range(4):
-            # print(grid[i][j], matrix[3 + j][i])
             if grid[i][j] != 0 and matrix[3 + j][i] != 0:
                 return False
 
@@ -312,7 +311,6 @@ def is_stackable2(mino):
 
     for i in range(4):
         for j in range(4):
-            # print(grid[i][j], matrix[3 + j][i])
             if grid[i][j] != 0 and matrix2[3 + j][i] != 0:
                 return False
     return True
@@ -2365,7 +2363,6 @@ while not done:
                     popup = False
     # ranking screen
     elif rank:
-        print(pause,start,gamemode_1,gamemode_2,gamemode_3,gamemode_4,popup,rank)
         o, b, r, d = ranking_sort()
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
