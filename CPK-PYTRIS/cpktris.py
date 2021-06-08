@@ -2234,7 +2234,6 @@ while not done:
                             + str(score)
                             + "\n"
                         )
-                        outfile.close()
                     elif gamemode_2:
                         outfile = open("leaderboard.txt", "a")
                         outfile.write(
@@ -2268,6 +2267,7 @@ while not done:
                             + str(score + score2)
                             + "\n"
                         )
+                    outfile.close()
 
                     game_over = False
                     hold = False
