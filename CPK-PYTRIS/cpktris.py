@@ -1127,7 +1127,7 @@ def original_mode():
                     else:
                         start = False
                         game_over = True
-                        pygame.time.set_timer(pygame.USEREVENT, 1)
+                        # pygame.time.set_timer(pygame.USEREVENT, 1)
                 else:
                     bottom_count += 1
 
@@ -1176,7 +1176,7 @@ def original_mode():
                 while not is_bottom(dx, dy, mino, rotation):
                     dy += 1
                 hard_drop = True
-                pygame.time.set_timer(pygame.USEREVENT, 1)
+                # pygame.time.set_timer(pygame.USEREVENT, 1)
                 draw_mino(dx, dy, mino, rotation)
                 draw_board(next_mino, hold_mino, score, level, goal)
             # Hold
@@ -1295,7 +1295,7 @@ def blackout_mode():
                     else:
                         start = False
                         game_over = True
-                        pygame.time.set_timer(pygame.USEREVENT, 1)
+                        # pygame.time.set_timer(pygame.USEREVENT, 1)
                 else:
                     bottom_count += 1
 
@@ -1847,7 +1847,7 @@ def rotate_mode():
                     else:
                         start = False
                         game_over = True
-                        pygame.time.set_timer(pygame.USEREVENT, 1)
+                        # pygame.time.set_timer(pygame.USEREVENT, 1)
                 else:
                     bottom_count += 1
 
@@ -1897,7 +1897,7 @@ def rotate_mode():
                     dy += 1
                     locy -= block_size
                 hard_drop = True
-                pygame.time.set_timer(pygame.USEREVENT, 1)
+                # pygame.time.set_timer(pygame.USEREVENT, 1)
                 draw_mino(dx, dy, mino, rotation)
                 draw_board_r(next_mino, hold_mino, score, level, goal, num_of_disrot)
             # Hold
@@ -2320,33 +2320,34 @@ while not done:
                     popup = False
                     rank = False
 
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    # pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_RIGHT:
                     if name_location != 2:
                         name_location += 1
                     else:
                         name_location = 0
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    # pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_LEFT:
                     if name_location != 0:
                         name_location -= 1
                     else:
                         name_location = 2
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    # pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_UP:
                     ui_variables.click_sound.play()
                     if name[name_location] != 90:
                         name[name_location] += 1
                     else:
                         name[name_location] = 65
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    # pygame.time.set_timer(pygame.USEREVENT, 1)
                 elif event.key == K_DOWN:
                     ui_variables.click_sound.play()
                     if name[name_location] != 65:
                         name[name_location] -= 1
                     else:
                         name[name_location] = 90
-                    pygame.time.set_timer(pygame.USEREVENT, 1)
+                    # pygame.time.set_timer(pygame.USEREVENT, 1)
+
     # popup
     elif popup:
         for event in pygame.event.get():
@@ -2364,6 +2365,7 @@ while not done:
                     popup = False
     # ranking screen
     elif rank:
+        print(pause,start,gamemode_1,gamemode_2,gamemode_3,gamemode_4,popup,rank)
         o, b, r, d = ranking_sort()
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
