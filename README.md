@@ -14,6 +14,7 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
 
 # CPKTRIS
+### - ***MAIN***
 ![](https://user-images.githubusercontent.com/57624475/121227005-1701b600-c8c6-11eb-823b-eea1209daf1d.PNG)
 
 
