@@ -13,11 +13,10 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 **Leader**: [junghyun kim](https://github.com/Jay-the-notorious)  
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
 
+# CPKTRIS
 # HOW LAUNCH GAME
-
-- 개발환경
-    ```markdown
-    Ubuntu 16.04
-    Python 3.8
+- git clone 
+- Execute command below
+    ```python3 cpktris.py
     ```
 # INFORMATION
