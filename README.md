@@ -14,9 +14,14 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 **Member**: [sangjune park](https://github.com/SJ-stk), [yejin chu](https://github.com/chuyeee)
 
 # CPKTRIS
+
 # HOW LAUNCH GAME
-- git clone 
-- Execute command below
-    ```python3 cpktris.py
-    ```
+#**git clone**
+```c
+ git clone https://github.com/CSID-DGU/2021-OSSPC-CHUPARKIM-5.git
+```
+**Execute command below**
+```c
+python3 cpktris.py
+```
 # INFORMATION
