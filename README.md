@@ -15,4 +15,9 @@ base source: [PYTRIS](https://github.com/injekim/PYTRIS)
 
 # HOW LAUNCH GAME
 
+- 개발환경
+    ```markdown
+    Ubuntu 16.04
+    Python 3.8
+    ```
 # INFORMATION
