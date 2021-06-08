@@ -394,7 +394,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, background, w, h, pau, goto_bnt, esc_bnt, w_4, w_b1, w_b2, w_s, rank_w
+    global block_size, temp, w_1, w_2, w_3, h_1, w, h, w_4, w_b1, w_b2, w_s, rank_w, main, background, pau, info, goto_btn, esc_btn, origianl_btn, rotate_btn, dual_btn, blackout_btn, info_btn, sound_btn, on_btn, off_btn, ranking_btn
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -407,19 +407,6 @@ def update_display():
         block_size = round(17 * w / initial_width)
     else:
         block_size = round(17 * h / initial_height)
-
-    background = pygame.transform.scale(background, (w, h))
-    pau = pygame.transform.scale(pau, (w, h))
-
-    goto_bnt = button(w, h, 0.4, 0.35, 0.2, 0.4, text13)
-    esc_bnt = button(w, 1.5 * h, 0.4, 0.35, 0.2, 0.4, pause_start)
-
-    pos = pygame.mouse.get_pos()
-    if pause == True:
-        if goto_bnt.isOver_2(pos):
-            goto_bnt.text = text14
-        else:
-            goto_bnt.text = text13
 
     temp = block_size * 22
     w_1 = block_size * 12
@@ -441,6 +428,73 @@ def update_display():
     w_s = w_4 + w_1 * 2
     d_draw_const = 0.9
 
+    # background
+    background = pygame.transform.scale(background, (w, h))
+    pau = pygame.transform.scale(pau, (w, h))
+    main = pygame.transform.scale(main, (w, h))
+
+    # button
+    origianl_btn = button(w, h, 0.32, 0.35, 0.2, 0.4, text1)
+    rotate_btn = button(w,h, 0.32, 0.45, 0.2, 0.4, text3)
+    dual_btn = button(w, h, 0.32, 0.55, 0.2, 0.4, text5)
+    blackout_btn = button(w, h, 0.32, 0.65, 0.2, 0.4, text7)
+    info_btn = button(w, h, 0.32, 0.75, 0.2, 0.4, text9)
+    ranking_btn = button(w, h, 0.8, 0.85, 0.2, 0.4, text21)
+
+    goto_btn = button(w, h, 0.15, 0, 0.2, 0.4, text13)
+    esc_btn = button(w, h, 0.45, 0.55, 0.2, 0.4, pause_start)
+
+    sound_btn = button(w, h, 0.45, 0.45, 0.2, 0.4, text15)
+    on_btn = button(w, h, 0.55, 0.45, 0.1, 0.4, text16)
+    off_btn = button(w, h, 0.65, 0.45, 0.1, 0.4, text18)
+
+    pos = pygame.mouse.get_pos()
+    if pause == True:
+        if goto_btn.isOver_2(pos):
+            goto_btn.text = text14
+        else:
+            goto_btn.text = text13
+        
+        if off_btn.isOver_2(pos):
+            off_btn.text = text19
+        else:
+            off_btn.text = text18
+
+        if on_btn.isOver_2(pos):
+            on_btn.text = text17
+        else:
+            on_btn.text = text16
+
+    if origianl_btn.isOver_2(pos):
+        origianl_btn.text = text2
+    else:
+        origianl_btn.text = text1
+    if rotate_btn.isOver_2(pos):
+        rotate_btn.text = text4
+    else:
+        rotate_btn.text = text3
+    if dual_btn.isOver_2(pos):
+            dual_btn.text = text6
+    else:
+        dual_btn.text = text5
+    if blackout_btn.isOver_2(pos):
+        blackout_btn.text = text8
+    else:
+        blackout_btn.text = text7
+    if info_btn.isOver_2(pos):
+        info_btn.text = text10
+    else:
+        info_btn.text = text9
+    if ranking_btn.isOver_2(pos):
+        ranking_btn.text = text22
+    else:
+        ranking_btn.text = text21
+
+    if popup or rank:
+        if goto_btn.isOver_2(pos):
+            goto_btn.text = text14
+        else:
+            goto_btn.text = text13
 
 def draw_dual_sidebar(block_size, next, hold, next2, hold2):
     pygame.draw.line(screen, ui_variables.red_b, [w_4, h_1], [w_4 + w_1 * 3, h_1], 5)
@@ -946,32 +1000,15 @@ def PauseScreen():
 
             screen.fill(ui_variables.black)
             screen.blit(pau, (0, 0))
-            goto_bnt.draw(screen, (0, 0))
-            esc_bnt.draw(screen, (0, 0))
-            sound_bnt.draw(screen, (0, 0))
-            on_bnt.draw(screen, (0, 0))
-            off_bnt.draw(screen, (0, 0))
-            slash_bnt.draw(screen, (0, 0))
+            goto_btn.draw(screen, (0, 0))
+            esc_btn.draw(screen, (0, 0))
+            sound_btn.draw(screen, (0, 0))
+            on_btn.draw(screen, (0, 0))
+            off_btn.draw(screen, (0, 0))
             pygame.display.update()
 
-        elif event.type == pygame.MOUSEMOTION:
-            if goto_bnt.isOver_2(pos):
-                goto_bnt.text = text14
-            else:
-                goto_bnt.text = text13
-
-            if off_bnt.isOver_2(pos):
-                off_bnt.text = text19
-            else:
-                off_bnt.text = text18
-
-            if on_bnt.isOver_2(pos):
-                on_bnt.text = text17
-            else:
-                on_bnt.text = text16
-
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if goto_bnt.isOver_2(pos):
+            if goto_btn.isOver_2(pos):
                 ui_variables.click_sound.play()
                 # main loop 옵션 초기화
                 hold = False
@@ -1022,12 +1059,15 @@ def PauseScreen():
                 start = False
                 pause = False
                 popup = False
-            if on_bnt.isOver_2(pos):
+
+            if on_btn.isOver_2(pos):
                 ui_variables.click_sound.play()
                 pygame.mixer.music.unpause()
-            if off_bnt.isOver_2(pos):
+                
+            if off_btn.isOver_2(pos):
                 ui_variables.click_sound.play()
                 pygame.mixer.music.pause()
+
         elif event.type == KEYDOWN:
             erase_mino(dx, dy, mino, rotation)
             if event.key == K_ESCAPE:
@@ -2312,78 +2352,73 @@ while not done:
                 done = True
             elif event.type == USEREVENT:
                 screen.blit(howtoplay, (0, 0))
-                goto_bnt.draw(screen, (0, 0, 0))
+                goto_btn.draw(screen, (0, 0, 0))
                 pygame.display.update()
 
-            elif event.type == pygame.MOUSEMOTION:
-                if goto_bnt.isOver_2(pos):
-                    goto_bnt.text = text14
-                else:
-                    goto_bnt.text = text13
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if goto_bnt.isOver_2(pos):
+                if goto_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     popup = False
+    # ranking screen
+    elif rank:
+        for event in pygame.event.get():
+            pos = pygame.mouse.get_pos()
+            if event.type == QUIT:
+                done = True
+            elif event.type == USEREVENT:
+                screen.blit(rankback, (0, 0))
+                goto_btn.draw(screen, (0, 0, 0))
+                ranking()
+                pygame.display.update()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if goto_btn.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    rank = False
+
     # Start screen
     else:
         screen.fill(ui_variables.black)
         screen.blit(main, (0, 0))
 
-        origianl_bnt.draw(screen, (0, 0, 0))
-        rotate_bnt.draw(screen, (0, 0, 0))
-        dual_bnt.draw(screen, (0, 0, 0))
-        blackout_bnt.draw(screen, (0, 0, 0))
-        info_bnt.draw(screen, (0, 0, 0))
+        origianl_btn.draw(screen, (0, 0, 0))
+        rotate_btn.draw(screen, (0, 0, 0))
+        dual_btn.draw(screen, (0, 0, 0))
+        blackout_btn.draw(screen, (0, 0, 0))
+        info_btn.draw(screen, (0, 0, 0))
+        ranking_btn.draw(screen, (0,0,0))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
                 done = True
 
-            elif event.type == pygame.MOUSEMOTION:
-                if origianl_bnt.isOver_2(pos):
-                    origianl_bnt.text = text2
-                else:
-                    origianl_bnt.text = text1
-                if rotate_bnt.isOver_2(pos):
-                    rotate_bnt.text = text4
-                else:
-                    rotate_bnt.text = text3
-                if dual_bnt.isOver_2(pos):
-                    dual_bnt.text = text6
-                else:
-                    dual_bnt.text = text5
-                if blackout_bnt.isOver_2(pos):
-                    blackout_bnt.text = text8
-                else:
-                    blackout_bnt.text = text7
-                if info_bnt.isOver_2(pos):
-                    info_bnt.text = text10
-                else:
-                    info_bnt.text = text9
-
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if origianl_bnt.isOver_2(pos):
+                if origianl_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     gamemode_1 = True
                     start = True
-                if rotate_bnt.isOver_2(pos):
+                if rotate_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     start = True
                     gamemode_2 = True
-                if dual_bnt.isOver_2(pos):
+                if dual_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     start = True
                     gamemode_3 = True
-                if blackout_bnt.isOver_2(pos):
+                if blackout_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     start = True
                     gamemode_4 = True
                     screen.fill(ui_variables.black)
-
-                if info_bnt.isOver_2(pos):
+                if info_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     popup = True
+                if ranking_btn.isOver_2(pos):
+                    ui_variables.click_sound.play()
+                    rank = True
+                    print("hi")
+
 
         if not start:
             pygame.display.update()

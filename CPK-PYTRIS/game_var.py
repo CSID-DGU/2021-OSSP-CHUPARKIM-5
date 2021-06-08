@@ -36,6 +36,7 @@ class ui_variables:
     grey_2 = (35, 35, 35)  # rgb(35, 35, 35)
     grey_3 = (55, 55, 55)  # rgb(55, 55, 55)
     red_b = (255, 0, 0)  # rgb(255, 0, 0)
+    green_b = (0, 255, 0) # rgb(0, 255, 0)
 
     # Tetrimino colors
     cyan = (69, 206, 204)  # rgb(69, 206, 204) # I
@@ -133,6 +134,7 @@ pause_image = "assets/images/pause.jpg"
 info_image = "assets/images/info.jpg"
 howtoplay_image = "assets/images/howtoplay.png"
 logo_image = "assets/images/logo.png"
+ranking_image = "assets/images/ranking.png"
 main = pygame.image.load(main_image)
 main = pygame.transform.scale(main, (initial_width, initial_height))
 background = pygame.image.load(background_image)
@@ -145,6 +147,8 @@ howtoplay = pygame.image.load(howtoplay_image)
 howtoplay = pygame.transform.scale(howtoplay, (initial_width, initial_height))
 logo = pygame.image.load(logo_image)
 logo = pygame.transform.scale(logo, (logo_w, logo_h))
+rankback = pygame.image.load(ranking_image)
+rankback = pygame.transform.scale(rankback, (initial_width, initial_height))
 
 # Objects
 text1 = ui_variables.h2.render("original", 1, ui_variables.white)
@@ -159,15 +163,16 @@ text9 = ui_variables.h2.render("information", 1, ui_variables.white)
 text10 = ui_variables.h2.render("information", 1, ui_variables.red)
 text11 = ui_variables.h2.render("sound on", 1, ui_variables.red)
 text12 = ui_variables.h2.render("sound off", 1, ui_variables.red)
-text13 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.white)
-text14 = ui_variables.h2.render("Return to Main Screen", 1, ui_variables.red)
+text13 = ui_variables.h2.render("RETURN to MAIN", 1, ui_variables.green_b)
+text14 = ui_variables.h2.render("RETURN to MAIN", 1, ui_variables.red)
 text15 = ui_variables.h2.render("Sound", 1, ui_variables.white)
 text16 = ui_variables.h2.render("ON", 1, ui_variables.white)
 text17 = ui_variables.h2.render("ON", 1, ui_variables.red)
 text18 = ui_variables.h2.render("OFF", 1, ui_variables.white)
 text19 = ui_variables.h2.render("OFF", 1, ui_variables.red)
-text20 = ui_variables.h2.render("/", 1, ui_variables.white)
-pause_start = ui_variables.h2.render("(Press esc to continue)", 1, ui_variables.white)
+text21 = ui_variables.h2.render("RANKING", 1, ui_variables.green_b)
+text22 = ui_variables.h2.render("RANKING", 1, ui_variables.red)
+pause_start = ui_variables.h4.render("(Press esc to continue)", 1, ui_variables.white)
 
 rectangle = (0, 10, 100, 100)
 
@@ -178,6 +183,7 @@ pause = False
 done = False
 game_over = False
 popup = False
+rank = False
 
 # Game mode 1,2,3,4(Original Blackout Rotate Dual)
 gamemode_1 = False
@@ -275,30 +281,32 @@ class button:  # 버튼객체
 
 
 # button
-origianl_bnt = button(
+origianl_btn = button(
     initial_width, initial_height, 0.32, 0.35, 0.2, 0.4, text1
 )  # 순서 조금 꼬임
-rotate_bnt = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
-dual_bnt = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
-blackout_bnt = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
-info_bnt = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
-goto_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
-esc_bnt = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+rotate_btn = button(initial_width, initial_height, 0.32, 0.45, 0.2, 0.4, text3)
+dual_btn = button(initial_width, initial_height, 0.32, 0.55, 0.2, 0.4, text5)
+blackout_btn = button(initial_width, initial_height, 0.32, 0.65, 0.2, 0.4, text7)
+info_btn = button(initial_width, initial_height, 0.32, 0.75, 0.2, 0.4, text9)
+goto_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, text13)
+esc_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
 
 
-sound_bnt = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
-on_bnt = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
-off_bnt = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
-slash_bnt = button(initial_width, initial_height, 0.65, 0.45, 0.2, 0.4, text20)
+sound_btn = button(initial_width, initial_height, 0.4, 0.45, 0.2, 0.4, text15)
+on_btn = button(initial_width, initial_height, 0.6, 0.45, 0.2, 0.4, text16)
+off_btn = button(initial_width, initial_height, 0.675, 0.45, 0.2, 0.4, text18)
 
-bnt_list = [
-    origianl_bnt,
-    blackout_bnt,
-    rotate_bnt,
-    info_bnt,
-    dual_bnt,
-    goto_bnt,
-    esc_bnt,
+ranking_btn = button(initial_width, initial_height, 0.4, 0.35, 0.2, 0.4, pause_start)
+
+btn_list = [
+    origianl_btn,
+    blackout_btn,
+    rotate_btn,
+    info_btn,
+    dual_btn,
+    goto_btn,
+    esc_btn,
+    ranking_btn
 ]
 
 # Draw button text
