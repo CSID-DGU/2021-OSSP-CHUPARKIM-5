@@ -436,7 +436,7 @@ def update_display():
 
     # button
     origianl_btn = button(w, h, 0.32, 0.35, 0.2, 0.4, text1)
-    rotate_btn = button(w,h, 0.32, 0.45, 0.2, 0.4, text3)
+    rotate_btn = button(w, h, 0.32, 0.45, 0.2, 0.4, text3)
     dual_btn = button(w, h, 0.32, 0.55, 0.2, 0.4, text5)
     blackout_btn = button(w, h, 0.32, 0.65, 0.2, 0.4, text7)
     info_btn = button(w, h, 0.32, 0.75, 0.2, 0.4, text9)
@@ -455,7 +455,7 @@ def update_display():
             goto_btn.text = text14
         else:
             goto_btn.text = text13
-        
+
         if off_btn.isOver_2(pos):
             off_btn.text = text19
         else:
@@ -475,7 +475,7 @@ def update_display():
     else:
         rotate_btn.text = text3
     if dual_btn.isOver_2(pos):
-            dual_btn.text = text6
+        dual_btn.text = text6
     else:
         dual_btn.text = text5
     if blackout_btn.isOver_2(pos):
@@ -496,6 +496,7 @@ def update_display():
             goto_btn.text = text14
         else:
             goto_btn.text = text13
+
 
 def draw_dual_sidebar(block_size, next, hold, next2, hold2):
     pygame.draw.line(screen, ui_variables.red_b, [w_4, h_1], [w_4 + w_1 * 3, h_1], 5)
@@ -890,7 +891,7 @@ def draw_board_r(next, hold, score, level, goal, num_of_disrot):
         screen.blit(
             logo,
             (
-                w - (block_size * game_loc.rot_help + w_2 + w_1 + w_3/1.5),
+                w - (block_size * game_loc.rot_help + w_2 + w_1 + w_3 / 1.5),
                 h - (block_size * game_loc.holdt_const_y + h_1),
             ),
         )
@@ -1065,7 +1066,7 @@ def PauseScreen():
             if on_btn.isOver_2(pos):
                 ui_variables.click_sound.play()
                 pygame.mixer.music.unpause()
-                
+
             if off_btn.isOver_2(pos):
                 ui_variables.click_sound.play()
                 pygame.mixer.music.pause()
@@ -2021,8 +2022,7 @@ def ranking_sort():
     return leaders_o[:5], leaders_b[:5], leaders_r[:5], leaders_d[:5]
 
 
-def ranking():
-    o, b, r, d = ranking_sort()
+def ranking(o, b, r, d):
     o_text = []
     b_text = []
     r_text = []
@@ -2364,6 +2364,7 @@ while not done:
                     popup = False
     # ranking screen
     elif rank:
+        o, b, r, d = ranking_sort()
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
             if event.type == QUIT:
@@ -2371,7 +2372,7 @@ while not done:
             elif event.type == USEREVENT:
                 screen.blit(rankback, (0, 0))
                 goto_btn.draw(screen, (0, 0, 0))
-                ranking()
+                ranking(o, b, r, d)
                 pygame.display.update()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
@@ -2389,7 +2390,7 @@ while not done:
         dual_btn.draw(screen, (0, 0, 0))
         blackout_btn.draw(screen, (0, 0, 0))
         info_btn.draw(screen, (0, 0, 0))
-        ranking_btn.draw(screen, (0,0,0))
+        ranking_btn.draw(screen, (0, 0, 0))
 
         for event in pygame.event.get():
             pos = pygame.mouse.get_pos()
@@ -2420,7 +2421,6 @@ while not done:
                 if ranking_btn.isOver_2(pos):
                     ui_variables.click_sound.play()
                     rank = True
-
 
         if not start:
             pygame.display.update()
