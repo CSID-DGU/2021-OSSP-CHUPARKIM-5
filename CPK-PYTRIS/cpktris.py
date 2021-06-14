@@ -392,7 +392,7 @@ def draw_board1(next, hold, score, level, goal):
 
 
 def update_display():
-    global block_size, temp, w_1, w_2, w_3, h_1, w, h, w_4, w_b1, w_b2, w_s, rank_w, main, background, pau, rankback, info, goto_btn, esc_btn, origianl_btn, rotate_btn, dual_btn, blackout_btn, info_btn, sound_btn, on_btn, off_btn, ranking_btn
+    global block_size, temp, w_1, w_2, w_3, h_1, w, h, w_4, w_b1, w_b2, w_s, rank_w, main, background, pau, howtoplay, rankback, info, goto_btn, esc_btn, origianl_btn, rotate_btn, dual_btn, blackout_btn, info_btn, sound_btn, on_btn, off_btn, ranking_btn
     w, h = pygame.display.get_surface().get_size()
     current_rate = h / w
     if w < minimum_width:
@@ -431,6 +431,7 @@ def update_display():
     pau = pygame.transform.scale(pau, (w, h))
     main = pygame.transform.scale(main, (w, h))
     rankback = pygame.transform.scale(rankback, (w, h))
+    howtoplay = pygame.transform.scale(howtoplay, (w, h))
 
     # button
     origianl_btn = button(w, h, 0.32, 0.35, 0.2, 0.4, text1)
